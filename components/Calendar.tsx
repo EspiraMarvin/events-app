@@ -14,7 +14,7 @@ import {
     parseISO,
     startOfToday,
   } from 'date-fns'
-import Meeting from './Meeting'
+import Meeting from '../components/Meeting'
 
 
   function classNames(...classes) {
