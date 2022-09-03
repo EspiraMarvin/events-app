@@ -18,7 +18,6 @@ interface MeetingProps {
   }
 
 
-
 const Meeting = ({  meeting }: MeetingProps) => {
   let startDateTime = parseISO(meeting.startDatetime)
   let endDateTime = parseISO(meeting.endDatetime)
