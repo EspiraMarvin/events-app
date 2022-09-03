@@ -6,11 +6,20 @@ import {
   parseISO,
 } from 'date-fns'
 import { Fragment } from 'react'
-  function classNames(...classes) {
+import { MeetingType } from '../types'
+
+interface MeetingProps {
+  meeting: MeetingType
+}
+
+
+  function classNames(...classes: string[]) {
     return classes.filter(Boolean).join(' ')
   }
 
-const Meeting = ({  meeting }) => {
+
+
+const Meeting = ({  meeting }: MeetingProps) => {
   let startDateTime = parseISO(meeting.startDatetime)
   let endDateTime = parseISO(meeting.endDatetime)
 
