@@ -18,10 +18,14 @@ import {
   parseISO,
   startOfToday,
 } from 'date-fns'
-import { Fragment, useState } from 'react'
+import React, { Fragment, useState, useEffect } from 'react'
+import { MeetingType } from '../types'
 
+interface MeetingProps {
+  meeting: MeetingType
+}
 
-const meetings = [
+const meetingss = [
   {
     id: 1,
     name: 'Leslie Alexander',
@@ -64,11 +68,21 @@ const meetings = [
   }
 ]
 
+
+
 function classNames(...classes: any) {
   return classes.filter(Boolean).join(' ')
 }
 
 export default function Calendar() {
+
+  const [meetings, setMeetings] = useState<MeetingType[]>(meetingss)
+
+  useEffect(() => {
+      setMeetings(meetingss)
+  }, [])
+
+
   let today = startOfToday()
   let [selectedDay, setSelectedDay] = useState(today)
   let [currentMonth, setCurrentMonth] = useState(format(today, 'MMM-yyyy'))
@@ -205,7 +219,7 @@ export default function Calendar() {
   )
 }
 
-function Meeting({ meeting }) {
+function Meeting({ meeting }: MeetingProps ) {
   let startDateTime = parseISO(meeting.startDatetime)
   let endDateTime = parseISO(meeting.endDatetime)
 
