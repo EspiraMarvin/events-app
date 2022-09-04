@@ -14,7 +14,7 @@ import {
     parseISO,
     startOfToday,
   } from 'date-fns'
-import Meeting from '../components/Meeting'
+import MeetingsList from './MeetingsList'
 
 
   function classNames(...classes:any) {
@@ -88,14 +88,17 @@ const Calendar = () => {
     setCurrentMonth(format(firstDayNextMonth, 'MMM-yyyy'))
   }
 
-  let selectedDayMeetings = meetings.filter((meeting) =>
-    isSameDay(parseISO(meeting.startDatetime), selectedDay)
-  )
+  // let selectedDayMeetings = meetings.filter((meeting) =>
+  //   isSameDay(parseISO(meeting.startDatetime), selectedDay)
+  // )
+
     return ( 
-        <div className="pt-16">
-        <div className="max-w-md px-4 mx-auto sm:px-7 md:max-w-4xl md:px-6">
-          <div className="md:grid md:grid-cols-2 md:divide-x md:divide-gray-200">
-            <div className="md:pr-14">
+<>
+<div className="flex flex-col-reverse md:grid md:grid-cols-2 md:divide-x md:divide-gray-200">
+
+        <MeetingsList meetings={meetings} selectedDay={selectedDay} />
+         
+            <div className="md:pl-14">
               <div className="flex items-center">
                 <h2 className="flex-auto font-semibold text-gray-900">
                   {format(firstDayCurrentMonth, 'MMMM yyyy')}
@@ -177,26 +180,9 @@ const Calendar = () => {
                 ))}
               </div>
             </div>
-            <section className="mt-12 md:mt-0 md:pl-14">
-              <h2 className="font-semibold text-gray-900">
-                Schedule for{' '}
-                <time dateTime={format(selectedDay, 'yyyy-MM-dd')}>
-                  {format(selectedDay, 'MMM dd, yyy')}
-                </time>
-              </h2>
-              <ol className="mt-4 space-y-1 text-sm leading-6 text-gray-500">
-                {selectedDayMeetings.length > 0 ? (
-                  selectedDayMeetings.map((meeting) => (
-                    <Meeting meeting={meeting} key={meeting.id} />
-                  ))
-                ) : (
-                  <p>No meetings for today.</p>
-                )}
-              </ol>
-            </section>
-          </div>
-        </div>
       </div>
+   </>
+
      );
 }
 
