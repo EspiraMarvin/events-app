@@ -11,7 +11,6 @@ export default function MeetingsList({ selectedDay , meetings }: any) {
     let selectedDayMeetings = meetings.filter((meeting: any) =>
     isSameDay(parseISO(meeting.startDatetime), selectedDay)
   )
-  
 
   
   return (
