@@ -20,6 +20,7 @@ import {
 } from 'date-fns'
 import React, { Fragment, useState, useEffect } from 'react'
 import { MeetingType } from '../types'
+import MeetingsList from './MeetingsList'
 
 interface MeetingProps {
   meeting: MeetingType
@@ -104,15 +105,12 @@ export default function Calendar() {
     setCurrentMonth(format(firstDayNextMonth, 'MMM-yyyy'))
   }
 
-  let selectedDayMeetings = meetings.filter((meeting) =>
-    isSameDay(parseISO(meeting.startDatetime), selectedDay)
-  )
+  // let selectedDayMeetings = meetings.filter((meeting) =>
+  //   isSameDay(parseISO(meeting.startDatetime), selectedDay)
+  // )
 
   return (
     <>
-    <div className="pt-16">
-    <div className="max-w-md px-4 mx-auto sm:px-7 md:max-w-4xl md:px-6">
-      <div className="md:grid md:grid-cols-2 md:divide-x md:divide-gray-200">
         <div className="md:pr-14">
           <div className="flex items-center">
             <h2 className="flex-auto font-semibold text-gray-900">
@@ -195,7 +193,9 @@ export default function Calendar() {
             ))}
           </div>
         </div>
-        <section className="mt-12 md:mt-0 md:pl-14">
+
+        {/* <MeetingsList meetings={meetings} /> */}
+        {/* <section className="mt-12 md:mt-0 md:pl-14">
           <h2 className="font-semibold text-gray-900">
             Schedule for{' '}
             <time dateTime={format(selectedDay, 'yyyy-MM-dd')}>
@@ -211,10 +211,7 @@ export default function Calendar() {
               <p>No meetings for today.</p>
             )}
           </ol>
-        </section>
-      </div>
-    </div>
-  </div>
+        </section> */}
   </>
   )
 }
