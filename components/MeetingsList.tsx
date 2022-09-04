@@ -15,7 +15,7 @@ export default function MeetingsList({ selectedDay , meetings }: any) {
 
   
   return (
-    <section className="mt-12 md:mt-0 md:pr-14">
+    <section className="mt-12 md:mt-0 md:pr-10">
     <h2 className="font-semibold text-gray-900">
       Schedule for{' '}
       <time dateTime={format(selectedDay, 'yyyy-MM-dd')}>
@@ -28,7 +28,7 @@ export default function MeetingsList({ selectedDay , meetings }: any) {
           <Meeting meeting={meeting} key={meeting.id} />
         ))
       ) : (
-        <p>No meetings for today.</p>
+        <p className="pt-2 pl-4">No meetings for today.</p>
       )}
     </ol>
   </section>
