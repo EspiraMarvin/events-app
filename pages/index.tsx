@@ -20,17 +20,28 @@ const Home = ({ meetings }:MeetingsProps) =>  {
 export default Home
 
 const getMeetings = async () => {
-  console.log('get Meetings run')
-  const f = await fetch('http://localhost:3000/api/meetups')
-  const res = await f.json()
-  return res
+  if (process.env.NODE_ENV === 'development') {
+    const f = await fetch('http://localhost:3000/api/meetups')
+    const res = await f.json()
+    return res
+  } else {
+    const f = await fetch('https://planner-app-virid.vercel.app/api/meetups')
+    const res = await f.json()
+    return res
+  }
 }
 
 const getEvents = async () => {
-  console.log('get Meetings run')
-  const f = await fetch('http://localhost:3000/api/events')
-  const res = await f.json()
-  return res
+  if (process.env.NODE_ENV === 'development') {
+    const f = await fetch('http://localhost:3000/api/events')
+    const res = await f.json()
+    return res
+  } else {
+    const f = await fetch('https://planner-app-virid.vercel.app/api/events')
+    const res = await f.json()
+    return res
+  }
+
 }
 export const getServerSideProps =  async () => {
   const meetings = await getMeetings()
@@ -38,10 +49,12 @@ export const getServerSideProps =  async () => {
   const events = await getEvents()
   // console.log('events', events)
 
-  const [meetingss, eventss] = await Promise.all([
-    fetch('http://localhost:3000/api/meetups').then((res) => res.json()),
-    fetch('http://localhost:3000/api/events').then((res) => res.json()),
-  ])
+  // const [meetingss, eventss] = await Promise.all([
+  //   fetch('http://localhost:3000/api/meetups').then((res) => res.json()),
+  //   fetch('http://localhost:3000/api/events').then((res) => res.json()),
+  // ])
+
+  // console.log('process env', process.env.NODE_ENV)
 
   // console.log('meetingss', meetingss)
   // console.log('eventss', eventss)
@@ -50,8 +63,8 @@ export const getServerSideProps =  async () => {
     props: {
       meetings,
       events,
-      meetingss,
-      eventss
+      // meetingss,
+      // eventss
     }
   }
 }
