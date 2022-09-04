@@ -10,10 +10,12 @@ export default async function handler(
     let config = {
         headers: {
             'Content-Type': 'application/json',
-            Authorization: `Bearer `
+            Authorization: `Bearer ${process.env.NEXT_MEETUP_API_KEY}`
         }
     }
-    
+    const events = (await axios.get(endpoint, config)).data
+    // console.log('events', events)
+    res.status(200).json(events)
 }
 
   
