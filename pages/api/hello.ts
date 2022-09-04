@@ -2,11 +2,6 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
 import { MeetingType } from './../../types.d';
 
-// type Data = {
-//   name: string
-// }
-
-
 const meetings = [
   {
     id: 1,
