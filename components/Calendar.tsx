@@ -69,7 +69,7 @@ const Calendar = ({ meetings, events }: CalendarProps) => {
 <>
 <div className="flex flex-col-reverse md:grid md:grid-cols-2 md:divide-x md:divide-gray-200">
 
-          <MeetingsList meetings={meetings} selectedDay={selectedDay} />
+          {/* <MeetingsList meetings={meetings} selectedDay={selectedDay} /> */}
 
           <EventsList events={events} selectedDay={selectedDay} />
          
