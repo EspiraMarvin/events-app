@@ -16,8 +16,6 @@ export default function EventsList({ events, selectedDay }: EventsListProps) {
 
     let selectedDayEvents = events.filter((event: Event) =>{
         let eventStartDateTime = event?.start?.local
-        // let eventTimezone = event?.start?.timezone
-
         return isSameDay(parseISO(eventStartDateTime), selectedDay)
     }
   )
