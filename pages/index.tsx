@@ -2,17 +2,16 @@
 // import Head from 'next/head'
 // import Image from 'next/image'
 import Calendar from '../components/Calendar'
-import { MeetingType, Event } from '../types'
+import { Event } from '../types'
 
 interface MeetingsProps {
-  meetings : MeetingType[],
   events: Event[]
 }
-const Home = ({ meetings, events }:MeetingsProps) =>  {
+const Home = ({ events }:MeetingsProps) =>  {
   return (
      <main className="pt-16">
        <div className="max-w-md px-4 mx-auto sm:px-7 md:max-w-4xl md:px-6">
-        <Calendar meetings={meetings} events={events} />
+        <Calendar events={events} />
       </div>
     </main>
   )
