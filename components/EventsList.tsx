@@ -34,7 +34,7 @@ export default function EventsList({ events, selectedDay }: EventsListProps) {
     <ol className="mt-4 space-y-1 text-sm leading-6 text-gray-500">
       {selectedDayEvents.length > 0 ? (
         selectedDayEvents.map((event: Event) => (
-            <EventItem key={event.id} event={event} />
+          <EventItem key={event.id} event={event} />
         ))
       ) : (
         <p className="pt-2 pl-4">No meetings for today.</p>
