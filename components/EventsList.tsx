@@ -13,8 +13,6 @@ interface EventsListProps {
 }
 
 export default function EventsList({ events, selectedDay }: EventsListProps) {
-    console.log('events', events)
-    console.log('selectedDay', selectedDay)
 
     let selectedDayEvents = events.filter((event: Event) =>{
         let eventStartDateTime = event?.start?.local
