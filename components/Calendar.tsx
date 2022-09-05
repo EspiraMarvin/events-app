@@ -127,13 +127,7 @@ const Calendar = ({ events }: CalendarProps) => {
                     </button>
     
                     <div className="w-1 h-1 mx-auto mt-1">
-                      {/* {meetings.some((meeting: any) =>
-                        isSameDay(parseISO(meeting.startDatetime), day)
-                      ) && (
-                        <div className="w-1 h-1 rounded-full bg-sky-500"></div>
-                      )} */}
                       {events.some((event: Event) =>{
-                        // console.log('event starrt local', event.start.local?.slice(0, 16))
                         return(
                           isSameDay(parseISO(event?.start?.local), day)
                         )
