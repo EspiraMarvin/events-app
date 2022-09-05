@@ -133,7 +133,7 @@ const notify = () => {
           </div>
         </Dialog>
       </Transition>
-      <Toaster  position="top-center" />
+      <Toaster  position="bottom-center" />
     </div>
    
   )
