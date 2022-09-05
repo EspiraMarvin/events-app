@@ -8,14 +8,14 @@ export interface MeetingType {
 
 export interface Event {
     id: string,
-    url?: string,
+    url: string,
     name: {
-        text?: string,
-        html?: string
+        text: string,
+        html: string
     },
     description: {
-        text?: string,
-        html?: string
+        text: string,
+        html: string
     },
     created: string,
     changed: string,
@@ -58,12 +58,12 @@ export interface Event {
     start: {
         timezone: string,
         local: string,
-        utc?: string
+        utc: string
     },
     end: {
-        timezone?: string,
-        local?: string,
-        utc?: string
+        timezone: string,
+        local: string,
+        utc: string
     },
     logo: {
         crop_mask?: {
