@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 // import Image from 'next/image'
 import { Menu, Transition } from '@headlessui/react'
 import { DotsVerticalIcon } from '@heroicons/react/outline'
@@ -6,13 +6,9 @@ import {
   format,
   parseISO,
 } from 'date-fns'
-import { Fragment } from 'react'
 import { Event } from '../types'
+import EventInfo from './EventInfo'
 
-
-function classNames(...classes: string[]) {
-    return classes.filter(Boolean).join(' ')
-  }
 
   interface EventProps {
     event: Event
@@ -22,7 +18,22 @@ export default function EventItem({ event }: EventProps) {
     let startDateTime = parseISO(event?.start?.local)
     let endDateTime = parseISO(event?.end?.local)
   
+    let [isOpen, setIsOpen] = useState(false)
+
+
+    function closeModal() {
+      setIsOpen(false)
+    }
+  
+    function openModal() {
+      setIsOpen(true)
+    }
+
+
   return (
+    <div>
+
+
     <li className="flex items-center px-4 py-2 space-x-4 group rounded-xl focus-within:bg-gray-100 hover:bg-gray-100">
     <img
       src={event.logo.url}
@@ -52,8 +63,9 @@ export default function EventItem({ event }: EventProps) {
         </Menu.Button>
       </div>
 
-      <Transition
-        as={Fragment}
+
+
+    <Transition
         enter="transition ease-out duration-100"
         enterFrom="transform opacity-0 scale-95"
         enterTo="transform opacity-100 scale-100"
@@ -64,35 +76,22 @@ export default function EventItem({ event }: EventProps) {
         <Menu.Items className="absolute right-0 z-10 mt-2 origin-top-right bg-white rounded-md shadow-lg w-36 ring-1 ring-black ring-opacity-5 focus:outline-none">
           <div className="py-1">
             <Menu.Item>
-              {({ active }) => (
-                <a
-                  href="#"
-                  className={classNames(
-                    active ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
-                    'block px-4 py-2 text-sm'
-                  )}
-                >
-                  Edit
-                </a>
-              )}
-            </Menu.Item>
-            <Menu.Item>
-              {({ active }) => (
-                <a
-                  href="#"
-                  className={classNames(
-                    active ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
-                    'block px-4 py-2 text-sm'
-                  )}
-                >
-                  Cancel
-                </a>
+              {() => (
+                  <div className="block px-4 py-3 text-sm cursor-pointer" onClick={openModal}>
+                    More Details
+                  </div>
               )}
             </Menu.Item>
           </div>
         </Menu.Items>
       </Transition>
+
+
     </Menu>
   </li>  
+
+  <EventInfo key={event.id} event={event} isOpen={isOpen} closeModal={closeModal} />
+
+ </div>
   )
 }
