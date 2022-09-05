@@ -15,14 +15,34 @@ import {
     startOfToday,
   } from 'date-fns'
 import MeetingsList from './MeetingsList'
+import { Event, MeetingType } from '../types'
+import EventsList from './EventsList'
 
+interface CalendarProps {
+  meetings : MeetingType[],
+  events: Event[]
+}
 
   function classNames(...classes:any) {
     return classes.filter(Boolean).join(' ')
   }
 
   
-const Calendar = ({ meetings }: any) => {
+const Calendar = ({ meetings, events }: CalendarProps) => {
+  // console.log('events pros', events)
+  // console.log('events pros',Array.isArray(events))
+  // console.log('meetings pros',Array.isArray(meetings))
+
+  events.map((event: Event) => {
+    // console.log('event created', event.created)
+    console.log('event start local time', event.start.local?.slice(0,16))
+    // console.log('event end local time', event.end.local)
+
+    // console.log('event start timezone', event.start.timezone)
+    // console.log('event start utc', event.start.utc)
+
+  })
+
   
  let today = startOfToday()
   let [selectedDay, setSelectedDay] = useState(today)
@@ -49,7 +69,9 @@ const Calendar = ({ meetings }: any) => {
 <>
 <div className="flex flex-col-reverse md:grid md:grid-cols-2 md:divide-x md:divide-gray-200">
 
-        <MeetingsList meetings={meetings} selectedDay={selectedDay} />
+          <MeetingsList meetings={meetings} selectedDay={selectedDay} />
+
+          <EventsList events={events} selectedDay={selectedDay} />
          
             <div className="md:pl-14">
               <div className="flex items-center">
@@ -123,8 +145,17 @@ const Calendar = ({ meetings }: any) => {
                     </button>
     
                     <div className="w-1 h-1 mx-auto mt-1">
-                      {meetings.some((meeting: any) =>
+                      {/* {meetings.some((meeting: any) =>
                         isSameDay(parseISO(meeting.startDatetime), day)
+                      ) && (
+                        <div className="w-1 h-1 rounded-full bg-sky-500"></div>
+                      )} */}
+                      {events.some((event: Event) =>{
+                        // console.log('event starrt local', event.start.local?.slice(0, 16))
+                        return(
+                          isSameDay(parseISO(event?.start?.local), day)
+                        )
+                      }
                       ) && (
                         <div className="w-1 h-1 rounded-full bg-sky-500"></div>
                       )}
