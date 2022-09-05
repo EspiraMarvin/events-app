@@ -2,16 +2,17 @@
 // import Head from 'next/head'
 // import Image from 'next/image'
 import Calendar from '../components/Calendar'
-import { MeetingType } from '../types'
+import { MeetingType, Event } from '../types'
 
 interface MeetingsProps {
-  meetings : MeetingType
+  meetings : MeetingType[],
+  events: Event[]
 }
-const Home = ({ meetings }:MeetingsProps) =>  {
+const Home = ({ meetings, events }:MeetingsProps) =>  {
   return (
      <main className="pt-16">
        <div className="max-w-md px-4 mx-auto sm:px-7 md:max-w-4xl md:px-6">
-        <Calendar meetings={meetings} />
+        <Calendar meetings={meetings} events={events} />
       </div>
     </main>
   )
@@ -35,11 +36,11 @@ const getEvents = async () => {
   if (process.env.NODE_ENV === 'development') {
     const f = await fetch('http://localhost:3000/api/events')
     const res = await f.json()
-    return res
+    return res.events
   } else {
     const f = await fetch('https://planner-app-virid.vercel.app/api/events')
     const res = await f.json()
-    return res
+    return res.events
   }
 
 }
