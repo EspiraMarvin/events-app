@@ -56,8 +56,8 @@ export interface Event {
     is_externally_ticked: boolean,
     organization_id: string,
     start: {
-        timezone?: string,
-        local?: string,
+        timezone: string,
+        local: string,
         utc?: string
     },
     end: {
