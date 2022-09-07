@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 // import Image from 'next/image'
-import { Menu, Transition } from '@headlessui/react'
-import { DotsVerticalIcon } from '@heroicons/react/outline'
+// import { Menu, Transition } from '@headlessui/react'
+// import { DotsVerticalIcon } from '@heroicons/react/outline'
 import {
   format,
   parseISO,
@@ -32,7 +32,7 @@ export default function EventItem({ event }: EventProps) {
 
   return (
     <div>
-    <li className="flex items-center px-4 py-2 space-x-4 group rounded-xl focus-within:bg-gray-100 hover:bg-gray-100">
+    <li className="flex items-center w-full px-4 py-2 space-x-4 cursor-pointer group rounded-xl focus-within:bg-gray-100 hover:bg-gray-100" onClick={openModal}>
     <img
       src={event.image}
       alt=""
@@ -50,7 +50,7 @@ export default function EventItem({ event }: EventProps) {
         </time>
       </p>
     </div>
-    <Menu
+    {/* <Menu
       as="div"
       className="relative opacity-0 focus-within:opacity-100 group-hover:opacity-100"
     >
@@ -85,7 +85,7 @@ export default function EventItem({ event }: EventProps) {
       </Transition>
 
 
-    </Menu>
+    </Menu> */}
   </li>  
 
   <EventInfo key={event.name} event={event} isOpen={isOpen} closeModal={closeModal} />
