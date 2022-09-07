@@ -6,7 +6,7 @@ import {
   parseISO,
 } from 'date-fns'
 import { Fragment } from 'react'
-import { MeetingType } from '../types'
+import { MeetingType } from '../typings'
 
 interface MeetingProps {
   meeting: MeetingType
