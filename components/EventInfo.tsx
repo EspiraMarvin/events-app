@@ -1,11 +1,11 @@
 import React from 'react'
 import { Dialog, Transition } from '@headlessui/react'
 import { Fragment } from 'react'
-import { Event } from '../types'
+import { EventBriteEvent } from '../typings'
 import toast, { Toaster } from 'react-hot-toast';
 
 interface EventInfoProps {
-  event: Event
+  event: EventBriteEvent
   isOpen: boolean
   closeModal: () => void
 }
@@ -91,22 +91,22 @@ const notify = () => {
                     className="flex items-start text-lg font-medium leading-6 text-gray-900 row"
                   >
                     <img
-                      src={event.logo.url}
+                      src={event.image}
                       alt=""
                       className="w-16 h-16 mr-3 rounded-full"
                     />
                     <span className='p-2'>
-                      {event.name.text}
+                      {event.name}
                     </span>
 
                   </Dialog.Title>
                   <div className="mt-2 space-y-2 md:p-2">
                     <p className="text-sm text-gray-500">
-                      {event.description.text}
+                      {event.description}
                     </p>
-                    <p> Start Time: {event.start.local}</p>
-                    <p> End Time: {event.end.local}</p>
-                    <p> Timezone: {event.end.timezone}</p>
+                    <p> Start Time: {event.startDate}</p>
+                    <p> End Time: {event.endDate}</p>
+                    {/* <p> Timezone: {event.end.timezone}</p> */}
                   </div>
 
                   <div className="flex mt-4 justify-evenly">
