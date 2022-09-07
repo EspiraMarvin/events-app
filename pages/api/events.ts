@@ -1,10 +1,10 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
 import axios from 'axios'
-import { Event } from '../../types'
+import { MeetUpEvent } from '../../typings'
 
 export default async function handler(
     req: NextApiRequest,
-    res: NextApiResponse<Event[]>
+    res: NextApiResponse<MeetUpEvent[]>
 ) {
     let endpoint = `https://www.eventbriteapi.com/v3/organizations/505677108825/events/`
     let config = {
