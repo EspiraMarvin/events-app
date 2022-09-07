@@ -41,7 +41,7 @@ export default function EventsList({ events, selectedDay }: EventsListProps) {
           <EventItem key={event.name} event={event} />
         ))
       ) : (
-        <p className="pt-2 pl-4">No meetings for today.</p>
+        <p className="p-3 pl-4 text-[16px] text-gray-400 dark:text-white">No Events for today.</p>
       )}
     </ol>
   </section>
