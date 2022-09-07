@@ -14,7 +14,7 @@ import {
     parseISO,
     startOfToday,
   } from 'date-fns'
-import { EventBriteEvent } from '../types'
+import { EventBriteEvent } from '../typings'
 import EventsList from './EventsList'
 
 interface CalendarProps {
