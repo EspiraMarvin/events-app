@@ -14,11 +14,11 @@ import {
     parseISO,
     startOfToday,
   } from 'date-fns'
-import { Event } from '../types'
+import { EventBriteEvent } from '../types'
 import EventsList from './EventsList'
 
 interface CalendarProps {
-  events: Event[]
+  events: EventBriteEvent[]
 }
 
   function classNames(...classes:any) {
@@ -127,9 +127,9 @@ const Calendar = ({ events }: CalendarProps) => {
                     </button>
     
                     <div className="w-1 h-1 mx-auto mt-1">
-                      {events.some((event: Event) =>{
+                      {events.some((event: EventBriteEvent) =>{
                         return(
-                          isSameDay(parseISO(event?.start?.local), day)
+                          isSameDay(parseISO(event?.startDate), day)
                         )
                       }
                       ) && (
