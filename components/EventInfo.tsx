@@ -100,14 +100,33 @@ const notify = () => {
                     </span>
 
                   </Dialog.Title>
-                  <div className="mt-2 space-y-2 md:p-2">
-                    <p className="text-sm text-gray-500">
+                  <div className="mt-2 space-y-2 md:p-2 ">
+                    <div className="px-4 py-2 text-sm">
+
+                    <p className="pb-3 text-sm text-gray-700">
                       {event.description}
                     </p>
-                    <p> Start Time: {event.startDate}</p>
-                    <p> End Time: {event.endDate}</p>
-                    {/* <p> Timezone: {event.end.timezone}</p> */}
+
+
+                    <div className="grid pt-3 text-gray-500 md:flex md:justify-between">
+                      
+                      <div className="">
+                        <p>{event.location}</p>
+                        <p>{event.street}</p>
+                        <p>{event.postalCode}</p>
+                        <p>{event.location__1},{event.region}</p>
+                      </div>
+
+                      <div className="">
+                        <p> Start Date: {event.startDate}</p>
+                        <p> End Date: {event.endDate}</p>
+                      </div>
+
+                    </div>
+                    
+                    </div>
                   </div>
+
 
                   <div className="flex mt-4 justify-evenly">
                     <button
