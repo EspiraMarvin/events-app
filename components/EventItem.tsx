@@ -6,17 +6,17 @@ import {
   format,
   parseISO,
 } from 'date-fns'
-import { Event } from '../types'
+import { EventBriteEvent } from '../typings'
 import EventInfo from './EventInfo'
 
 
   interface EventProps {
-    event: Event
+    event: EventBriteEvent
   }
 
 export default function EventItem({ event }: EventProps) {
-    let startDateTime = parseISO(event?.start?.local)
-    let endDateTime = parseISO(event?.end?.local)
+    let startDateTime = parseISO(event?.startDate)
+    let endDateTime = parseISO(event?.endDate)
   
     let [isOpen, setIsOpen] = useState(false)
 
@@ -34,18 +34,18 @@ export default function EventItem({ event }: EventProps) {
     <div>
     <li className="flex items-center px-4 py-2 space-x-4 group rounded-xl focus-within:bg-gray-100 hover:bg-gray-100">
     <img
-      src={event.logo.url}
+      src={event.image}
       alt=""
       className="flex-none w-10 h-10 rounded-full"
     />
     <div className="flex-auto">
-      <p className="text-gray-900">{event.name.text}</p>
+      <p className="text-gray-900">{event.name}</p>
       <p className="mt-0.5">
-        <time dateTime={event.start.local}>
+        <time dateTime={event.startDate}>
           {format(startDateTime, 'h:mm a')}
         </time>{' '}
         -{' '}
-        <time dateTime={event.end.local}>
+        <time dateTime={event.endDate}>
           {format(endDateTime, 'h:mm a')}
         </time>
       </p>
@@ -88,7 +88,7 @@ export default function EventItem({ event }: EventProps) {
     </Menu>
   </li>  
 
-  <EventInfo key={event.id} event={event} isOpen={isOpen} closeModal={closeModal} />
+  <EventInfo key={event.name} event={event} isOpen={isOpen} closeModal={closeModal} />
 
  </div>
   )
