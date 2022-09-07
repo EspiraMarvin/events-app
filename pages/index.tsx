@@ -1,23 +1,32 @@
 // import type { NextPage } from 'next'
 // import Head from 'next/head'
 // import Image from 'next/image'
+import {  useEffect, useState } from 'react'
 import Calendar from '../components/Calendar'
-import { Event } from '../types'
+// import {  EventBriteEvent } from '../types'
+import events from '../data/events.json'
 
-interface MeetingsProps {
-  events: Event[]
-}
-const Home = ({ events }:MeetingsProps) =>  {
+
+const Home = () =>  {
+  let data = events
+  const [allEvents, setAllEvents] =  useState<any[] | []>([])
+
+  useEffect(() => {
+    setAllEvents(data)
+  }, [data])
+
   return (
      <main className="pt-16">
        <div className="max-w-md px-4 mx-auto sm:px-7 md:max-w-4xl md:px-6">
-        <Calendar events={events} />
+        <Calendar events={allEvents} />
       </div>
     </main>
   )
 }
 
 export default Home
+
+
 
 const getMeetings = async () => {
   if (process.env.NODE_ENV === 'development') {
@@ -30,6 +39,7 @@ const getMeetings = async () => {
     return res
   }
 }
+
 
 const getEvents = async () => {
   if (process.env.NODE_ENV === 'development') {
@@ -44,9 +54,10 @@ const getEvents = async () => {
 
 }
 export const getServerSideProps =  async () => {
+
   const meetings = await getMeetings()
   // console.log('meetings', meetings)
-  const events = await getEvents()
+  const eventss = await getEvents()
   // console.log('events', events)
 
   // const [meetingss, eventss] = await Promise.all([
@@ -62,7 +73,7 @@ export const getServerSideProps =  async () => {
   return {
     props: {
       meetings,
-      events,
+      eventss,
       // meetingss,
       // eventss
     }
