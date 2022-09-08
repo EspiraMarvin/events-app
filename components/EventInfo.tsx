@@ -27,7 +27,7 @@ var SCOPES = "https://www.googleapis.com/auth/calendar.events"
 
 
 const authenticate =  () => {
-  // @ts-ignore: Unreachable code error
+  // @ts-ignore: next line
   let gapi:any = window.gapi
 
   // console.log('window gapi', window.gapi)
