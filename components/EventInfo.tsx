@@ -117,9 +117,9 @@ const notify = () => {
                         <p>{event.location__1},{event.region}</p>
                       </div>
 
-                      <div className="">
-                        <p> Start Date: {event.startDate}</p>
-                        <p> End Date: {event.endDate}</p>
+                      <div className="mt-2 mr-2 md:mt-0 lg:mr-3">
+                        <p> Start Date: <span className="pl-1">{event.startDate}</span></p>
+                        <p> End Date: <span className="pl-3">{event.endDate}</span></p>
                       </div>
 
                     </div>
