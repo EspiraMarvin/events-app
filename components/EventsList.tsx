@@ -35,7 +35,7 @@ export default function EventsList({ events, selectedDay }: EventsListProps) {
         {format(selectedDay, 'MMM dd, yyy')}
       </time>
     </h2>
-    <ol className="mt-4 space-y-1 text-sm leading-6 text-gray-500">
+    <ol className="my-4 space-y-1 text-sm leading-6 text-gray-500">
       {selectedDayEvents.length > 0 ? (
         selectedDayEvents.map((event: EventBriteEvent) => (
           <EventItem key={event.name} event={event} />
