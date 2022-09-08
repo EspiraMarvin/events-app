@@ -4,7 +4,10 @@
 import {  useEffect, useState } from 'react'
 import Calendar from '../components/Calendar'
 // import {  EventBriteEvent } from '../types'
+import Script from 'next/script'
+
 import events from '../data/events.json'
+
 
 
 const Home = () =>  {
@@ -16,11 +19,14 @@ const Home = () =>  {
   }, [data])
 
   return (
+    <>
      <main className="pt-16">
        <div className="max-w-md px-4 mx-auto sm:px-7 md:max-w-4xl md:px-6">
         <Calendar events={allEvents} />
       </div>
     </main>
+    <Script src="https://apis.google.com/js/api.js" strategy="lazyOnload" />
+    </>
   )
 }
 
