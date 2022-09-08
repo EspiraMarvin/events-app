@@ -118,8 +118,8 @@ const notify = () => {
                       </div>
 
                       <div className="mt-2 mr-2 md:mt-0 lg:mr-3">
-                        <p> Start Date: <span className="pl-1">{event.startDate}</span></p>
-                        <p> End Date: <span className="pl-3">{event.endDate}</span></p>
+                        <p> Start Date: <span className="pl-0">{event.startDate}</span></p>
+                        <p> End Date: <span className="pl-[7px]">{event.endDate}</span></p>
                       </div>
 
                     </div>
