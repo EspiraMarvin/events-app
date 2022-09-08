@@ -18,7 +18,7 @@ interface EventInfoProps {
 console.log('client ID', process.env.NEXT_PUBLIC_CLIENT_ID)
 console.log('apiKey', process.env.NEXT_PUBLIC_API_KEY)
 
-const ConfigApiCalendar = {
+const ConfigApiCalendar: any = {
   "clientId": process.env.NEXT_PUBLIC_CLIENT_ID,
   // "clientId": "1041348823003-cpa5m098ug03si8frjn7fdvvhkmnpoda.apps.googleusercontent.com",
   "apiKey": process.env.NEXT_PUBLIC_API_KEY,
@@ -29,7 +29,7 @@ const ConfigApiCalendar = {
 }
 
 
-const apiCalendar = new ApiCalendar(ConfigApiCalendar)
+const apiCalendar:any = new ApiCalendar(ConfigApiCalendar)
 
 
 export default function EventInfo({ event, isOpen, closeModal }: EventInfoProps) {
