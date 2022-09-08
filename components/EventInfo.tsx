@@ -1,35 +1,13 @@
-import React, { SyntheticEvent } from 'react'
+import React from 'react'
 import { Dialog, Transition } from '@headlessui/react'
 import { Fragment } from 'react'
 import { EventBriteEvent } from '../typings'
 import toast, { Toaster } from 'react-hot-toast';
-import ApiCalendar from 'react-google-calendar-api'
-
 interface EventInfoProps {
   event: EventBriteEvent
   isOpen: boolean
   closeModal: () => void
 }
-
-// interface configTypes {
-//   clientId: string | undefined; apiKey: string | undefined; scope: string;
-// }
-
-console.log('client ID', process.env.NEXT_PUBLIC_CLIENT_ID)
-console.log('apiKey', process.env.NEXT_PUBLIC_API_KEY)
-
-const ConfigApiCalendar: any = {
-  "clientId": process.env.NEXT_PUBLIC_CLIENT_ID,
-  // "clientId": "1041348823003-cpa5m098ug03si8frjn7fdvvhkmnpoda.apps.googleusercontent.com",
-  "apiKey": process.env.NEXT_PUBLIC_API_KEY,
-  "scope": "https://www.googleapis.com/auth/calendar",
-  "discoveryDocs": [
-    "https://www.googleapis.com/discovery/v1/apis/calendar/v3/rest"
-  ]
-}
-
-
-const apiCalendar:any = new ApiCalendar(ConfigApiCalendar)
 
 
 export default function EventInfo({ event, isOpen, closeModal }: EventInfoProps) {
@@ -39,12 +17,99 @@ const date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
 const time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
 const dateTime = date+' '+time;
 
-const authenticate = async ()  => {
+/* 
+  Update with your own Client Id and Api key 
+*/
+var CLIENT_ID = process.env.NEXT_PUBLIC_CLIENT_ID
+var API_KEY = process.env.NEXT_PUBLIC_API_KEY
+var DISCOVERY_DOCS = ["https://www.googleapis.com/discovery/v1/apis/calendar/v3/rest"]
+var SCOPES = "https://www.googleapis.com/auth/calendar.events"
+
+
+const authenticate =  () => {
+  // @ts-ignore: Unreachable code error
+  let gapi:any = window.gapi
+
+  // console.log('window gapi', window.gapi)
+
+   gapi.load('client:auth2', () => {
+    console.log('loaded client')
+
+    gapi.client.init({
+      apiKey: API_KEY,
+      clientId: CLIENT_ID,
+      discoveryDocs: DISCOVERY_DOCS,
+      scope: SCOPES,
+    })
   
-  await apiCalendar.handleAuthClick()
-  console.log('finally authneicatted')
+
+    gapi.client.load('calendar', 'v3', () => {console.log('calendar m')})
+
+    gapi.auth2.getAuthInstance().signIn()
+    .then(() => {
+      
+      var event = {
+        'summary': 'Awesome Event!',
+        'location': '800 Howard St., San Francisco, CA 94103',
+        'description': 'Really great refreshments',
+        'start': {
+          'dateTime': '2020-06-28T09:00:00-07:00',
+          'timeZone': 'America/Los_Angeles'
+        },
+        'end': {
+          'dateTime': '2020-06-28T17:00:00-07:00',
+          'timeZone': 'America/Los_Angeles'
+        },
+        'recurrence': [
+          'RRULE:FREQ=DAILY;COUNT=2'
+        ],
+        'attendees': [
+          {'email': 'lpage@example.com'},
+          {'email': 'sbrin@example.com'}
+        ],
+        'reminders': {
+          'useDefault': false,
+          'overrides': [
+            {'method': 'email', 'minutes': 24 * 60},
+            {'method': 'popup', 'minutes': 10}
+          ]
+        }
+      }
+
+      var request = gapi.client.calendar.events.insert({
+        'calendarId': 'primary',
+        'resource': event,
+      })
+
+      request.execute((event: any) => {
+        console.log(event)
+        window.open(event.htmlLink)
+      })
+      
+
+      /*
+          Uncomment the following block to get events
+      */
+      /*
+      // get events
+      gapi.client.calendar.events.list({
+        'calendarId': 'primary',
+        'timeMin': (new Date()).toISOString(),
+        'showDeleted': false,
+        'singleEvents': true,
+        'maxResults': 10,
+        'orderBy': 'startTime'
+      }).then(response => {
+        const events = response.result.items
+        console.log('EVENTS: ', events)
+      })
+      */
+  
+
+    })
+  })
 }
- 
+
 const notify = () => {
 
   //sign in
