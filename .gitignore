@@ -38,5 +38,6 @@ yarn-error.log*
 .vscode
 
 .env.local
+.env.development
 .env.production
 
