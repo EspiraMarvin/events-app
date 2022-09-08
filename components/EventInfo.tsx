@@ -1,8 +1,9 @@
-import React from 'react'
+import React, { SyntheticEvent } from 'react'
 import { Dialog, Transition } from '@headlessui/react'
 import { Fragment } from 'react'
 import { EventBriteEvent } from '../typings'
 import toast, { Toaster } from 'react-hot-toast';
+import ApiCalendar from 'react-google-calendar-api'
 
 interface EventInfoProps {
   event: EventBriteEvent
@@ -10,14 +11,46 @@ interface EventInfoProps {
   closeModal: () => void
 }
 
+// interface configTypes {
+//   clientId: string | undefined; apiKey: string | undefined; scope: string;
+// }
+
+console.log('client ID', process.env.NEXT_PUBLIC_CLIENT_ID)
+console.log('apiKey', process.env.NEXT_PUBLIC_API_KEY)
+
+const ConfigApiCalendar = {
+  "clientId": process.env.NEXT_PUBLIC_CLIENT_ID,
+  // "clientId": "1041348823003-cpa5m098ug03si8frjn7fdvvhkmnpoda.apps.googleusercontent.com",
+  "apiKey": process.env.NEXT_PUBLIC_API_KEY,
+  "scope": "https://www.googleapis.com/auth/calendar",
+  "discoveryDocs": [
+    "https://www.googleapis.com/discovery/v1/apis/calendar/v3/rest"
+  ]
+}
+
+
+const apiCalendar = new ApiCalendar(ConfigApiCalendar)
+
+
 export default function EventInfo({ event, isOpen, closeModal }: EventInfoProps) {
 	
 const today = new Date();
 const date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
 const time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
 const dateTime = date+' '+time;
+
+const authenticate = async ()  => {
+  
+  await apiCalendar.handleAuthClick()
+  console.log('finally authneicatted')
+}
  
 const notify = () => {
+
+  //sign in
+  authenticate()
+
+
   // toast('Here is your toast.');
   toast.custom((t) => (
     <div
