@@ -28,36 +28,35 @@ export default Home
 
 
 
-const getMeetings = async () => {
-  if (process.env.NODE_ENV === 'development') {
-    const f = await fetch('http://localhost:3000/api/meetups')
-    const res = await f.json()
-    return res
-  } else {
-    const f = await fetch('https://planner-app-virid.vercel.app/api/meetups')
-    const res = await f.json()
-    return res
-  }
-}
+// const getMeetings = async () => {
+//   if (process.env.NODE_ENV === 'development') {
+//     const f = await fetch('http://localhost:3000/api/meetups')
+//     const res = await f.json()
+//     return res
+//   } else {
+//     const f = await fetch('https://planner-app-virid.vercel.app/api/meetups')
+//     const res = await f.json()
+//     return res
+//   }
+// }
 
 
-const getEvents = async () => {
-  if (process.env.NODE_ENV === 'development') {
-    const f = await fetch('http://localhost:3000/api/events')
-    const res = await f.json()
-    return res.events
-  } else {
-    const f = await fetch('https://planner-app-virid.vercel.app/api/events')
-    const res = await f.json()
-    return res.events
-  }
+// const getEvents = async () => {
+//   if (process.env.NODE_ENV === 'development') {
+//     const f = await fetch('http://localhost:3000/api/events')
+//     const res = await f.json()
+//     return res.events
+//   } else {
+//     const f = await fetch('https://planner-app-virid.vercel.app/api/events')
+//     const res = await f.json()
+//     return res.events
+//   }
+// }
 
-}
 export const getServerSideProps =  async () => {
 
-  const meetings = await getMeetings()
-  // console.log('meetings', meetings)
-  const eventss = await getEvents()
+  // const meetings = await getMeetings()
+  // const eventss = await getEvents()
   // console.log('events', events)
 
   // const [meetingss, eventss] = await Promise.all([
@@ -72,8 +71,8 @@ export const getServerSideProps =  async () => {
 
   return {
     props: {
-      meetings,
-      eventss,
+      // meetings,
+      // eventss,
       // meetingss,
       // eventss
     }
