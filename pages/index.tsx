@@ -1,22 +1,10 @@
-// import type { NextPage } from 'next'
-// import Head from 'next/head'
-// import Image from 'next/image'
-import {  useEffect, useState } from 'react'
 import Calendar from '../components/Calendar'
-// import {  EventBriteEvent } from '../types'
 import Script from 'next/script'
-
-import events from '../data/events.json'
-
-
+import { useSelector } from 'react-redux'
+import { getAllEvents } from '../slices/eventSlice'
 
 const Home = () =>  {
-  let data = events
-  const [allEvents, setAllEvents] =  useState<any[] | []>([])
-
-  useEffect(() => {
-    setAllEvents(data)
-  }, [data])
+  const allEvents = useSelector(getAllEvents)
 
   return (
     <>

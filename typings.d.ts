@@ -16,12 +16,11 @@ export interface EventBriteEvent {
     location: string    
     location__1: string    
     region: string
-    street: number
-    postalCode: string
+    street: number|string
+    postalCode: string|number
     latitude: number
     longitude: number
     description: string    
-
 }
 
 export interface MeetUpEvent {
