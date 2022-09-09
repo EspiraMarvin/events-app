@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useMemo } from 'react'
 import { EventBriteEvent } from '../typings'
 import {
     format,
@@ -6,6 +6,7 @@ import {
     parseISO,
   } from 'date-fns'
 import EventItem from './EventItem'
+import useDebounce from '../hooks/useDebounce'
 interface EventsListProps {
   events: EventBriteEvent[]
   selectedDay: Date
@@ -15,36 +16,44 @@ export default function EventsList({ events, selectedDay }: EventsListProps) {
   const [search, setSearch] = useState('')
   const [showSearch, setShowSearch] = useState(false)
 
-        console.log('events props', events)
+  const debouncedSearch = useDebounce(search, 500)
 
   let selectedDayEvents = events.filter((event: EventBriteEvent) =>{
       let eventStartDateTime = event?.startDate
         return isSameDay(parseISO(eventStartDateTime), selectedDay)
     }
   )
-  console.log('selectedDayEvents ', selectedDayEvents)
 
+  let memoizedEvents = useMemo(() => selectedDayEvents, [selectedDayEvents])
 
   const searchEvent = (search: string) => {
-    selectedDayEvents.filter((event)=>{
+    memoizedEvents.map((event: EventBriteEvent)=> {
       if (event.name.toLowerCase().includes(search.toLowerCase())){
-        // console.log('event found', event)
-        return <EventItem key={event.name} event={event} />
+        console.log('event found', event.name)
+        return (
+           <EventItem key={event.name} event={event} /> 
+        )
+        //  <li className='mt-10 bg-black text-w' key={event.name}>{event.name}</li>
+        // return <EventItem key={event.name} event={event} /> 
       } else {
         // console.log('NO event found')
-        return 'No Event found'
+        return <div className="text-white bg-black">No Event found</div>
       }
       
     })
   }
 
   useEffect(() => {
-    searchEvent(search)
+    if (debouncedSearch) {
+      console.log('yes debounced search')
+      searchEvent(search)
+    }
+    
     if (showSearch !== true) {
       setSearch('')
     }
     //eslint-disable-next-line
-  }, [search, showSearch])
+  }, [debouncedSearch, search, showSearch, ])
 
   useEffect(() => {
      setShowSearch(false)
@@ -100,11 +109,15 @@ export default function EventsList({ events, selectedDay }: EventsListProps) {
       
 
     <ol className="mt-3 mb-4 space-y-1 text-sm leading-6 text-gray-500">
-      {selectedDayEvents.length > 0 ? (
-        selectedDayEvents.map((event: EventBriteEvent) => (
+      {memoizedEvents.length > 0 ? (
+        memoizedEvents.map((event: EventBriteEvent) => (
           <>
-          { showSearch && searchEvent(search) }
-          { !showSearch && <EventItem key={event.name} event={event} /> }
+          {/* { search.length > 1 && <EventItem key={event.name} event={event} /> } */}
+          { search.length > 1 && searchEvent(search)}
+
+          { search.length === 0 && <EventItem key={event.name} event={event} /> }
+          {/* { <EventItem key={event.name} event={event} /> } */}
+
           </>
 
         ))
