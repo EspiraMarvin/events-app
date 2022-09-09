@@ -2,7 +2,10 @@ import React from 'react'
 import { Dialog, Transition } from '@headlessui/react'
 import { Fragment } from 'react'
 import { EventBriteEvent } from '../typings'
+import { LocationMarkerIcon, ClockIcon, XCircleIcon } from '@heroicons/react/solid'
 import toast, { Toaster } from 'react-hot-toast';
+import ShareEvent from '../components/ShareEvent'
+
 interface EventInfoProps {
   event: EventBriteEvent
   isOpen: boolean
@@ -123,7 +126,9 @@ const notify = () => {
     <div
       className={`${
         t.visible ? 'animate-enter' : 'animate-leave'
-      } max-w-md w-full bg-white shadow-lg rounded-lg pointer-events-auto flex ring-1 ring-black ring-opacity-5`}
+      } max-w-md w-full bg-white shadow-lg rounded-lg pointer-events-auto 
+      flex ring-1 ring-black ring-opacity-5 transition-all
+      `}
     >
       <div className="flex-1 w-0 p-4">
         <div className="flex items-start">
@@ -157,6 +162,9 @@ const notify = () => {
   ))
   closeModal()
 }
+
+
+
     
   return (
     <div>
@@ -185,7 +193,10 @@ const notify = () => {
                 leaveFrom="opacity-100 scale-100"
                 leaveTo="opacity-0 scale-95"
               >
-                <Dialog.Panel className="w-full max-w-xl p-6 overflow-hidden text-left align-middle transition-all transform bg-white shadow-xl rounded-2xl">
+                <Dialog.Panel className="w-full max-w-xl p-6 overflow-hidden text-left align-middle transition-all duration-300 transform bg-white shadow-xl rounded-2xl">
+                  <div className="relative ">
+                  <XCircleIcon onClick={closeModal} className='absolute w-10 h-10 text-gray-400 transition-all duration-300 cursor-pointer -right-5 -top-5 hover:text-gray-900' />                    
+                  </div>
                   <Dialog.Title
                     as="div"
                     className="flex items-start text-lg font-medium leading-6 text-gray-900 row"
@@ -208,18 +219,22 @@ const notify = () => {
                     </p>
 
 
-                    <div className="grid pt-3 text-gray-500 md:flex md:justify-between">
+                    <div className="grid pt-5 text-gray-500 md:flex md:justify-between">
                       
-                      <div className="">
-                        <p>{event.location}</p>
+                      <div className="relative">
+                        <LocationMarkerIcon className='absolute w-8 h-6 text-blue-300 -left-5 -top-5 ' />
+                        <p className='mt-1'>{event.location}</p>
                         <p>{event.street}</p>
                         <p>{event.postalCode}</p>
                         <p>{event.location__1},{event.region}</p>
                       </div>
 
-                      <div className="mt-2 mr-2 md:mt-0 lg:mr-3">
+                      <div className="relative mt-8 mr-2 md:mt-0 lg:mr-3">
+                      <ClockIcon className='absolute w-8 h-6 text-blue-300 -left-5 -top-5 ' />
+                      <div className="grid mt-1 gap-y-0.5">
                         <p> Start Date: <span className="pl-0">{event.startDate}</span></p>
                         <p> End Date: <span className="pl-[7px]">{event.endDate}</span></p>
+                      </div>
                       </div>
 
                     </div>
@@ -228,21 +243,18 @@ const notify = () => {
                   </div>
 
 
+                {/* <ShareEvent shareEvent={shareEvent} /> */}
+
+
                   <div className="flex mt-4 justify-evenly">
-                    <button
-                      type="button"
-                      className="inline-flex justify-center px-4 py-2 text-sm font-medium text-blue-900 bg-blue-100 border border-transparent rounded-md hover:bg-blue-200 focus:outline-none"
-                      onClick={closeModal}
-                    >
-                      Close
-                    </button>
+                <ShareEvent />
 
                     <button
                       type="button"
                       className="inline-flex justify-center px-4 py-2 text-sm font-medium text-blue-900 bg-blue-100 border border-transparent rounded-md hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
                       onClick={notify}
                     >
-                      Add to Google Calendar
+                      Add Event/Set Reminder
                     </button>
                   </div>
                 </Dialog.Panel>
@@ -251,7 +263,7 @@ const notify = () => {
           </div>
         </Dialog>
       </Transition>
-      <Toaster  position="bottom-center" />
+      <Toaster position="bottom-center" />
     </div>
    
   )
