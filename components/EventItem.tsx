@@ -15,6 +15,7 @@ import EventInfo from './EventInfo'
   }
 
 export default function EventItem({ event }: EventProps) {
+  console.log('event props on event item', event)
     let startDateTime = parseISO(event?.startDate)
     let endDateTime = parseISO(event?.endDate)
   
