@@ -22,7 +22,7 @@ const dateTime = date+' '+time;
 */
 var CLIENT_ID = process.env.NEXT_PUBLIC_CLIENT_ID
 var API_KEY = process.env.NEXT_PUBLIC_API_KEY
-var DISCOVERY_DOCS = ["https://www.googleapis.com/discovery/v1/apis/calendar/v3/rest"]
+var DISCOVERY_DOCS = ["https://www.googleapis.com/discovery/v3/apis/calendar/v3/rest"]
 var SCOPES = "https://www.googleapis.com/auth/calendar.events"
 
 
@@ -40,6 +40,7 @@ const authenticate =  () => {
       clientId: CLIENT_ID,
       discoveryDocs: DISCOVERY_DOCS,
       scope: SCOPES,
+      // redirect_uri: 'http://localhost:3000'
     })
   
 
@@ -48,6 +49,7 @@ const authenticate =  () => {
     gapi.auth2.getAuthInstance().signIn()
     .then(() => {
       
+      console.log('signed in')
       var event = {
         'summary': 'Awesome Event!',
         'location': '800 Howard St., San Francisco, CA 94103',
@@ -83,7 +85,7 @@ const authenticate =  () => {
 
       request.execute((event: any) => {
         console.log(event)
-        window.open(event.htmlLink)
+        // window.open(event.htmlLink)
       })
       
 
