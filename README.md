@@ -9,6 +9,11 @@ npm run dev
 # or
 yarn dev
 ```
+###  set up testing with jest and RTL
+
+>>>>>
+    yarn add -D jest @types/jest @testing-library/react @testing-library/jest-dom @testing-library/user-event @testing-library/dom
+>>>>>>
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
