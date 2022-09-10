@@ -16,7 +16,7 @@ import {
   } from 'date-fns'
 import { EventBriteEvent } from '../typings'
 import EventsList from './EventsList'
-import DatePicker from '../components/DatePicker'
+import DatePicker from './DatePicker'
 
 interface CalendarProps {
   events: EventBriteEvent[]
