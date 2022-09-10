@@ -16,6 +16,7 @@ import {
   } from 'date-fns'
 import { EventBriteEvent } from '../typings'
 import EventsList from './EventsList'
+import DatePicker from '../components/DatePicker'
 
 interface CalendarProps {
   events: EventBriteEvent[]
@@ -28,6 +29,12 @@ interface CalendarProps {
   
 const Calendar = ({ events }: CalendarProps) => {
   
+  const [showFullCalendar, setShowFullCalendar] = useState(true)
+
+  const toggleShowCalendar = () => {
+    setShowFullCalendar(prev => !prev) 
+  }
+
  let today = startOfToday()
   let [selectedDay, setSelectedDay] = useState(today)
   let [currentMonth, setCurrentMonth] = useState(format(today, 'MMM-yyyy'))
@@ -49,14 +56,16 @@ const Calendar = ({ events }: CalendarProps) => {
     setCurrentMonth(format(firstDayNextMonth, 'MMM-yyyy'))
   }
 
+
     return ( 
-<>
-<div className="flex flex-col-reverse md:grid md:grid-cols-2 md:divide-x md:divide-gray-200">
+    <div className="flex flex-col-reverse md:grid md:grid-cols-2 md:divide-x md:divide-gray-200">
 
           <EventsList events={events} selectedDay={selectedDay} />
-         
-            <div className="md:pl-14">
-              <div className="flex items-center">
+          <div className="md:pl-14">         
+          <DatePicker showFullCalendar={showFullCalendar} toggleShowCalendar={toggleShowCalendar} />
+          
+          <div className={`${showFullCalendar && 'block'} ${!showFullCalendar && 'hidden'}`}>
+              <div className="flex items-center pt-4 ">
                 <h2 className="flex-auto font-semibold text-gray-900">
                   {format(firstDayCurrentMonth, 'MMMM yyyy')}
                 </h2>
@@ -77,6 +86,7 @@ const Calendar = ({ events }: CalendarProps) => {
                   <ChevronRightIcon className="w-5 h-5" aria-hidden="true" />
                 </button>
               </div>
+
               <div className="grid grid-cols-7 mt-10 text-xs leading-6 text-center text-gray-500">
                 <div>S</div>
                 <div>M</div>
@@ -139,10 +149,10 @@ const Calendar = ({ events }: CalendarProps) => {
                   </div>
                 ))}
               </div>
-            </div>
-      </div>
-   </>
 
+          </div>
+        </div> 
+      </div>
      );
 }
 
