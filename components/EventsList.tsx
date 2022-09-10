@@ -109,7 +109,7 @@ export default function EventsList({ events, selectedDay }: EventsListProps) {
        }
 
       {/* search events component */}
-      { search.length > 1 && searchEvent(search) }
+      { search.length > 0 && searchEvent(search) }
       {/* { !searchEvent(search) &&  <p className="p-3 pl-4 text-[16px] text-gray-400 dark:text-white">No Events Found.</p>} */}
 
 
