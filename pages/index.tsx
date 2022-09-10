@@ -8,7 +8,7 @@ const Home = () =>  {
 
   return (
     <>
-     <main className="pt-16">
+     <main className="pt-12">
        <div className="max-w-md px-4 mx-auto sm:px-7 md:max-w-4xl md:px-6">
         <Calendar events={allEvents} />
       </div>
