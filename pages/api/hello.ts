@@ -49,6 +49,8 @@ const meetings = [
 export default function handler(
   req: NextApiRequest,
   res: NextApiResponse<MeetingType[]>
-) {
+)
+
+{
   res.status(200).json(meetings)
 }
