@@ -195,7 +195,7 @@ const notify = () => {
               >
                 <Dialog.Panel className="w-full max-w-xl p-6 overflow-hidden text-left align-middle transition-all duration-300 transform bg-white shadow-xl rounded-2xl">
                   <div className="relative ">
-                  <XCircleIcon onClick={closeModal} className='absolute w-10 h-10 text-gray-400 transition-all duration-300 cursor-pointer -right-5 -top-5 hover:text-gray-900' />                    
+                  <XCircleIcon onClick={closeModal} className='absolute w-10 h-10 text-gray-400 transition-all duration-300 cursor-auto -right-5 -top-5 hover:text-gray-900' />                    
                   </div>
                   <Dialog.Title
                     as="div"

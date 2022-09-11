@@ -17,6 +17,8 @@ import {
 import { EventBriteEvent } from '../typings'
 import EventsList from './EventsList'
 import DatePicker from './DatePicker'
+// import { ThemeContext } from '../context/ThemeContext'
+import ThemeSetting from './ThemeSetting'
 
 interface CalendarProps {
   events: EventBriteEvent[]
@@ -28,6 +30,8 @@ interface CalendarProps {
 
   
 const Calendar = ({ events }: CalendarProps) => {
+  // const theme = useContext(ThemeContext)
+  // console.log('theme at calendar', theme?.theme)
   
   const [showFullCalendar, setShowFullCalendar] = useState(true)
 
@@ -58,7 +62,11 @@ const Calendar = ({ events }: CalendarProps) => {
 
 
     return ( 
+      <>
+      <ThemeSetting />
+
     <div className="flex flex-col-reverse md:grid md:grid-cols-2 md:divide-x md:divide-gray-200">
+
 
           <EventsList events={events} selectedDay={selectedDay} />
           <div className="md:pl-14">         
@@ -153,6 +161,8 @@ const Calendar = ({ events }: CalendarProps) => {
           </div>
         </div> 
       </div>
+      </>
+
      );
 }
 
