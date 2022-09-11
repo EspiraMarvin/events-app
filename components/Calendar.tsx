@@ -17,7 +17,7 @@ import {
 import { EventBriteEvent } from '../typings'
 import EventsList from './EventsList'
 import DatePicker from './DatePicker'
-import { ThemeContext } from '../context/ThemeContext'
+// import { ThemeContext } from '../context/ThemeContext'
 import ThemeSetting from './ThemeSetting'
 
 interface CalendarProps {
@@ -30,7 +30,7 @@ interface CalendarProps {
 
   
 const Calendar = ({ events }: CalendarProps) => {
-  const theme = useContext(ThemeContext)
+  // const theme = useContext(ThemeContext)
   // console.log('theme at calendar', theme?.theme)
   
   const [showFullCalendar, setShowFullCalendar] = useState(true)
