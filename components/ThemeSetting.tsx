@@ -38,7 +38,7 @@ export default function ThemeSetting() {
 
   return (
     <>
-    <div className="w-full px-2 text-lg divide-slate-400 dark:divide-slate-600 md:mx-auto lg:max-w-3xl ">
+    <div className="hidden w-full px-2 text-lg divide-slate-400 dark:divide-slate-600 md:mx-auto lg:max-w-3xl ">
         <div className="flex px-1.5 pt-3 text-black transition-all bg-white dark:bg-black dark:text-white">
         <div className="w-full">
           <RadioGroup value={selected} onChange={setSelected}>
