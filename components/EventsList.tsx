@@ -30,7 +30,7 @@ export default function EventsList({ events, selectedDay }: EventsListProps) {
   
 
   const searchEvent = (search: string) => (
-    memoizedEvents.map((event: EventBriteEvent)=> {
+     memoizedEvents.map((event: EventBriteEvent)=> {
       if (event.name.toLowerCase().includes(search.toLowerCase())){
         // console.log('event found', event.name)
         return (
@@ -38,12 +38,14 @@ export default function EventsList({ events, selectedDay }: EventsListProps) {
           <EventItem key={event.name} event={event} /> 
         </div>
         )
-      } else {
-        // console.log('event not found')
-        return false
-        // return <p className="p-3 pl-4 text-[16px] text-gray-400 dark:text-white">No Events Found.</p>
+      } 
+      if (!event.name.toLowerCase().includes(search.toLowerCase())){
+        // return false
+        return <p className="p-3 pl-4 text-[16px] text-gray-400 dark:text-white">No Events Found.</p>
       }
+      
     })
+
   )
 
   useEffect(() => {
