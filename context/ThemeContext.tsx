@@ -1,5 +1,4 @@
 import React,  { createContext, useEffect } from 'react';
-// import useTheme from '../hooks/useTheme';
 
 interface contextProviderProps {
     theme: string | undefined
@@ -29,6 +28,7 @@ export const ThemeProvider = ({initialTheme, children}: any) => {
     const [theme, setTheme] = React.useState<any>(getInitialTheme);
 
     const rawSetTheme = (rawTheme: any) => {
+        // const root = document.querySelector("html");
         const root = window.document.documentElement;
         const isDark = rawTheme === 'dark';
 
