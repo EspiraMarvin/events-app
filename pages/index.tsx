@@ -9,7 +9,7 @@ const Home = () =>  {
   const allEvents = useSelector(getAllEvents)
 
   return (
-    <ThemeProvider>
+    <ThemeProvider className="h-screen pt-12 bg-white md:h-screen dark:bg-black">
       <main className="h-screen pt-12 bg-white md:h-screen dark:bg-black">
         <div className="grid max-w-xs grid-cols-3 py-1 mx-auto lg:max-w-xl md:py-8 ">
           <div className="flex justify-center col-span-2 -mr-12 text-lg font-bold text-center text-black md:text-xl lg:text-2xl md:mr-0 -1 dark:text-white">
@@ -17,7 +17,7 @@ const Home = () =>  {
           </div>
           <ThemeSetting />
         </div>
-        <div className="max-w-md px-4 pt-6 mx-auto md:pt-5 sm:px-7 md:max-w-4xl md:px-6">
+        <div className="max-w-md pt-6 mx-auto md:pt-5 sm:px-7 md:max-w-4xl md:px-6">
           <Calendar events={allEvents} />
         </div>
       </main>
