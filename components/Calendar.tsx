@@ -17,8 +17,6 @@ import {
 import { EventBriteEvent } from '../typings'
 import EventsList from './EventsList'
 import DatePicker from './DatePicker'
-// import { ThemeContext } from '../context/ThemeContext'
-import ThemeSetting from './ThemeSetting'
 
 interface CalendarProps {
   events: EventBriteEvent[]
@@ -30,8 +28,6 @@ interface CalendarProps {
 
   
 const Calendar = ({ events }: CalendarProps) => {
-  // const theme = useContext(ThemeContext)
-  // console.log('theme at calendar', theme?.theme)
   
   const [showFullCalendar, setShowFullCalendar] = useState(true)
 
@@ -63,10 +59,7 @@ const Calendar = ({ events }: CalendarProps) => {
 
     return ( 
       <>
-      <ThemeSetting />
-
-    <div className="flex flex-col-reverse md:grid md:grid-cols-2 md:divide-x md:divide-gray-200">
-
+    <div className="flex flex-col-reverse bg-white md:grid md:grid-cols-2 md:divide-x md:divide-gray-200 md:dark:divide-gray-800 dark:bg-black">
 
           <EventsList events={events} selectedDay={selectedDay} />
           <div className="md:pl-14">         
@@ -74,28 +67,27 @@ const Calendar = ({ events }: CalendarProps) => {
           
           <div className={`${showFullCalendar && 'block'} ${!showFullCalendar && 'hidden'}`}>
               <div className="flex items-center pt-4 ">
-                <h2 className="flex-auto font-semibold text-gray-900">
+                <h2 className="flex-auto font-semibold text-gray-900 dark:text-gray-300">
                   {format(firstDayCurrentMonth, 'MMMM yyyy')}
                 </h2>
                 <button
                   type="button"
                   onClick={previousMonth}
-                  className="-my-1.5 flex flex-none items-center justify-center p-1.5 text-gray-400 hover:text-gray-500"
-                >
+                  className="-my-1.5 flex flex-none items-center justify-center p-1.5 text-gray-4008 hover:text-gray-500 hover:dark:text-gray-50">
                   <span className="sr-only">Previous month</span>
                   <ChevronLeftIcon className="w-5 h-5" aria-hidden="true" />
                 </button>
                 <button
                   onClick={nextMonth}
                   type="button"
-                  className="-my-1.5 -mr-1.5 ml-2 flex flex-none items-center justify-center p-1.5 text-gray-400 hover:text-gray-500"
+                  className="-my-1.5 -mr-1.5 ml-2 flex flex-none items-center justify-center p-1.5 text-gray-400 hover:text-gray-500 hover:dark:text-gray-50"
                 >
                   <span className="sr-only">Next month</span>
                   <ChevronRightIcon className="w-5 h-5" aria-hidden="true" />
                 </button>
               </div>
 
-              <div className="grid grid-cols-7 mt-10 text-xs leading-6 text-center text-gray-500">
+              <div className="grid grid-cols-7 mt-10 text-xs leading-6 text-center text-gray-500 dark:text-gray-400">
                 <div>S</div>
                 <div>M</div>
                 <div>T</div>
@@ -117,23 +109,23 @@ const Calendar = ({ events }: CalendarProps) => {
                       type="button"
                       onClick={() => setSelectedDay(day)}
                       className={classNames(
-                        isEqual(day, selectedDay) && 'text-white',
+                        isEqual(day, selectedDay) && 'text-white dark:text-black',
                         !isEqual(day, selectedDay) &&
                           isToday(day) &&
                           'text-red-500',
                         !isEqual(day, selectedDay) &&
                           !isToday(day) &&
                           isSameMonth(day, firstDayCurrentMonth) &&
-                          'text-gray-900',
+                          'text-gray-900 dark:text-gray-100',
                         !isEqual(day, selectedDay) &&
                           !isToday(day) &&
                           !isSameMonth(day, firstDayCurrentMonth) &&
-                          'text-gray-400',
+                          'text-gray-400 dark:text-gray-50',
                         isEqual(day, selectedDay) && isToday(day) && 'bg-red-500',
                         isEqual(day, selectedDay) &&
                           !isToday(day) &&
-                          'bg-gray-900',
-                        !isEqual(day, selectedDay) && 'hover:bg-gray-200',
+                          'bg-gray-900 dark:bg-gray-100',
+                        !isEqual(day, selectedDay) && 'hover:bg-gray-200 hover:dark:bg-gray-900',
                         (isEqual(day, selectedDay) || isToday(day)) &&
                           'font-semibold',
                         'mx-auto flex h-8 w-8 items-center justify-center rounded-full'
