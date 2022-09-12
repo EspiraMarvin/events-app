@@ -1,32 +1,28 @@
+import { ThemeProvider } from '../context/ThemeContext'
+import ThemeSetting from '../components/ThemeSetting'
 import Calendar from '../components/Calendar'
 import Script from 'next/script'
 import { useSelector } from 'react-redux'
 import { getAllEvents } from '../slices/eventSlice'
-import useTheme from '../hooks/useTheme'
-import { ThemeContext, ThemeProvider } from '../context/ThemeContext'
-import { useContext } from 'react'
 
 const Home = () =>  {
   const allEvents = useSelector(getAllEvents)
-  // const themeContext = useContext()
-  // const isTheme = useContext(ThemeContext)
-  // console.log('isTheme context at index.ts', isTheme?.theme)
-
-  // const theme = useTheme()
-  // console.log('theme at index.ts', theme.theme)
 
   return (
-    // <>
-     <ThemeProvider>
-      <main className="pt-12 bg-white dark:bg-black">
-        <div className="max-w-md px-4 mx-auto sm:px-7 md:max-w-4xl md:px-6">
+    <ThemeProvider>
+      <main className="h-screen pt-12 bg-white md:h-screen dark:bg-black">
+        <div className="grid max-w-xs grid-cols-3 py-1 mx-auto lg:max-w-xl md:py-8 ">
+          <div className="flex justify-center col-span-2 -mr-12 text-lg font-bold text-center text-black md:text-xl lg:text-2xl md:mr-0 -1 dark:text-white">
+            All Events Around You
+          </div>
+          <ThemeSetting />
+        </div>
+        <div className="max-w-md px-4 pt-6 mx-auto md:pt-5 sm:px-7 md:max-w-4xl md:px-6">
           <Calendar events={allEvents} />
         </div>
       </main>
-    <Script src="https://apis.google.com/js/api.js" strategy="lazyOnload" />
-     </ThemeProvider>
-  //  </>
-
+      <Script src="https://apis.google.com/js/api.js" strategy="lazyOnload" />
+    </ThemeProvider>
   )
 }
 

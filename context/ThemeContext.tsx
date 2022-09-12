@@ -1,45 +1,50 @@
 import React,  { createContext, useEffect } from 'react';
-import useTheme from '../hooks/useTheme';
+// import useTheme from '../hooks/useTheme';
 
 interface contextProviderProps {
+    theme: string | undefined
     setTheme: any
-    theme: any
 }
 
+const getInitialTheme = () => {
+    if (typeof window !== 'undefined' && window.localStorage) {
+        const storedPrefs = window.localStorage.getItem('all-events-color-theme');
+        if (typeof storedPrefs === 'string') {
+            return storedPrefs;
+        }
+
+        const userMedia = window.matchMedia('(prefers-color-scheme: dark)');
+        if (userMedia.matches) {
+            return 'dark';
+        }
+    }
+    return 'light';
+};
+
+export const ThemeContext = createContext<contextProviderProps | null>(null);
 
 
-export const ThemeContext = createContext<contextProviderProps | undefined>(undefined);
+export const ThemeProvider = ({initialTheme, children}: any) => {
 
-
-export const ThemeProvider = ({children}: any) => {
-    console.log('get Iintial theme at the cometes', useTheme())
-    
-    const getInitialTheme = useTheme().theme
-    console.log('get Iintial theme at the cometes', getInitialTheme)
-
-    const [theme, setTheme] = React.useState(getInitialTheme);
-
+    const [theme, setTheme] = React.useState<any>(getInitialTheme);
 
     const rawSetTheme = (rawTheme: any) => {
-        // console.log('THEME AT THEME CONTEXT', theme)
-        
         const root = window.document.documentElement;
         const isDark = rawTheme === 'dark';
 
-
         root.classList.remove(isDark ? 'light' : 'dark');
         root.classList.add(rawTheme);
+
         localStorage.setItem('all-events-color-theme', rawTheme);
     };
 
-    if (theme) {
+    if (initialTheme) {
         rawSetTheme(theme);
     }
 
     useEffect(() => {
         rawSetTheme(theme);
     }, [theme]);
-
 
     return (
         <ThemeContext.Provider value={{theme, setTheme}}>{children}</ThemeContext.Provider>
