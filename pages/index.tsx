@@ -13,7 +13,7 @@ const Home = () =>  {
       <main className="h-screen pt-12 bg-white md:h-screen dark:bg-black">
         <div className="grid max-w-xs grid-cols-3 py-1 mx-auto lg:max-w-xl md:py-8 ">
           <div className="flex justify-center col-span-2 -mr-12 text-lg font-bold text-center text-black md:text-xl lg:text-2xl 2xl:text-3xl md:mr-0 -1 dark:text-white text-shadow-md">
-            All Events Around You
+            Events Around You!
           </div>
           <ThemeSetting />
         </div>
