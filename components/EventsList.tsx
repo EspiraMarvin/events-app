@@ -31,8 +31,8 @@ export default function EventsList({ events, selectedDay }: EventsListProps) {
 
   const searchEvent = (search: string) => (
      memoizedEvents.map((event: EventBriteEvent)=> {
-      if (event.name.toLowerCase().includes(search.toLowerCase())){
-        // console.log('event found', event.name)
+      if (event.name.toLowerCase().includes(search.toLowerCase()) || event.location__1.toLowerCase().includes(search.toLowerCase()) || event.region.toLowerCase().includes(search.toLowerCase())){
+        // console.log('event found', event.name) 
         return (
         <div className="mt-2 text-sm">
           <EventItem key={event.name} event={event} /> 
