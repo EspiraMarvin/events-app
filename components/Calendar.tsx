@@ -59,7 +59,7 @@ const Calendar = ({ events }: CalendarProps) => {
 
     return ( 
       <>
-    <div className="flex flex-col-reverse bg-white md:grid md:grid-cols-2 md:divide-x md:divide-gray-200 md:dark:divide-gray-800 dark:bg-black">
+    <div className="flex flex-col-reverse px-4 bg-white md:grid md:grid-cols-2 md:divide-x md:divide-gray-200 md:dark:divide-gray-800 dark:bg-black ">
 
           <EventsList events={events} selectedDay={selectedDay} />
           <div className="md:pl-14">         
