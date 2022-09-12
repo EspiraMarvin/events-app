@@ -41,7 +41,7 @@ export default function EventsList({ events, selectedDay }: EventsListProps) {
       } 
       if (!event.name.toLowerCase().includes(search.toLowerCase())){
         // return false
-        return <p className="p-3 pl-4 text-[16px] text-gray-400 dark:text-white">No Events Found.</p>
+        return <p className="p-3 pl-4 text-[16px] text-gray-400 dark:text-gray-300">No Events Found.</p>
       }
       
     })
@@ -66,7 +66,7 @@ export default function EventsList({ events, selectedDay }: EventsListProps) {
   return (
     <section className="mt-12 md:mt-0 md:pr-10">
       <div className="flex items-center gap-x-4">
-        <h2 className={`font-semibold text-gray-900 ${showSearch && '-mt-2'}`}>
+        <h2 className={`font-semibold text-gray-900 dark:text-gray-300 ${showSearch && '-mt-2'}`}>
           Schedule for{' '}
           <time dateTime={format(selectedDay, 'yyyy-MM-dd')}>
             {format(selectedDay, 'MMM dd, yyy')}
@@ -112,7 +112,7 @@ export default function EventsList({ events, selectedDay }: EventsListProps) {
 
       {/* search events component */}
       { search.length > 0 && searchEvent(search) }
-      {/* { !searchEvent(search) &&  <p className="p-3 pl-4 text-[16px] text-gray-400 dark:text-white">No Events Found.</p>} */}
+      {/* { !searchEvent(search) &&  <p className="p-3 pl-4 text-[16px] text-gray-400 dark:text-gray-300">No Events Found.</p>} */}
 
 
        {
@@ -124,7 +124,7 @@ export default function EventsList({ events, selectedDay }: EventsListProps) {
       
               ))
             ) : (
-              <p className="p-3 pl-4 text-[16px] text-gray-400 dark:text-white">No Events for  {format(selectedDay, 'MMM dd, yyy')}.</p>
+              <p className="p-3 pl-4 text-[16px] text-gray-400 dark:text-gray-300">No Events for  {format(selectedDay, 'MMM dd, yyy')}.</p>
             )}
 
             </ol>
