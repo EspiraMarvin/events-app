@@ -35,7 +35,7 @@ export default function ShareEvent({ shareEvent }:any) {
             >
               <Popover.Panel className="absolute z-50 w-screen max-w-xs px-4 -mt-3 transform -translate-x-1/2 border-0 -top-10 left-3/4 sm:px-0 ">
                 <div className="flex items-center justify-center mx-auto overflow-hidden rounded-lg">
-                  <div className="relative z-50 grid gap-8 ml-5 bg-transparent lg:grid-cols-2">
+                  <div className="relative grid gap-8 ml-5 bg-transparent lg:grid-cols-2">
 
                   <div className="flex">
                     <a  href="https://facebook.com/sharer/sharer.php?u=" className="inline-flex items-center p-3 mb-1 mr-1 text-white transition duration-200 bg-blue-600 border-2 border-blue-600 rounded-lg ease hover:bg-blue-700 hover:border-blue-700" rel="noopener"  aria-label="Share on Facebook">
