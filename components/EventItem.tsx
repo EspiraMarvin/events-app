@@ -37,7 +37,7 @@ export default function EventItem({ event }: EventProps) {
     />
     <div className="flex-auto">
       <p className="text-gray-900 dark:text-gray-300">{event.name}</p>
-      <p className="mt-0.5">
+      <p className="mt-0.5 text-gray-400 dark:text-gray-600">
         <time dateTime={event.startDate}>
           {format(startDateTime, 'h:mm a')}
         </time>{' '}

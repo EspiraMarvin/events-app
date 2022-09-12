@@ -41,7 +41,7 @@ export default function EventsList({ events, selectedDay }: EventsListProps) {
       } 
       if (!event.name.toLowerCase().includes(search.toLowerCase())){
         // return false
-        return <p className="p-3 pl-4 text-[16px] text-gray-400">No Events Found.</p>
+        // return <p className="p-3 pl-4 text-[16px] text-gray-400">No Events Found.</p>
       }
       
     })
@@ -76,14 +76,16 @@ export default function EventsList({ events, selectedDay }: EventsListProps) {
           !showSearch &&
           <svg
           onClick={() => setShowSearch(true)} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" 
-          className={`mt-1 w-6 h-6 cursor-pointer ${showSearch && 'text-blue-600'}`}
+          className={`mt-1 w-6 h-6 text-gray-800 cursor-pointer dark:text-white ${showSearch && 'text-blue-600'}`}
          >
            <path fillRule="evenodd" d="M10.5 3.75a6.75 6.75 0 100 13.5 6.75 6.75 0 000-13.5zM2.25 10.5a8.25 8.25 0 1114.59 5.28l4.69 4.69a.75.75 0 11-1.06 1.06l-4.69-4.69A8.25 8.25 0 012.25 10.5z" clipRule="evenodd" />
          </svg>
         }
         {
           showSearch &&
-          <svg onClick={() => setShowSearch(false)}  xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-6 h-8 -mt-1 cursor-pointer">
+          <svg onClick={() => setShowSearch(false)}  xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" 
+          className="w-6 h-8 -mt-1 text-gray-800 cursor-pointer dark:text-white"
+          >
             <path fillRule="evenodd" d="M5.47 5.47a.75.75 0 011.06 0L12 10.94l5.47-5.47a.75.75 0 111.06 1.06L13.06 12l5.47 5.47a.75.75 0 11-1.06 1.06L12 13.06l-5.47 5.47a.75.75 0 01-1.06-1.06L10.94 12 5.47 6.53a.75.75 0 010-1.06z" clipRule="evenodd" />
           </svg>
         }
@@ -94,8 +96,8 @@ export default function EventsList({ events, selectedDay }: EventsListProps) {
       <div className='relative flex items-center'>
         <input 
           type="text" 
-          placeholder='Search event by location' 
-          className='w-full pl-2 mx-auto mt-2 border-black rounded-md h-9 ring-2 ring-offset-blue-800'
+          placeholder='Search event by name or location' 
+          className='w-full pl-2 mx-auto mt-2 border-black rounded-md dark:bg-black dark:border-white h-9 ring-2 focus:to-blue-300 ring-offset-blue-800 dark:text-white'
           value={search}
           onChange={(e: React.ChangeEvent<HTMLInputElement>) => setSearch(e.target.value)}
         />
