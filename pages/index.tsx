@@ -2,19 +2,31 @@ import Calendar from '../components/Calendar'
 import Script from 'next/script'
 import { useSelector } from 'react-redux'
 import { getAllEvents } from '../slices/eventSlice'
+import useTheme from '../hooks/useTheme'
+import { ThemeContext, ThemeProvider } from '../context/ThemeContext'
+import { useContext } from 'react'
 
 const Home = () =>  {
   const allEvents = useSelector(getAllEvents)
+  // const themeContext = useContext()
+  // const isTheme = useContext(ThemeContext)
+  // console.log('isTheme context at index.ts', isTheme?.theme)
+
+  // const theme = useTheme()
+  // console.log('theme at index.ts', theme.theme)
 
   return (
-    <>
-     <main className="pt-12">
-       <div className="max-w-md px-4 mx-auto sm:px-7 md:max-w-4xl md:px-6">
-        <Calendar events={allEvents} />
-      </div>
-    </main>
+    // <>
+     <ThemeProvider>
+      <main className="pt-12 bg-white dark:bg-black">
+        <div className="max-w-md px-4 mx-auto sm:px-7 md:max-w-4xl md:px-6">
+          <Calendar events={allEvents} />
+        </div>
+      </main>
     <Script src="https://apis.google.com/js/api.js" strategy="lazyOnload" />
-    </>
+     </ThemeProvider>
+  //  </>
+
   )
 }
 
