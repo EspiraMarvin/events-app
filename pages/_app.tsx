@@ -7,7 +7,7 @@ import { Provider } from 'react-redux'
 function MyApp({ Component, pageProps }: AppProps) {
   return (
   <Provider store={store}>
-    <Component className="bg-white dark:bg-black"{...pageProps} />
+    <Component className="h-full pt-12 bg-white md:h-screen dark:bg-black" {...pageProps} />
   </Provider>
   )
 
