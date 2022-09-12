@@ -169,7 +169,7 @@ const notify = () => {
   return (
     <div>
       <Transition appear show={isOpen} as={Fragment}>
-        <Dialog as="div" className="relative z-10" onClose={closeModal}>
+        <Dialog as="div" className="relative z-10 " onClose={closeModal}>
           <Transition.Child
             as={Fragment}
             enter="ease-out duration-300"
@@ -193,13 +193,13 @@ const notify = () => {
                 leaveFrom="opacity-100 scale-100"
                 leaveTo="opacity-0 scale-95"
               >
-                <Dialog.Panel className="w-full max-w-xl p-6 overflow-hidden text-left align-middle transition-all duration-300 transform bg-white shadow-xl rounded-2xl">
+                <Dialog.Panel className="w-full max-w-xl p-6 overflow-hidden text-left align-middle transition-all duration-300 transform bg-white shadow-2xl dark:border-[1px] dark:border-gray-900 dark:bg-black rounded-2xl">
                   <div className="relative ">
-                  <XCircleIcon onClick={closeModal} className='absolute w-10 h-10 text-gray-400 transition-all duration-300 cursor-auto -right-5 -top-5 hover:text-gray-900' />                    
+                  <XCircleIcon onClick={closeModal} className='absolute w-10 h-10 text-gray-400 transition-all duration-300 cursor-auto dark:text-gray-300 -right-5 -top-5 hover:text-gray-900 hover:dark:text-gray-100' />                    
                   </div>
                   <Dialog.Title
                     as="div"
-                    className="flex items-start text-lg font-medium leading-6 text-gray-900 row"
+                    className="flex items-start text-lg font-medium leading-6 text-gray-900 dark:text-gray-300 row"
                   >
                     <img
                       src={event.image}
@@ -214,7 +214,7 @@ const notify = () => {
                   <div className="mt-2 space-y-2 md:p-2 ">
                     <div className="px-4 py-2 text-sm">
 
-                    <p className="pb-3 text-sm text-gray-700">
+                    <p className="pb-3 text-sm text-gray-700 dark:text-gray-400 ">
                       {event.description}
                     </p>
 
@@ -222,16 +222,16 @@ const notify = () => {
                     <div className="grid pt-5 text-gray-500 md:flex md:justify-between">
                       
                       <div className="relative">
-                        <LocationMarkerIcon className='absolute w-8 h-6 text-blue-300 -left-5 -top-5 ' />
-                        <p className='mt-1'>{event.location}</p>
+                        <LocationMarkerIcon className='absolute w-8 h-6 text-blue-300 -z-50 -left-3 -top-5 ' />
+                        <p className='z-50 mt-1'>{event.location}</p>
                         <p>{event.street}</p>
                         <p>{event.postalCode}</p>
                         <p>{event.location__1},{event.region}</p>
-                      </div>
+                        </div>
 
                       <div className="relative mt-8 mr-2 md:mt-0 lg:mr-3">
-                      <ClockIcon className='absolute w-8 h-6 text-blue-300 -left-5 -top-5 ' />
-                      <div className="grid mt-1 gap-y-0.5">
+                      <ClockIcon className='absolute w-8 h-6 text-blue-300 -z-50 -left-5 -top-5 ' />
+                      <div className="grid z-50  mt-1 gap-y-0.5">
                         <p> Start Date: <span className="pl-0">{event.startDate}</span></p>
                         <p> End Date: <span className="pl-[7px]">{event.endDate}</span></p>
                       </div>
@@ -242,8 +242,6 @@ const notify = () => {
                     </div>
                   </div>
 
-
-                {/* <ShareEvent shareEvent={shareEvent} /> */}
 
 
                   <div className="flex mt-4 justify-evenly">
