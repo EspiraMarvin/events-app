@@ -73,7 +73,7 @@ const Calendar = ({ events }: CalendarProps) => {
                 <button
                   type="button"
                   onClick={previousMonth}
-                  className="-my-1.5 flex flex-none items-center justify-center p-1.5 text-gray-4008 hover:text-gray-500 hover:dark:text-gray-50">
+                  className="-my-1.5 flex flex-none items-center justify-center p-1.5 text-gray-400 hover:text-gray-500 hover:dark:text-gray-50">
                   <span className="sr-only">Previous month</span>
                   <ChevronLeftIcon className="w-5 h-5" aria-hidden="true" />
                 </button>
