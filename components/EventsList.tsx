@@ -41,7 +41,7 @@ export default function EventsList({ events, selectedDay }: EventsListProps) {
       } 
       if (!event.name.toLowerCase().includes(search.toLowerCase())){
         // return false
-        return <p className="p-3 pl-4 text-[16px] text-gray-400 dark:text-gray-300">No Events Found.</p>
+        return <p className="p-3 pl-4 text-[16px] text-gray-400">No Events Found.</p>
       }
       
     })
@@ -124,7 +124,7 @@ export default function EventsList({ events, selectedDay }: EventsListProps) {
       
               ))
             ) : (
-              <p className="p-3 pl-4 text-[16px] text-gray-400 dark:text-gray-300">No Events for  {format(selectedDay, 'MMM dd, yyy')}.</p>
+              <p className="p-3 pl-4 text-[16px] text-gray-500">No Events for  {format(selectedDay, 'MMM dd, yyy')}.</p>
             )}
 
             </ol>
