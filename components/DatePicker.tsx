@@ -10,10 +10,10 @@ export default function DatePicker({ showFullCalendar, toggleShowCalendar }: Dat
   return (
     <div className="flex md:hidden">
         <button
-            className='flex items-center justify-center w-full max-w-xs mx-auto border-2 shadow-xl h-14 gap-x-2'
+            className='flex items-center justify-center w-full max-w-xs mx-auto text-gray-700 border-2 shadow-xl  dark:text-gray-300 h-14 gap-x-2'
             onClick={toggleShowCalendar}
         >
-            <CalendarIcon className='w-6 h-6' />
+            <CalendarIcon className='w-6 h-6 ' />
             {showFullCalendar ? 'Hide Calendar' : 'Show Calendar'}
         </button>
     </div>
