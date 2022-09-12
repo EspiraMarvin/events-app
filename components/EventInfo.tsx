@@ -193,8 +193,8 @@ const notify = () => {
                 leaveFrom="opacity-100 scale-100"
                 leaveTo="opacity-0 scale-95"
               >
-                <Dialog.Panel className="w-full max-w-xl p-6 overflow-hidden text-left align-middle transition-all duration-300 transform bg-white shadow-2xl dark:border-[1px] dark:border-gray-900 dark:bg-black rounded-2xl">
-                  <div className="relative ">
+                <Dialog.Panel className="z-50 w-full max-w-xl p-6 overflow-hidden text-left align-middle transition-all duration-300 transform bg-white shadow-2xl dark:border-2 dark:border-gray-900 dark:bg-black rounded-2xl">
+                  <div className="relative -z-50">
                   <XCircleIcon onClick={closeModal} className='absolute w-10 h-10 text-gray-400 transition-all duration-300 cursor-auto dark:text-gray-300 -right-5 -top-5 hover:text-gray-900 hover:dark:text-gray-100' />                    
                   </div>
                   <Dialog.Title
