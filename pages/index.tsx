@@ -1,4 +1,3 @@
-import { ThemeProvider } from '../context/ThemeContext'
 import ThemeSetting from '../components/ThemeSetting'
 import Calendar from '../components/Calendar'
 import Script from 'next/script'
@@ -9,7 +8,7 @@ const Home = () =>  {
   const allEvents = useSelector(getAllEvents)
 
   return (
-    <ThemeProvider className="h-screen pt-12 bg-white md:h-screen dark:bg-black">
+    <>
       <main className="h-screen pt-12 bg-white md:h-screen dark:bg-black">
         <div className="grid max-w-xs grid-cols-3 py-1 mx-auto lg:max-w-xl md:py-8 ">
           <div className="flex justify-center col-span-2 -mr-12 text-xl font-bold text-center text-black md:text-xl lg:text-2xl 2xl:text-3xl md:mr-0 -1 dark:text-white text-shadow-md">
@@ -22,7 +21,7 @@ const Home = () =>  {
         </div>
       </main>
       <Script src="https://apis.google.com/js/api.js" strategy="lazyOnload" />
-    </ThemeProvider>
+    </>
   )
 }
 
