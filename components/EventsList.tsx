@@ -26,9 +26,6 @@ export default function EventsList({ events, selectedDay }: EventsListProps) {
     }
   )
   let memoizedEvents = useMemo(() => selectedDayEvents, [selectedDayEvents])
-  // const [filterResult, setFilterResult] = useState<EventBriteEvent[]>()
-
-
 
   const searchEvents = (search: string) => {
     const res = memoizedEvents.map(event => {
@@ -39,7 +36,6 @@ export default function EventsList({ events, selectedDay }: EventsListProps) {
           )
         }
     })
-    console.log('res', res)
     if (allAreUndefined(res)){
       return <p className="p-3 pl-4 text-[16px] text-gray-500">Results not found!</p>
     } else {
