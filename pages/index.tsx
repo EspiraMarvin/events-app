@@ -1,6 +1,5 @@
 import ThemeSetting from '../components/ThemeSetting'
 import Calendar from '../components/Calendar'
-import Script from 'next/script'
 import { useSelector } from 'react-redux'
 import { getAllEvents } from '../slices/eventSlice'
 
@@ -20,7 +19,6 @@ const Home = () =>  {
           <Calendar events={allEvents} />
         </div>
       </main>
-      <Script src="https://apis.google.com/js/api.js" strategy="lazyOnload" />
     </>
   )
 }
