@@ -5,6 +5,7 @@ interface contextProviderProps {
     setTheme: any
 }
 
+
 const getInitialTheme = () => {
     if (typeof window !== 'undefined' && window.localStorage) {
         const storedPrefs = window.localStorage.getItem('all-events-color-theme');
