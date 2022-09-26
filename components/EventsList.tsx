@@ -8,27 +8,36 @@ import {
 
 import EventItem from './EventItem'
 import useDebounce from '../hooks/useDebounce'
+import Pagination from './Pagination'
+
 interface EventsListProps {
   events: EventBriteEvent[]
   selectedDay: Date
 }
 
+let PageSize = 4
+
 export default function EventsList({ events, selectedDay }: EventsListProps) {
   const [search, setSearch] = useState('')
   const [showSearch, setShowSearch] = useState(false)
 
-  
   const debouncedSearch = useDebounce(search, 5000)
 
+
   let selectedDayEvents = events.filter((event: EventBriteEvent) =>{
-      let eventStartDateTime = event?.startDate
-        return isSameDay(parseISO(eventStartDateTime), selectedDay)
-    }
-  )
-  let memoizedEvents = useMemo(() => selectedDayEvents, [selectedDayEvents])
+    let eventStartDateTime = event?.startDate
+      return isSameDay(parseISO(eventStartDateTime), selectedDay)
+  }
+)
+  const [currentPage, setCurrentPage] = useState(1);
+  const finalEventsData = useMemo(() => {
+  const firstPageIndex = (currentPage - 1) * PageSize;
+  const lastPageIndex = firstPageIndex + PageSize;
+  return selectedDayEvents.slice(firstPageIndex, lastPageIndex);
+}, [currentPage, selectedDayEvents]);
 
   const searchEvents = (search: string) => {
-    const res = memoizedEvents.map(event => {
+    const res = finalEventsData.map(event => {
       if (event.name.toLowerCase()
         .includes(search.toLowerCase()) || event.location__1.toLowerCase().includes(search.toLowerCase()) || event.region.toLowerCase().includes(search.toLowerCase())){
           return  (
@@ -62,6 +71,7 @@ export default function EventsList({ events, selectedDay }: EventsListProps) {
   useEffect(() => {
      setShowSearch(false)
   }, [selectedDay])
+
 
   return (
     <section className="mt-12 md:mt-0 md:pr-10">
@@ -114,21 +124,31 @@ export default function EventsList({ events, selectedDay }: EventsListProps) {
           }
         </div>
        }
+       
 
       { search.length > 0 && searchEvents(search) }
+      
 
-
-      { search.length === 0 &&
-            <ol className="mt-3 mb-4 space-y-1 text-sm leading-6 text-gray-500">
-            {memoizedEvents.length > 0 ? (
-              memoizedEvents.map((event: EventBriteEvent) => (
+      { search.length === 0 && (
+        <>
+          <ol className="mt-3 mb-4 space-y-1 text-sm leading-6 text-gray-500">
+            {finalEventsData.length > 0 ? (
+              finalEventsData.map((event: EventBriteEvent) => (
                <EventItem key={event.name} event={event} /> 
               ))
             ) : (
               <p className="p-3 pl-4 text-[16px] text-gray-500">No Events for  {format(selectedDay, 'MMM dd, yyy')}.</p>
             )}
-            </ol>
-       }  
+            </ol> 
+            <Pagination
+              className="pagination-bar"
+              currentPage={currentPage}
+              totalCount={selectedDayEvents.length}
+              pageSize={PageSize}
+              onPageChange={(page: any) => setCurrentPage(page)}
+            />  
+        </>
+      )}  
   </section>
   )
 }
