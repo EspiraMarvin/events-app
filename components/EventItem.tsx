@@ -29,7 +29,7 @@ export default function EventItem({ event }: EventProps) {
 
   return (
     <div>
-    <li className="flex items-center w-full px-4 py-2 space-x-4 cursor-pointer group rounded-xl focus-within:bg-gray-100 hover:bg-gray-200 hover:dark:bg-gray-900" onClick={openModal}>
+    <li className="flex items-center w-full px-4 py-2 space-x-4 text-sm cursor-pointer group rounded-xl focus-within:bg-gray-100 hover:bg-gray-200 hover:dark:bg-gray-900" onClick={openModal}>
     <img
       src={event.image}
       alt=""
