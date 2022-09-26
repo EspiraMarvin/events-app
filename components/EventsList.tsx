@@ -18,39 +18,43 @@ export default function EventsList({ events, selectedDay }: EventsListProps) {
   const [showSearch, setShowSearch] = useState(false)
 
   
-  const debouncedSearch = useDebounce(search, 500)
+  const debouncedSearch = useDebounce(search, 5000)
 
   let selectedDayEvents = events.filter((event: EventBriteEvent) =>{
       let eventStartDateTime = event?.startDate
         return isSameDay(parseISO(eventStartDateTime), selectedDay)
     }
   )
-  
   let memoizedEvents = useMemo(() => selectedDayEvents, [selectedDayEvents])
-  
+  // const [filterResult, setFilterResult] = useState<EventBriteEvent[]>()
 
-  const searchEvent = (search: string) => (
-     memoizedEvents.map((event: EventBriteEvent)=> {
-      if (event.name.toLowerCase().includes(search.toLowerCase()) || event.location__1.toLowerCase().includes(search.toLowerCase()) || event.region.toLowerCase().includes(search.toLowerCase())){
-        // console.log('event found', event.name) 
-        return (
-        <div className="mt-2 text-sm">
-          <EventItem key={event.name} event={event} /> 
-        </div>
-        )
-      } 
-      if (!event.name.toLowerCase().includes(search.toLowerCase())){
-        // return false
-        // return <p className="p-3 pl-4 text-[16px] text-gray-400">No Events Found.</p>
-      }
-      
+
+
+  const searchEvents = (search: string) => {
+    const res = memoizedEvents.map(event => {
+      if (event.name.toLowerCase()
+        .includes(search.toLowerCase()) || event.location__1.toLowerCase().includes(search.toLowerCase()) || event.region.toLowerCase().includes(search.toLowerCase())){
+          return  (
+              <EventItem key={event.name} event={event} /> 
+          )
+        }
     })
+    console.log('res', res)
+    if (allAreUndefined(res)){
+      return <p className="p-3 pl-4 text-[16px] text-gray-500">Results not found!</p>
+    } else {
+      return res
+    }
+  }
 
-  )
+  const allAreUndefined = (arr: any) => {
+    return arr.every((element: any) => element === undefined)
+  }
 
+  
   useEffect(() => {
     if (debouncedSearch) {
-      searchEvent(search)
+      searchEvents(search)
     }
     
     if (showSearch !== true) {
@@ -93,44 +97,42 @@ export default function EventsList({ events, selectedDay }: EventsListProps) {
       </div>
 
       { showSearch &&
-      <div className='relative flex items-center'>
-        <input 
-          type="text" 
-          placeholder='Search event by name or location' 
-          className='w-full pl-2 mx-auto mt-2 border-black rounded-md dark:bg-black dark:border-white h-9 ring-2 focus:to-blue-300 ring-offset-blue-800 dark:text-white'
-          value={search}
-          onChange={(e: React.ChangeEvent<HTMLInputElement>) => setSearch(e.target.value)}
-        />
-        { search.length > 0 &&
-          <svg
-            onClick={() => setSearch('')} 
-            className="absolute w-6 h-8 mt-2 text-gray-500 right-2 "
-            xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
-            <path strokeLinecap="round" strokeLinejoin="round" d="M9.75 9.75l4.5 4.5m0-4.5l-4.5 4.5M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-          </svg>
-         }
-       </div>
+        <div className='relative flex items-center'>
+          <input 
+            type="text" 
+            placeholder='Search event by name or location' 
+            className='w-full pl-2 mx-auto mt-2 border-black rounded-md dark:bg-black dark:border-white h-9 ring-2 focus:to-blue-300 ring-offset-blue-800 dark:text-white'
+            value={search}
+            onChange={
+              // filterEvents
+              (e: React.ChangeEvent<HTMLInputElement>) => { setSearch(e.target.value)}
+            }
+          />
+          { search.length > 0 &&
+            <svg
+              onClick={() => setSearch('')} 
+              className="absolute w-6 h-8 mt-2 text-gray-500 right-2 "
+              xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" d="M9.75 9.75l4.5 4.5m0-4.5l-4.5 4.5M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+          }
+        </div>
        }
 
-      {/* search events component */}
-      { search.length > 0 && searchEvent(search) }
-      {/* { !searchEvent(search) &&  <p className="p-3 pl-4 text-[16px] text-gray-400 dark:text-gray-300">No Events Found.</p>} */}
+      { search.length > 0 && searchEvents(search) }
 
 
-       {
-        search.length === 0 &&
+      { search.length === 0 &&
             <ol className="mt-3 mb-4 space-y-1 text-sm leading-6 text-gray-500">
             {memoizedEvents.length > 0 ? (
               memoizedEvents.map((event: EventBriteEvent) => (
                <EventItem key={event.name} event={event} /> 
-      
               ))
             ) : (
               <p className="p-3 pl-4 text-[16px] text-gray-500">No Events for  {format(selectedDay, 'MMM dd, yyy')}.</p>
             )}
-
             </ol>
-       }
+       }  
   </section>
   )
 }
