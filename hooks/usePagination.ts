@@ -7,16 +7,6 @@ const range = (start: any, end:any) => {
     return Array.from({ length }, (_, idx) => idx + start);
   };
 
-//   interface paginationProps {
-//     onPageChange: () => void
-//     totalCount: number       
-//     siblingCount: number
-//     currentPage: number
-//     pageSize: number
-//     className?: string | string[]
-// }
-
-
   interface paginationProps {
     totalCount: any
     pageSize: any
