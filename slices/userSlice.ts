@@ -13,7 +13,7 @@ import type { PayloadAction } from '@reduxjs/toolkit'
 // Define the initial state using that type
 const initialState: stateData = {
     user: { name: "", id: ""},
-    isLoggedIn: false
+    isLoggedIn: true
 }
     
 export const userSlice = createSlice({
@@ -40,6 +40,6 @@ export const { signInUser, signOut } = userSlice.actions
 // export const getAlls = (state: RootState) => state.user.user
 
 
-// export const getEventsCount = (state: RootState) => state.event.events.length
+// export const getUsersCount = (state: RootState) => state.user.users.length
 
 export default userSlice.reducer

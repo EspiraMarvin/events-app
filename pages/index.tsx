@@ -2,12 +2,20 @@ import ThemeSetting from '../components/ThemeSetting'
 import Calendar from '../components/Calendar'
 import { useSelector } from 'react-redux'
 import { getAllEvents } from '../slices/eventSlice'
+import type { RootState } from '../store'
+import { useRouter } from "next/router"
 
 const Home = () =>  {
+  const router = useRouter()
+  const isLoggedIn = useSelector((state: RootState) => state.user.isLoggedIn)
   const allEvents = useSelector(getAllEvents)
-
   return (
     <>
+    {
+    !isLoggedIn ? 
+    router.push('/login')
+    : 
+    (
       <main className="h-screen pt-12 bg-white md:h-screen dark:bg-black">
         <div className="grid max-w-xs grid-cols-3 py-1 mx-auto lg:max-w-xl md:py-8 ">
           <div className="flex justify-center col-span-2 -mr-12 text-xl font-bold text-center text-black md:text-xl lg:text-2xl 2xl:text-3xl md:mr-0 -1 dark:text-white text-shadow-md">
@@ -19,6 +27,8 @@ const Home = () =>  {
           <Calendar events={allEvents} />
         </div>
       </main>
+    )
+    }
     </>
   )
 }
