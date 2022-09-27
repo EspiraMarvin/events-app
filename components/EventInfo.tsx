@@ -15,110 +15,110 @@ interface EventInfoProps {
 
 export default function EventInfo({ event, isOpen, closeModal }: EventInfoProps) {
 	
-const today = new Date();
-const date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
-const time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
-const dateTime = date+' '+time;
+// const today = new Date();
+// const date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
+// const time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+// const dateTime = date+' '+time;
 
 /* 
   Update with your own Client Id and Api key 
 */
-var CLIENT_ID = process.env.NEXT_PUBLIC_CLIENT_ID
-var API_KEY = process.env.NEXT_PUBLIC_API_KEY
-var DISCOVERY_DOCS = ["https://www.googleapis.com/discovery/v3/apis/calendar/v3/rest"]
-var SCOPES = "https://www.googleapis.com/auth/calendar.events"
+// var CLIENT_ID = process.env.NEXT_PUBLIC_CLIENT_ID
+// var API_KEY = process.env.NEXT_PUBLIC_API_KEY
+// var DISCOVERY_DOCS = ["https://www.googleapis.com/discovery/v3/apis/calendar/v3/rest"]
+// var SCOPES = "https://www.googleapis.com/auth/calendar.events"
 
 
-const authenticate =  () => {
-  // @ts-ignore: next line
-  let gapi:any = window.gapi
+// const authenticate =  () => {
+//   // @ts-ignore: next line
+//   let gapi:any = window.gapi
 
-  // console.log('window gapi', window.gapi)
+//   // console.log('window gapi', window.gapi)
 
-   gapi.load('client:auth2', () => {
-    console.log('loaded client')
+//    gapi.load('client:auth2', () => {
+//     console.log('loaded client')
 
-    gapi.client.init({
-      apiKey: API_KEY,
-      clientId: CLIENT_ID,
-      discoveryDocs: DISCOVERY_DOCS,
-      scope: SCOPES,
-      // redirect_uri: 'http://localhost:3000'
-    })
+//     gapi.client.init({
+//       apiKey: API_KEY,
+//       clientId: CLIENT_ID,
+//       discoveryDocs: DISCOVERY_DOCS,
+//       scope: SCOPES,
+//       // redirect_uri: 'http://localhost:3000'
+//     })
   
 
-    gapi.client.load('calendar', 'v3', () => {console.log('calendar m')})
+//     gapi.client.load('calendar', 'v3', () => {console.log('calendar m')})
 
-    gapi.auth2.getAuthInstance().signIn()
-    .then(() => {
+//     gapi.auth2.getAuthInstance().signIn()
+//     .then(() => {
       
-      console.log('signed in')
-      var event = {
-        'summary': 'Awesome Event!',
-        'location': '800 Howard St., San Francisco, CA 94103',
-        'description': 'Really great refreshments',
-        'start': {
-          'dateTime': '2020-06-28T09:00:00-07:00',
-          'timeZone': 'America/Los_Angeles'
-        },
-        'end': {
-          'dateTime': '2020-06-28T17:00:00-07:00',
-          'timeZone': 'America/Los_Angeles'
-        },
-        'recurrence': [
-          'RRULE:FREQ=DAILY;COUNT=2'
-        ],
-        'attendees': [
-          {'email': 'lpage@example.com'},
-          {'email': 'sbrin@example.com'}
-        ],
-        'reminders': {
-          'useDefault': false,
-          'overrides': [
-            {'method': 'email', 'minutes': 24 * 60},
-            {'method': 'popup', 'minutes': 10}
-          ]
-        }
-      }
+//       console.log('signed in')
+//       var event = {
+//         'summary': 'Awesome Event!',
+//         'location': '800 Howard St., San Francisco, CA 94103',
+//         'description': 'Really great refreshments',
+//         'start': {
+//           'dateTime': '2020-06-28T09:00:00-07:00',
+//           'timeZone': 'America/Los_Angeles'
+//         },
+//         'end': {
+//           'dateTime': '2020-06-28T17:00:00-07:00',
+//           'timeZone': 'America/Los_Angeles'
+//         },
+//         'recurrence': [
+//           'RRULE:FREQ=DAILY;COUNT=2'
+//         ],
+//         'attendees': [
+//           {'email': 'lpage@example.com'},
+//           {'email': 'sbrin@example.com'}
+//         ],
+//         'reminders': {
+//           'useDefault': false,
+//           'overrides': [
+//             {'method': 'email', 'minutes': 24 * 60},
+//             {'method': 'popup', 'minutes': 10}
+//           ]
+//         }
+//       }
 
-      var request = gapi.client.calendar.events.insert({
-        'calendarId': 'primary',
-        'resource': event,
-      })
+//       var request = gapi.client.calendar.events.insert({
+//         'calendarId': 'primary',
+//         'resource': event,
+//       })
 
-      request.execute((event: any) => {
-        console.log(event)
-        // window.open(event.htmlLink)
-      })
+//       request.execute((event: any) => {
+//         console.log(event)
+//         // window.open(event.htmlLink)
+//       })
       
 
-      /*
-          Uncomment the following block to get events
-      */
-      /*
-      // get events
-      gapi.client.calendar.events.list({
-        'calendarId': 'primary',
-        'timeMin': (new Date()).toISOString(),
-        'showDeleted': false,
-        'singleEvents': true,
-        'maxResults': 10,
-        'orderBy': 'startTime'
-      }).then(response => {
-        const events = response.result.items
-        console.log('EVENTS: ', events)
-      })
-      */
+//       /*
+//           Uncomment the following block to get events
+//       */
+//       /*
+//       // get events
+//       gapi.client.calendar.events.list({
+//         'calendarId': 'primary',
+//         'timeMin': (new Date()).toISOString(),
+//         'showDeleted': false,
+//         'singleEvents': true,
+//         'maxResults': 10,
+//         'orderBy': 'startTime'
+//       }).then(response => {
+//         const events = response.result.items
+//         console.log('EVENTS: ', events)
+//       })
+//       */
   
 
-    })
-  })
-}
+//     })
+//   })
+// }
 
 const notify = () => {
 
   //sign in
-  authenticate()
+  // authenticate()
 
 
   // toast('Here is your toast.');
@@ -135,7 +135,8 @@ const notify = () => {
           <div className="flex-shrink-0 pt-0.5">
             <img
               className="w-10 h-10 rounded-full"
-              src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixqx=6GHAjsWpt9&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2.2&w=160&h=160&q=80"
+              src="https://demofree.sirv.com/nope-not-here.jpg"
+              // src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixqx=6GHAjsWpt9&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2.2&w=160&h=160&q=80"
               alt=""
             />
           </div>
@@ -145,7 +146,8 @@ const notify = () => {
               Coming soon
             </p>
             <p className="mt-1 text-sm text-gray-500">
-              Sure! {dateTime} works great!
+              {/* Sure! {dateTime} works great! */}
+              You`ll be able to keep track of your events.
             </p>
           </div>
         </div>
@@ -195,7 +197,7 @@ const notify = () => {
               >
                 <Dialog.Panel className="z-50 w-full max-w-xl p-6 overflow-hidden text-left align-middle transition-all duration-300 transform bg-white shadow-2xl dark:border-2 dark:border-gray-900 dark:bg-black rounded-2xl">
                   <div className="relative -z-50">
-                  <XCircleIcon onClick={closeModal} className='absolute w-10 h-10 text-gray-400 transition-all duration-300 cursor-auto dark:text-gray-300 -right-5 -top-5 hover:text-gray-900 hover:dark:text-gray-100' />                    
+                  <XCircleIcon onClick={closeModal} className='absolute w-10 h-10 text-gray-400 transition-all duration-300 cursor-auto cursor-pointer dark:text-gray-300 -right-5 -top-5 hover:text-gray-900 hover:dark:text-gray-100' />                    
                   </div>
                   <Dialog.Title
                     as="div"
@@ -252,7 +254,7 @@ const notify = () => {
                       className="inline-flex justify-center px-4 py-2 text-sm font-medium text-blue-900 bg-blue-100 border border-transparent rounded-md hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
                       onClick={notify}
                     >
-                      Add Event/Set Reminder
+                      Add Event<span className='hidden sm:block'>/Set Reminder</span>
                     </button>
                   </div>
                 </Dialog.Panel>
