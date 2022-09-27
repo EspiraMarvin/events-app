@@ -18,23 +18,29 @@ interface EventsListProps {
 let PageSize = 4
 
 export default function EventsList({ events, selectedDay }: EventsListProps) {
+  // console.log('selectedDay', selectedDay)
   const [search, setSearch] = useState('')
   const [showSearch, setShowSearch] = useState(false)
 
   const debouncedSearch = useDebounce(search, 5000)
-
 
   let selectedDayEvents = events.filter((event: EventBriteEvent) =>{
     let eventStartDateTime = event?.startDate
       return isSameDay(parseISO(eventStartDateTime), selectedDay)
   }
 )
+
   const [currentPage, setCurrentPage] = useState(1);
-  const finalEventsData = useMemo(() => {
+  let finalEventsData = useMemo(() => {
   const firstPageIndex = (currentPage - 1) * PageSize;
   const lastPageIndex = firstPageIndex + PageSize;
-  return selectedDayEvents.slice(firstPageIndex, lastPageIndex);
+  if (selectedDayEvents.slice(firstPageIndex, lastPageIndex).length === 0) {
+    return selectedDayEvents
+  } else {
+    return selectedDayEvents.slice(firstPageIndex, lastPageIndex);
+  }
 }, [currentPage, selectedDayEvents]);
+
 
   const searchEvents = (search: string) => {
     const res = finalEventsData.map(event => {
