@@ -5,15 +5,16 @@ import type { PayloadAction } from '@reduxjs/toolkit'
  interface stateData {
     user: {
         name: string,
-        id: string
+        id: string,
+        credential: ''
     }
     isLoggedIn: boolean
  }
 
 // Define the initial state using that type
 const initialState: stateData = {
-    user: { name: "", id: ""},
-    isLoggedIn: true
+    user: { name: "", id: "", credential: ""},
+    isLoggedIn: false
 }
     
 export const userSlice = createSlice({
@@ -22,6 +23,8 @@ export const userSlice = createSlice({
   initialState,
   reducers: {
     signInUser: (state, action: PayloadAction<any>) => {
+      console.log('action payload', action.payload)
+        state.user.credential = action.payload.credential
         state.isLoggedIn = !state.isLoggedIn
         state.user.name = action.payload.name
         state.user.id = action.payload.id
@@ -30,6 +33,7 @@ export const userSlice = createSlice({
         state.user.name = ""
         state.user.id = ""
         state.isLoggedIn = !state.isLoggedIn
+        state.user.credential = ""
     }
   }
 })

@@ -7,7 +7,7 @@ export default function ThemeSetting() {
   const { theme, setTheme } =  useContext<any | null>(ThemeContext)
 
   return (
-    <div className="flex justify-end pr-4 md:pr-0 dark:text-white">
+    <div className="ml-3 dark:text-white hover:opacity-80">
 
         {theme === "dark" && <MoonIcon className='w-6 h-6 -mr-0.5 cursor-pointer' onClick={() => setTheme('light')} />  }
         

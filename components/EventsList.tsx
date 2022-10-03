@@ -139,8 +139,8 @@ export default function EventsList({ events, selectedDay }: EventsListProps) {
         <>
           <ol className="mt-3 mb-4 space-y-1 text-sm leading-6 text-gray-500">
             {finalEventsData.length > 0 ? (
-              finalEventsData.map((event: EventBriteEvent) => (
-               <EventItem key={event.name} event={event} /> 
+              finalEventsData.map((event: EventBriteEvent, index) => (
+               <EventItem key={index} event={event} /> 
               ))
             ) : (
               <p className="p-3 pl-4 text-[16px] text-gray-500">No Events for  {format(selectedDay, 'MMM dd, yyy')}.</p>

@@ -164,9 +164,6 @@ const notify = () => {
   ))
   closeModal()
 }
-
-
-
     
   return (
     <div>
