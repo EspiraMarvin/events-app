@@ -20,6 +20,11 @@ npm run dev
 # or
 yarn dev
 ```
+
+## with docker run
+
+> docker-compose up --build --force-recreate
+
 ###  set up testing with jest and RTL
 
 >>>>>

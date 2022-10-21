@@ -17,12 +17,12 @@ export default function Header() {
     </div>
     <div className="flex flex-row items-center justify-end gap-x-3">
         <ThemeSetting />
-        <div className="relative pl-3 hover:opacity-80">
+        {/* <div className="relative pl-3 hover:opacity-80">
             <button className=" dark:text-white">
                 <LogoutIcon onClick={logout} className="w-7 h-7" />
             </button>
             <div className="absolute p-0.5 text-xs border-[1px] border-blue-200 rounded-md opacity-100 -z-50 dark:text-white">logout</div>
-        </div>
+        </div> */}
     </div>
   </div>
   )

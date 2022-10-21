@@ -14,7 +14,7 @@ import type { PayloadAction } from '@reduxjs/toolkit'
 // Define the initial state using that type
 const initialState: stateData = {
     user: { name: "", id: "", credential: ""},
-    isLoggedIn: false
+    isLoggedIn: true
 }
     
 export const userSlice = createSlice({
