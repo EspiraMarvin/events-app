@@ -25,6 +25,10 @@ yarn dev
 
 > docker-compose up --build --force-recreate
 
+## with docker run (for production)
+
+> docker-compose -f docker-compose.production.yml up --build --force-recreate
+
 ###  set up testing with jest and RTL
 
 >>>>>

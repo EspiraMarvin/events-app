@@ -1,7 +1,7 @@
 version: '3.3'
 services:
   app:
-    image: 'events-app-img'
+    image: events_app-img
     build: .
     container_name: 'events_app_c'
     ports:
