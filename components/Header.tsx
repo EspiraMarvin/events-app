@@ -1,14 +1,14 @@
 import React from 'react'
 import ThemeSetting from './ThemeSetting'
-import { LogoutIcon } from '@heroicons/react/outline'
-import { signOut } from '../slices/userSlice'
-import { useDispatch } from 'react-redux'
+// import { LogoutIcon } from '@heroicons/react/outline'
+// import { signOut } from '../slices/userSlice'
+// import { useDispatch } from 'react-redux'
 
 export default function Header() {
-    const dispatch =  useDispatch()
-    const logout = () => {
-        dispatch(signOut())
-    }
+    // const dispatch =  useDispatch()
+    // const logout = () => {
+        // dispatch(signOut())
+    // }
 
   return (
     <div className="flex justify-center max-w-md py-1 mx-auto md:justify-between lg:max-w-xl md:py-8 ">
