@@ -10,4 +10,12 @@ COPY next.config.js ./next.config.js
 
 COPY . .
 
+# COPY pages ./pages
+
+# COPY public ./public
+
+# COPY slices ./slices
+
+# COPY styles ./styles
+
 CMD ["yarn", "dev"]
