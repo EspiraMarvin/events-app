@@ -29,28 +29,36 @@ export default function EventItem({ event }: EventProps) {
 
   return (
     <div>
-    <li className="flex items-center w-full px-4 py-2 space-x-4 text-sm cursor-pointer group rounded-xl focus-within:bg-gray-100 hover:bg-gray-200 hover:dark:bg-gray-900" onClick={openModal}>
-    <img
-      src={event.image}
-      alt=""
-      className="flex-none w-10 h-10 rounded-full"
-    />
-    <div className="flex-auto">
-      <p className="text-gray-900 dark:text-gray-300">{event.name}</p>
-      <p className="mt-0.5 text-gray-400 dark:text-gray-600">
-        <time dateTime={event.startDate}>
-          {format(startDateTime, 'h:mm a')}
-        </time>{' '}
-        -{' '}
-        <time dateTime={event.endDate}>
-          {format(endDateTime, 'h:mm a')}
-        </time>
-      </p>
+      <li
+        className="flex items-center w-full px-4 py-2 space-x-4 text-sm cursor-pointer group rounded-xl focus-within:bg-gray-100 hover:bg-gray-200 hover:dark:bg-gray-900"
+        onClick={openModal}
+      >
+        <img
+          src={event.image}
+          alt="fill"
+          loading="lazy"
+          className="flex-none w-10 h-10 rounded-full"
+        />
+        <div className="flex-auto">
+          <p className="text-gray-900 dark:text-gray-300">{event.name}</p>
+          <p className="mt-0.5 text-gray-400 dark:text-gray-600">
+            <time dateTime={event.startDate}>
+              {format(startDateTime, "h:mm a")}
+            </time>{" "}
+            -{" "}
+            <time dateTime={event.endDate}>
+              {format(endDateTime, "h:mm a")}
+            </time>
+          </p>
+        </div>
+      </li>
+
+      <EventInfo
+        key={event.name}
+        event={event}
+        isOpen={isOpen}
+        closeModal={closeModal}
+      />
     </div>
-  </li>  
-
-  <EventInfo key={event.name} event={event} isOpen={isOpen} closeModal={closeModal} />
-
- </div>
   )
 }

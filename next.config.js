@@ -2,8 +2,12 @@
 const nextConfig = {
   reactStrictMode: true,
   experimental: {
-    outputStandalone: true
-  }
+    outputStandalone: true,
+  },
+  images: {
+    domains: [""],
+  },
 }
 
 module.exports = nextConfig
+
