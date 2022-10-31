@@ -13,8 +13,8 @@ type InputType = {
 
 export default function AuthInput() {
   const [loading, setLoading] = useState<boolean>(false)
-  const [email] = useState<string>("test3@gmail.com")
-  const [password] = useState<string>("123pass")
+  const [email] = useState<string>("")
+  const [password] = useState<string>("")
 
   const [label, setLabel] = useState<string>("Login")
   const dispatch = useDispatch()
