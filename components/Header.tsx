@@ -1,29 +1,39 @@
 import React from 'react'
 import ThemeSetting from './ThemeSetting'
-// import { LogoutIcon } from '@heroicons/react/outline'
-// import { signOut } from '../slices/userSlice'
-// import { useDispatch } from 'react-redux'
+import { LogoutIcon } from "@heroicons/react/outline"
+import { getUserEmail, signOut } from "../slices/authSlice"
+
+import { useDispatch, useSelector } from "react-redux"
+import { useRouter } from "next/router"
 
 export default function Header() {
-    // const dispatch =  useDispatch()
-    // const logout = () => {
-        // dispatch(signOut())
-    // }
+  const router = useRouter()
+  const dispatch = useDispatch()
+  const userEmail = useSelector(getUserEmail)
+  const logout = () => {
+    dispatch(signOut())
+    router.replace("/auth")
+  }
 
   return (
-    <div className="flex justify-center max-w-md py-1 mx-auto md:justify-between lg:max-w-xl md:py-8 ">
-    <div className="col-span-2 px-2 text-xl font-bold text-center text-black md:text-xl lg:text-2xl 2xl:text-3xl md:mr-0 -1 dark:text-white text-shadow-md">
-      Events Around You!
-    </div>
-    <div className="flex flex-row items-center justify-end gap-x-3">
+    <div className="flex flex-col justify-center max-w-md py-1 mx-auto gap-y-4 md:flex-row md:justify-between md:py-8 lg:max-w-xl">
+      <div className="col-span-2 px-2 text-xl font-bold text-center text-black -1 text-shadow-md dark:text-white md:mr-0 md:text-xl lg:text-2xl 2xl:text-3xl">
+        Events Around You!
+      </div>
+      <div className="flex flex-row items-center justify-center gap-x-8 md:justify-end">
         <ThemeSetting />
-        {/* <div className="relative pl-3 hover:opacity-80">
-            <button className=" dark:text-white">
-                <LogoutIcon onClick={logout} className="w-7 h-7" />
-            </button>
-            <div className="absolute p-0.5 text-xs border-[1px] border-blue-200 rounded-md opacity-100 -z-50 dark:text-white">logout</div>
-        </div> */}
+        <div className="flex items-center justify-center w-6 text-black uppercase bg-gray-100 rounded-full cursor-pointer dark:bg-white dark:text-black">
+          {userEmail.slice(0, 1)}
+        </div>
+        <div className="relative hover:opacity-80">
+          <button className="dark:text-white">
+            <LogoutIcon onClick={logout} className="h-7 w-7" />
+          </button>
+          <div className="absolute -z-50 rounded-md border-[1px] border-blue-200 p-0.5 text-xs opacity-100 dark:text-white">
+            logout
+          </div>
+        </div>
+      </div>
     </div>
-  </div>
   )
 }

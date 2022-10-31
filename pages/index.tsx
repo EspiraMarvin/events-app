@@ -1,38 +1,18 @@
-import Header from '../components/Header'
-import Calendar from '../components/Calendar'
-import { useSelector } from 'react-redux'
-import { getAllEvents } from '../slices/eventSlice'
-import type { RootState } from '../store'
-// import { useRouter } from "next/router"
-import Login from "../components/Login"
+import { useSelector } from "react-redux"
+import { getIsLoggedIn } from "../slices/authSlice"
+import { useEffect } from "react"
+import { useRouter } from "next/router"
 
-const Home = () =>  {
-  const isLoggedIn = useSelector((state: RootState) => state.user.isLoggedIn)
-  const allEvents = useSelector(getAllEvents)
+const Home = () => {
+  const isLoggedIn = useSelector(getIsLoggedIn)
+  const router = useRouter()
 
-  return (
-    <>
-      {
-       !isLoggedIn 
-       ? 
-      <Login />
-       : 
-       <>
-        <main className="h-screen pt-12 bg-white md:h-screen dark:bg-black">
-          <Header />
-          <div className="max-w-md pt-6 mx-auto md:pt-5 sm:px-7 md:max-w-4xl md:px-6">
-            <Calendar events={allEvents} />
-          </div>
-         </main>
-       </>
-      }
-    </>
-  )
+  useEffect(() => {
+    !isLoggedIn ? router.push("/auth") : router.push("/events")
+  }, [isLoggedIn, router])
 }
 
 export default Home
-
-
 
 // const getMeetings = async () => {
 //   if (process.env.NODE_ENV === 'development') {
@@ -46,7 +26,6 @@ export default Home
 //   }
 // }
 
-
 // const getEvents = async () => {
 //   if (process.env.NODE_ENV === 'development') {
 //     const f = await fetch('http://localhost:3000/api/events')
@@ -59,10 +38,10 @@ export default Home
 //   }
 // }
 
-export const getServerSideProps =  async () => {
-
-  // const meetings = await getMeetings()
-  // const eventss = await getEvents()
+export const getServerSideProps = async () => {
+  // const events = await fetch("http://localhost:5000/api/events").then((res) =>
+  // res.json()
+  // )
   // console.log('events', events)
 
   // const [meetingss, eventss] = await Promise.all([
@@ -71,16 +50,11 @@ export const getServerSideProps =  async () => {
   // ])
 
   // console.log('process env', process.env.NODE_ENV)
-
-  // console.log('meetingss', meetingss)
   // console.log('eventss', eventss)
 
   return {
     props: {
-      // meetings,
-      // eventss,
-      // meetingss,
-      // eventss
-    }
+      // events,
+    },
   }
 }

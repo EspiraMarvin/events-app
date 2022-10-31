@@ -8,7 +8,7 @@ import { GoogleOAuthProvider } from '@react-oauth/google';
 function MyApp({ Component, pageProps }: AppProps) {
   return (
     <GoogleOAuthProvider clientId={`${process.env.NEXT_PUBLIC_CLIENT_ID}`}>
-      <ThemeProvider className="h-screen pt-12 bg-white md:h-screen dark:bg-black">
+      <ThemeProvider className="h-screen pt-12 bg-white dark:bg-black md:h-screen">
         <Provider store={store}>
           <Component {...pageProps} />
         </Provider>

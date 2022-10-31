@@ -43,6 +43,10 @@ export const { signInUser, signOut } = userSlice.actions
 // Other code such as selectors can use the imported `RootState` type
 // export const getAlls = (state: RootState) => state.user.user
 
+// export const fetchEvents = createAsyncThunk('post', async => {
+//   const response = await client.get('/api/events')
+//   return response.data
+// })
 
 // export const getUsersCount = (state: RootState) => state.user.users.length
 
