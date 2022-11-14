@@ -1,18 +1,17 @@
 import React from 'react'
 import ThemeSetting from './ThemeSetting'
 import { LogoutIcon } from "@heroicons/react/outline"
-import { getUserEmail, signOut } from "../slices/authSlice"
+import { getUserEmail } from "../slices/authSlice"
+import { signOut } from "next-auth/react"
 
-import { useDispatch, useSelector } from "react-redux"
-import { useRouter } from "next/router"
+import { useSelector } from "react-redux"
 
 export default function Header() {
-  const router = useRouter()
-  const dispatch = useDispatch()
+
   const userEmail = useSelector(getUserEmail)
-  const logout = () => {
-    dispatch(signOut())
-    router.replace("/auth")
+
+  function logout() {
+    signOut()
   }
 
   return (
@@ -29,7 +28,10 @@ export default function Header() {
           <button className="dark:text-white">
             <LogoutIcon onClick={logout} className="h-7 w-7" />
           </button>
-          <div className="absolute -z-50 rounded-md border-[1px] border-blue-200 p-0.5 text-xs opacity-100 dark:text-white">
+          <div
+            className="absolute -z-50 cursor-pointer rounded-md border-[1px] border-blue-200 p-1.5  text-xs opacity-100 dark:text-white"
+            onClick={logout}
+          >
             logout
           </div>
         </div>
