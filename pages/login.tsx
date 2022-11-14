@@ -50,15 +50,18 @@ export default function Login() {
 
       <section className="flex flex-col w-3/4 gap-10 mx-auto">
         <div className="title">
-          <h1 className="py-4 text-4xl font-bold text-gray-800">Explore</h1>
-          <p className="w-3/4 mx-auto text-gray-400">
+          <h1 className="text-4xl font-bold text-gray-800 md:py-4">Login</h1>
+          <p className="hidden w-3/4 mx-auto text-gray-400 2xl:inline">
             Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolores,
             officia?
           </p>
         </div>
 
         {/* form */}
-        <form className="flex flex-col gap-5" onSubmit={handleSubmit(onSubmit)}>
+        <form
+          className="flex flex-col gap-y-5"
+          onSubmit={handleSubmit(onSubmit)}
+        >
           <div
             className={`${styles.inputgroup} ${
               errors.email && "border-red-500"
@@ -70,7 +73,7 @@ export default function Login() {
               placeholder="Email"
               {...register("email", { required: true })}
             />
-            <span className="flex items-center px-4 icon">
+            <span className="flex items-center px-3 icon">
               <HiAtSymbol size={23} />
             </span>
           </div>
@@ -87,7 +90,7 @@ export default function Login() {
               {...register("password", { required: true })}
             />
             <span
-              className="icon flex cursor-pointer items-center px-4 hover:text-[#6366f1]"
+              className="icon flex cursor-pointer items-center px-3 hover:text-[#6366f1]"
               onClick={() => setShow((prevSt) => !prevSt)}
             >
               <HiFingerPrint size={23} />

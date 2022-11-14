@@ -8,5 +8,20 @@
   "extends": ["next/core-web-vitals", "eslint:recommended"],
   "rules": {
     "@next/next/no-img-element": 0
-  }
+  },
+  "plugins": ["testing-library"],
+  "overrides": [
+    // Only uses Testing Library lint rules in test files
+    {
+      "files": [
+        "**/__tests__/**/*.[jt]s?(x)",
+        "**/__tests__/**/*.[jt]t?(x)",
+
+        "**/?(*.)+(spec|test).[jt]s?(x)",
+        "**/?(*.)+(spec|test).[jt]t?(x)"
+
+      ],
+      "extends": ["plugin:testing-library/react"]
+    }
+  ]
 }
