@@ -1,15 +1,14 @@
 import styles from "../styles/Layout.module.css"
-import Image from "next/image"
 
 export default function Layout({ children }: any) {
   return (
-    <div className="flex h-screen mx-auto">
-      <Image
+    <div className={`${styles.layoutBackground}  "mx-auto h-screen" flex`}>
+      {/* <Image
         src="/images/festival.jpg"
         layout="fill"
         className="-z-10 opacity-70 "
         objectFit="cover"
-      />
+      /> */}
       <div className="grid m-auto bg-slate-50 md:h-3/4 md:w-3/5 md:rounded-md lg:grid-cols-3 2xl:grid-cols-2">
         <div className={styles.imgStyle}>
           <div className={styles.cartoonImg}></div>

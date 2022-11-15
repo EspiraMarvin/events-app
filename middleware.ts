@@ -1,6 +1,11 @@
 import { NextResponse, NextRequest } from "next/server"
 
+console.log("middleware run")
+
+
 export function middleware(req: NextRequest) {
+  console.log("req.cookies at middleware req", req)
+
   //   console.log("middleware file", req.nextUrl)
   //   return NextResponse.rewrite(req.nextUrl)
   // example function to validate auth
@@ -9,6 +14,8 @@ export function middleware(req: NextRequest) {
   // const { value, options } = response.cookies.getWithOptions("auth")
 
   if (req.cookies) {
+    console.log("req.cookies at middleware", req.cookies)
+
     // if (req.headers.has("Cookie")) {
     // console.log(req.cookies.getWithOptions("jwt") === undefined)
     console.log(req.cookies.getWithOptions("jwt") === undefined)

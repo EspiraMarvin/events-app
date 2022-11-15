@@ -1,19 +1,31 @@
-import React, { useContext } from 'react'
-import { ThemeContext } from '../context/ThemeContext';
-import { MoonIcon, SunIcon } from '@heroicons/react/solid'
-
+import React, { useContext } from "react"
+import { ThemeContext } from "../context/ThemeContext"
+import { MoonIcon, SunIcon } from "@heroicons/react/solid"
 
 export default function ThemeSetting() {
-  const { theme, setTheme } =  useContext<any | null>(ThemeContext)
+  const { theme, rawSetTheme } = useContext<any | null>(ThemeContext)
 
   return (
-    <div className="ml-3 dark:text-white hover:opacity-80">
+    <div className="hover:opacity-80 dark:text-white">
+      {theme === "dark" && (
+        <div
+          className="flex items-center justify-center gap-x-3"
+          onClick={() => rawSetTheme("light")}
+        >
+          <div className="md:hidden">Toggle Theme </div>
+          <MoonIcon className="cursor-pointer h-7 w-7 md:h-9 md:w-9" />
+        </div>
+      )}
 
-        {theme === "dark" && <MoonIcon className='w-6 h-6 -mr-0.5 cursor-pointer' onClick={() => setTheme('light')} />  }
-        
-        {theme === "light" && <SunIcon className='w-6 h-6 cursor-pointer' onClick={() => setTheme('dark')}  /> }   
-
+      {theme === "light" && (
+        <div
+          className="flex justify-center tems-center gap-x-3"
+          onClick={() => rawSetTheme("dark")}
+        >
+          <div className="md:hidden"> Toggle Theme</div>
+          <SunIcon className="cursor-pointer h-7 w-7 md:h-9 md:w-9" />
+        </div>
+      )}
     </div>
   )
 }
-

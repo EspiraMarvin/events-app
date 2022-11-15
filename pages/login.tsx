@@ -11,6 +11,8 @@ import { useRouter } from "next/router"
 
 export default function Login() {
   const [show, setShow] = useState(false)
+  const [loading, setLoading] = useState(false)
+
   const router = useRouter()
 
   const {
@@ -21,6 +23,7 @@ export default function Login() {
 
   // credentials
   const onSubmit = async ({ email, password }: any) => {
+    setLoading(true)
     const status: any = await signIn("credentials", {
       redirect: false,
       email: email,
@@ -29,16 +32,24 @@ export default function Login() {
     })
 
     if (status.ok) {
+      setLoading(false)
       router.push(status.url)
+    } else {
+      setLoading(false)
     }
   }
 
+  const EVENTS_AUTH_CALLBACK =
+    process.env.NODE_ENV !== "development"
+      ? "https://events-all.vercel.app"
+      : "http://localhost:3000"
+
   // google
   const handleGoogleSignin = async () => {
-    signIn("google", { callbackUrl: "http://localhost:3000" })
+    signIn("google", { callbackUrl: EVENTS_AUTH_CALLBACK })
   }
   const handleGithubSignin = async () => {
-    signIn("github", { callbackUrl: "http://localhost:3000" })
+    signIn("github", { callbackUrl: EVENTS_AUTH_CALLBACK })
   }
   return (
     <Layout>
@@ -59,7 +70,7 @@ export default function Login() {
 
         {/* form */}
         <form
-          className="flex flex-col gap-y-5"
+          className="flex flex-col gap-y-5 "
           onSubmit={handleSubmit(onSubmit)}
         >
           <div
@@ -100,7 +111,7 @@ export default function Login() {
           {/* login buttons */}
           <div className="input-button">
             <button className={styles.button} type="submit">
-              Login
+              {!loading ? "Login" : "Loading"}
             </button>
           </div>
           <div className="input-button">

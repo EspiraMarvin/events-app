@@ -14,6 +14,11 @@ export default function Register() {
 
   const router = useRouter()
 
+  const EVENTS_API =
+    process.env.NODE_ENV !== "development"
+      ? "https://eventsall.onrender.com"
+      : "http://localhost:5000"
+
   const {
     register,
     handleSubmit,
@@ -39,7 +44,7 @@ export default function Register() {
     const data = { email, password }
 
     await axios
-      .post("http://localhost:5000/api/auth/register", data)
+      .post(`${EVENTS_API}/api/auth/register `, data)
       .then((res) => {
         console.log("rress", res)
         if (data) router.push("/")

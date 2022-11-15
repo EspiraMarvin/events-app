@@ -1,4 +1,8 @@
-
+.layoutBackground {
+    background: url('/images/festival.jpg')  no-repeat;
+    @apply  flex h-screen 
+ 
+ }
 .imgStyle {
     @apply  bg-gradient-to-r from-blue-500 to-indigo-500 rounded-l-md;
     position: relative;
@@ -14,11 +18,6 @@
     background-size: cover;
     background-position: 1%;
     z-index: 1;
+    @apply opacity-50
 }
 
-.layoutBackground {
-    /* not used */
-   background: url('/images/festival.jpg')  no-repeat;
-   @apply  flex h-screen
-
-}

@@ -26,4 +26,9 @@
   .authInput {
     @apply py-3 pl-2 italic placeholder-gray-100 border-b-[2px] rounded-sm outline-none placeholder:italic text-white bg-slate-400/50 border-slate-100 focus:border-red-800/70 hover:border-red-800/70 transition-all ;
   }
+
+  .bgNav {
+    -webkit-backdrop-filter: blur(12px);
+    backdrop-filter: blur(12px);
+  }
 }

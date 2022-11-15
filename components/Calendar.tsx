@@ -53,6 +53,7 @@ const Calendar = ({ events }: CalendarProps) => {
     setCurrentMonth(format(firstDayNextMonth, "MMM-yyyy"))
   }
 
+
   return (
     <>
       <div className="flex flex-col-reverse px-4 bg-white dark:bg-black md:grid md:grid-cols-2 md:divide-x md:divide-gray-200 md:dark:divide-gray-800 ">
