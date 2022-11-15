@@ -1,0 +1,47 @@
+.inputgroup { 
+    @apply flex border rounded-xl;
+    position: relative;
+}
+
+.inputtext{
+    @apply w-full px-6 py-4 border border-none rounded-xl bg-slate-50 focus:outline-none;
+}
+
+.button{
+    @apply w-full rounded-md bg-gradient-to-r from-blue-500 to-indigo-500;
+    @apply py-3 text-gray-50 text-lg
+}
+
+.button:hover{
+    @apply text-gray-700 transition-all duration-300 border border-blue-500 bg-gradient-to-t from-indigo-100 to-gray-100;
+}
+
+.button_custom{
+    @apply flex justify-center w-full gap-2 py-3 border hover:bg-gray-200;
+}
+
+
+.inputtext + *{
+    color: #CBD5E1
+}
+
+
+.inputtext:focus + * {
+    color: #6366f1
+}
+
+/*  this below is the same as tailwindcss class cursor-pointer & hover:text-[#6366f1] */
+/* it selects type of password and not email, the the span tag and adds hover property, then cursor pointer & finally color of the fingerprint*/
+/* .inputtext:not([type=email]) ~ span:hover *{
+    color: #6366f1;
+    cursor: pointer;
+} */
+
+
+.inputLoginFormError {
+    @apply flex items-start p-1 text-[13px] font-light text-red-500 -mt-3 -mb-2
+  }
+  
+  .inputRegFormError {
+    @apply flex items-start p-1 text-[13px] font-light text-red-500 -mt-4 -mb-4
+  }

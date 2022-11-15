@@ -1,21 +1,20 @@
-import '../styles/globals.css'
-import type { AppProps } from 'next/app'
-import { Provider } from 'react-redux'
-import { ThemeProvider } from '../context/ThemeContext'
-import { store } from '../store'
-import { GoogleOAuthProvider } from '@react-oauth/google';
+import "../styles/globals.css"
+import type { AppProps } from "next/app"
+import { Provider } from "react-redux"
+import { ThemeProvider } from "../context/ThemeContext"
+import { store } from "../store"
+import { SessionProvider } from "next-auth/react"
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
-    <GoogleOAuthProvider clientId={`${process.env.NEXT_PUBLIC_CLIENT_ID}`}>
-      <ThemeProvider className="h-screen pt-12 bg-white dark:bg-black md:h-screen">
+    <ThemeProvider>
+      <SessionProvider session={pageProps.session}>
         <Provider store={store}>
           <Component {...pageProps} />
         </Provider>
-      </ThemeProvider>
-    </GoogleOAuthProvider>
+      </SessionProvider>
+    </ThemeProvider>
   )
-
 }
 
 export default MyApp
