@@ -1,6 +1,5 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react"
 
-
 const EVENTS_URL =
   process.env.NODE_ENV !== "development"
     ? "https://eventsall.onrender.com/api"
@@ -9,7 +8,7 @@ const EVENTS_URL =
 export const apiSlice = createApi({
   reducerPath: "api",
   baseQuery: fetchBaseQuery({
-    baseUrl: EVENTS_URL,
+    baseUrl: `${EVENTS_URL}`,
   }),
   endpoints(builder) {
     return {

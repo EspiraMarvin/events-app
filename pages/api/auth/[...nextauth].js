@@ -4,6 +4,12 @@ import GitHubProvider from "next-auth/providers/github"
 import CredentialProvider from "next-auth/providers/credentials"
 import jwtDecode from "jwt-decode"
 
+
+const EVENTS_API =
+  process.env.NODE_ENV !== "development"
+    ? "https://eventsall.onrender.com"
+    : "http://localhost:5000"
+
 export default NextAuth({
   providers: [
     // Google Provider
@@ -23,7 +29,7 @@ export default NextAuth({
           password: credentials.password,
         }
 
-        const res = await fetch("http://localhost:5000/api/auth/login", {
+        const res = await fetch(`${EVENTS_API}/api/auth/login`, {
           method: "POST",
           body: JSON.stringify(payload),
           headers: {
@@ -38,12 +44,8 @@ export default NextAuth({
         }
         // If no error and we have user data, return it
         if (res.ok && user) {
-          console.log("user accessToken", user.accessToken)
-
           const decoded = jwtDecode(user.accessToken)
           const { email, roles } = decoded ? decoded.UserInfo : null
-          console.log("email at session", email)
-          console.log("roles at session", roles)
 
           return { email, roles }
         } else {
