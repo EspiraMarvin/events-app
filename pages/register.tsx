@@ -1,7 +1,6 @@
 import Head from "next/head"
 import Layout from "../layout/layout"
 import Link from "next/link"
-import Image from "next/image"
 import styles from "../styles/Form.module.css"
 import { HiAtSymbol, HiFingerPrint, HiOutlineUser } from "react-icons/hi"
 import { useState } from "react"

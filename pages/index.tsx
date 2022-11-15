@@ -50,7 +50,6 @@ function User({ session, users }: any) {
 
   const allEvents = useSelector(getAllEvents)
 
-  console.log("allEvents", allEvents)
 
   return (
     <main className="">
