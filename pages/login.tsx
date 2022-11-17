@@ -60,12 +60,12 @@ export default function Login() {
 
   // google
   const handleGoogleSignin = async () => {
-    process.env.NODE_ENV !== "development"
+    process.env.NODE_ENV === "development"
       ? signIn("google", { callbackUrl: EVENTS_AUTH_CALLBACK })
       : warnGuestUser()
   }
   const handleGithubSignin = async () => {
-    process.env.NODE_ENV !== "development"
+    process.env.NODE_ENV === "development"
       ? signIn("github", { callbackUrl: EVENTS_AUTH_CALLBACK })
       : warnGuestUser()
   }
