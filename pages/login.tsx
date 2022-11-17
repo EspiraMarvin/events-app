@@ -3,6 +3,7 @@ import Layout from "../layout/layout"
 import Link from "next/link"
 import styles from "../styles/Form.module.css"
 import Image from "next/image"
+import { getSession } from "next-auth/react"
 import { HiAtSymbol, HiFingerPrint } from "react-icons/hi"
 import { useState } from "react"
 import { signIn } from "next-auth/react"
@@ -23,18 +24,18 @@ export default function Login() {
 
   // credentials
   const onSubmit = async ({ email, password }: any) => {
-    setLoading(true)
-    const status: any = await signIn("credentials", {
-      redirect: false,
-      email: email,
-      password: password,
-      callbackUrl: "/",
-    })
+    try {
+      setLoading(true)
+      const status: any = await signIn("credentials", {
+        redirect: false,
+        email: email,
+        password: password,
+        callbackUrl: "/",
+      })
 
-    if (status.ok) {
-      setLoading(false)
       router.push(status.url)
-    } else {
+    } catch (error) {
+    } finally {
       setLoading(false)
     }
   }
@@ -111,7 +112,7 @@ export default function Login() {
           {/* login buttons */}
           <div className="input-button">
             <button className={styles.button} type="submit">
-              {!loading ? "Login" : "Loading"}
+              {!loading ? "Login" : "Loading..."}
             </button>
           </div>
           <div className="input-button">
@@ -156,4 +157,14 @@ export default function Login() {
       </section>
     </Layout>
   )
+}
+
+export async function getServerSideProps({ req }: any) {
+  const session = await getSession({ req })
+
+  if (session) return { redirect: { destination: "/", permanent: false } }
+
+  return {
+    props: { session },
+  }
 }

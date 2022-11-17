@@ -1,26 +1,28 @@
 import Link from "next/link"
 import Image from "next/image"
-import React, { useState } from "react"
+import React, { useEffect, useState } from "react"
 import { LogoutIcon } from "@heroicons/react/outline"
 import ThemeSetting from "./ThemeSetting"
-import { signOut } from "next-auth/react"
+import { signOut, getSession } from "next-auth/react"
 import { getUserSession } from "../slices/authSlice"
 import { useSelector } from "react-redux"
 
-export default function NavBar() {
+interface NavBarProps {
+  user: any
+}
+export default function NavBar({}) {
   const [navbar, setNavbar] = useState(false)
-
-  const userSession = useSelector(getUserSession)
+  const user = useSelector(getUserSession)
 
   function logout() {
     signOut()
   }
 
   return (
-    <nav className="fixed top-0 z-10 w-full px-2 py-2 shadow bgNav bg-white/10 bg-gradient-to-r from-indigo-500 via-green-500/10 to-indigo-500 md:px-5">
+    <nav className="fixed top-0 z-10 w-full px-2 py-1 shadow bgNav bg-white/10 bg-gradient-to-r from-indigo-500 via-green-500/10 to-indigo-500 md:px-5">
       <div className="justify-between px-4 mx-auto md:flex md:items-center md:px-8 lg:max-w-7xl">
         <div>
-          <div className="flex items-center justify-between py-2 md:block md:py-2 xl:py-0">
+          <div className="flex items-center justify-between py-2 md:py-2">
             <Link href="/">
               <Image
                 src="/images/logo.png"
@@ -86,14 +88,14 @@ export default function NavBar() {
               <li className="text-black hover:text-indigo-200 dark:text-white">
                 <a href="javascript:void(0)">Contact US</a>
               </li> */}
-              <li className="hidden w-full py-2 pl-1 text-black hover:text-indigo-200 dark:text-white md:dark:text-black">
+              {/* <li className="hidden w-full py-2 pl-1 text-black hover:text-indigo-200 dark:text-white md:dark:text-black">
                 <Link href={"/profile"}>Profile</Link>
-              </li>
+              </li> */}
             </ul>
 
             <div className="flex flex-col mt-4 space-y-5 items md:hidden">
-              <div className="inline-block w-full px-4 py-4 text-center text-white bg-gray-600 rounded-md shadow cursor-pointer hover:bg-gray-800">
-                <ThemeSetting />
+              <div className="flex items-center justify-center w-full px-4 py-4 text-center text-white bg-gray-600 rounded-md shadow cursor-pointer gap-x-4 hover:bg-gray-800">
+                Toggle Icon Theme <ThemeSetting />
               </div>
               <div
                 className="inline-block w-full px-4 py-4 text-center text-gray-800 bg-white rounded-md shadow hover:bg-gray-100"
@@ -109,18 +111,20 @@ export default function NavBar() {
             <ThemeSetting />
           </div>
           <div className="flex items-center justify-center p-1 uppercase bg-indigo-200 border-2 border-indigo-500 rounded-full cursor-pointer ">
-            {userSession.image ? (
+            {user?.image ? (
               <Image
-                src={userSession.image}
+                src={user.image}
                 className="rounded-full"
                 height={36}
                 width={36}
                 alt="image"
               />
             ) : (
-              <div className="flex items-center justify-center text-xl rounded-full h-9 w-9">
-                {userSession.email.slice(0, 1)}
-              </div>
+              user.email && (
+                <div className="flex items-center justify-center text-xl rounded-full h-9 w-9">
+                  {user?.email}
+                </div>
+              )
             )}
           </div>
           <div
@@ -136,4 +140,14 @@ export default function NavBar() {
       </div>
     </nav>
   )
+}
+
+export async function getServerSideProps({ req }: any) {
+  const session = await getSession({ req })
+
+  if (!session) return { redirect: { destination: "/login", permanent: false } }
+
+  return {
+    props: { session },
+  }
 }

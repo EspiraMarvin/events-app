@@ -52,16 +52,14 @@ function User({ session, users }: any) {
 
 
   return (
-    <main className="">
-      <main className="h-screen bg-white dark:bg-black md:h-screen">
-        <NavBar />
-        <div className="px-2 text-xl font-bold text-center text-black pt-28 text-shadow-md dark:text-white md:mr-0 md:pb-10 md:pt-36 md:text-xl lg:text-2xl 2xl:text-3xl">
-          Events Around You!!!
-        </div>
-        <div className="max-w-md py-6 mx-auto sm:px-7 md:max-w-4xl md:px-2 md:py-10">
-          <Calendar events={allEvents} />
-        </div>
-      </main>
+    <main className="h-screen bg-white dark:bg-black md:h-screen">
+      <NavBar />
+      <div className="px-2 text-xl font-bold text-center text-black pt-28 text-shadow-md dark:text-white md:mr-0 md:pb-10 md:pt-36 md:text-xl lg:text-2xl 2xl:text-3xl">
+        Events Around You!
+      </div>
+      <div className="max-w-md py-6 mx-auto sm:px-7 md:max-w-4xl md:px-2 md:py-10">
+        <Calendar events={allEvents} />
+      </div>
     </main>
   )
 }

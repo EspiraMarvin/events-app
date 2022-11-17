@@ -12,7 +12,6 @@ export default function ThemeSetting() {
           className="flex items-center justify-center gap-x-3"
           onClick={() => rawSetTheme("light")}
         >
-          <div className="md:hidden">Toggle Theme </div>
           <MoonIcon className="cursor-pointer h-7 w-7 md:h-9 md:w-9" />
         </div>
       )}
@@ -22,7 +21,7 @@ export default function ThemeSetting() {
           className="flex justify-center tems-center gap-x-3"
           onClick={() => rawSetTheme("dark")}
         >
-          <div className="md:hidden"> Toggle Theme</div>
+          {/* <div className="md:hidden"> Toggle Theme</div> */}
           <SunIcon className="cursor-pointer h-7 w-7 md:h-9 md:w-9" />
         </div>
       )}
