@@ -4,7 +4,6 @@ import GitHubProvider from "next-auth/providers/github"
 import CredentialProvider from "next-auth/providers/credentials"
 import jwtDecode from "jwt-decode"
 
-
 const EVENTS_API =
   process.env.NODE_ENV !== "development"
     ? "https://eventsall.onrender.com"
@@ -54,5 +53,6 @@ export default NextAuth({
       },
     }),
   ],
-  secret: process.env.NEXTAUTH_SECRET,
+  // secret: process.env.NEXTAUTH_SECRET,
+  secret: "sdfsjdfsoersdf34534ksveoitnhfkcjdbh3345csfd",
 })
