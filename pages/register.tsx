@@ -61,7 +61,7 @@ export default function Register() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <section className="flex flex-col w-full mx-auto md:w-3/4">
+      <section className="flex flex-col w-full mx-auto gap-7 md:w-3/4">
         <div className="-mt-10 title md:-mt-0">
           <h1 className="text-2xl font-bold text-gray-800 pb-14 md:py-4 md:text-4xl">
             Register
