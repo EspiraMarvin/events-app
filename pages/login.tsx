@@ -5,10 +5,11 @@ import styles from "../styles/Form.module.css"
 import Image from "next/image"
 import { getSession } from "next-auth/react"
 import { HiAtSymbol, HiFingerPrint } from "react-icons/hi"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { signIn } from "next-auth/react"
 import { useForm } from "react-hook-form"
 import { useRouter } from "next/router"
+import toast, { Toaster } from "react-hot-toast"
 
 export default function Login() {
   const [show, setShow] = useState(false)
@@ -42,10 +43,14 @@ export default function Login() {
 
       router.push(status.url)
     } catch (error) {
-      console.log("error at login", error)
+      // console.log("error at login", error)
     } finally {
       setLoading(false)
     }
+  }
+
+  const warnGuestUser = () => {
+    toast.error("Sorry! Only for test users.")
   }
 
   const EVENTS_AUTH_CALLBACK =
@@ -55,10 +60,14 @@ export default function Login() {
 
   // google
   const handleGoogleSignin = async () => {
-    signIn("google", { callbackUrl: EVENTS_AUTH_CALLBACK })
+    process.env.NODE_ENV !== "development"
+      ? signIn("google", { callbackUrl: EVENTS_AUTH_CALLBACK })
+      : warnGuestUser()
   }
   const handleGithubSignin = async () => {
-    signIn("github", { callbackUrl: EVENTS_AUTH_CALLBACK })
+    process.env.NODE_ENV !== "development"
+      ? signIn("github", { callbackUrl: EVENTS_AUTH_CALLBACK })
+      : warnGuestUser()
   }
   return (
     <Layout>
@@ -167,6 +176,7 @@ export default function Login() {
           </Link>
         </p>
       </section>
+      <Toaster position="bottom-center" />
     </Layout>
   )
 }
