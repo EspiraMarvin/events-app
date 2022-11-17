@@ -3,7 +3,7 @@ import Image from "next/image"
 import React, { useEffect, useState } from "react"
 import { LogoutIcon } from "@heroicons/react/outline"
 import ThemeSetting from "./ThemeSetting"
-import { signOut, getSession } from "next-auth/react"
+import { signOut } from "next-auth/react"
 import { getUserSession } from "../slices/authSlice"
 import { useSelector } from "react-redux"
 
@@ -142,12 +142,3 @@ export default function NavBar({}) {
   )
 }
 
-export async function getServerSideProps({ req }: any) {
-  const session = await getSession({ req })
-
-  if (!session) return { redirect: { destination: "/login", permanent: false } }
-
-  return {
-    props: { session },
-  }
-}

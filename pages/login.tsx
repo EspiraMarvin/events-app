@@ -13,7 +13,7 @@ import { useRouter } from "next/router"
 export default function Login() {
   const [show, setShow] = useState(false)
   const [loading, setLoading] = useState(false)
-
+  const [error, setError] = useState("")
   const router = useRouter()
 
   const {
@@ -25,6 +25,7 @@ export default function Login() {
   // credentials
   const onSubmit = async ({ email, password }: any) => {
     try {
+      setError("")
       setLoading(true)
       const status: any = await signIn("credentials", {
         redirect: false,
@@ -33,8 +34,15 @@ export default function Login() {
         callbackUrl: "/",
       })
 
+      if (status.status === 401) {
+        setError("Unauthorized")
+      } else if (status.error) {
+        setError(status.error)
+      }
+
       router.push(status.url)
     } catch (error) {
+      console.log("error at login", error)
     } finally {
       setLoading(false)
     }
@@ -63,9 +71,9 @@ export default function Login() {
       <section className="flex flex-col w-3/4 gap-10 mx-auto">
         <div className="title">
           <h1 className="text-4xl font-bold text-gray-800 md:py-4">Login</h1>
-          <p className="hidden w-3/4 mx-auto text-gray-400 2xl:inline">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolores,
-            officia?
+          <p className="hidden mx-auto text-gray-400 md:flex lg:w-3/4 2xl:inline">
+            Be social, outgoing and fun, expore events and get whats fits you
+            right.
           </p>
         </div>
 
@@ -74,6 +82,8 @@ export default function Login() {
           className="flex flex-col gap-y-5 "
           onSubmit={handleSubmit(onSubmit)}
         >
+          <div className={`${error && "text-red-500"}`}>{error}</div>
+
           <div
             className={`${styles.inputgroup} ${
               errors.email && "border-red-500"
