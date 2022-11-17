@@ -50,7 +50,7 @@ export default function Login() {
   }
 
   const warnGuestUser = () => {
-    toast.error("Sorry! Only for test users.")
+    toast.error("Sorry! Only for test users. Please use Credentials")
   }
 
   const EVENTS_AUTH_CALLBACK =
