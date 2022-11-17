@@ -68,9 +68,11 @@ export default function Login() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <section className="flex flex-col w-3/4 gap-10 mx-auto">
-        <div className="title">
-          <h1 className="text-4xl font-bold text-gray-800 md:py-4">Login</h1>
+      <section className="flex flex-col w-full gap-10 mx-auto md:w-3/4 ">
+        <div className="-mt-10 title md:-mt-0">
+          <h1 className="text-2xl font-bold text-gray-800 md:py-4 md:text-4xl">
+            Login
+          </h1>
           <p className="hidden mx-auto text-gray-400 md:flex lg:w-3/4 2xl:inline">
             Be social, outgoing and fun, expore events and get whats fits you
             right.

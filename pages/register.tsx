@@ -61,9 +61,9 @@ export default function Register() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <section className="flex flex-col w-3/4 mx-auto gap-7">
-        <div className="title">
-          <h1 className="text-2xl font-bold text-gray-800 md:py-4 md:text-4xl">
+      <section className="flex flex-col w-full mx-auto md:w-3/4">
+        <div className="-mt-10 title md:-mt-0">
+          <h1 className="text-2xl font-bold text-gray-800 pb-14 md:py-4 md:text-4xl">
             Register
           </h1>
           <p className="hidden mx-auto text-gray-400 md:flex lg:w-3/4 2xl:inline">
@@ -72,107 +72,109 @@ export default function Register() {
           </p>
         </div>
 
-        {/* form */}
-        <form
-          className="flex flex-col md:gap-y-5"
-          onSubmit={handleSubmit(onSubmit)}
-        >
-          <div
-            className={`${styles.inputgroup} ${
-              errors.username && "border-red-500"
-            }`}
+        <div className="flex flex-col gap-7">
+          {/* form */}
+          <form
+            className="flex flex-col gap-y-5"
+            onSubmit={handleSubmit(onSubmit)}
           >
-            <input
-              className={styles.inputtext}
-              type="text"
-              placeholder="Username"
-              {...register("username", { required: true })}
-            />
-            <span className="flex items-center px-3 icon">
-              <HiOutlineUser size={23} />
-            </span>
-          </div>
-
-          <div
-            className={`${styles.inputgroup} ${
-              errors.email && "border-red-500"
-            }`}
-          >
-            <input
-              className={styles.inputtext}
-              type="email"
-              placeholder="Email"
-              {...register("email", { required: true })}
-            />
-            <span className="flex items-center px-3 icon">
-              <HiAtSymbol size={23} />
-            </span>
-          </div>
-
-          <div
-            className={`${styles.inputgroup} ${
-              errors.password && "border-red-500"
-            }`}
-          >
-            <input
-              className={styles.inputtext}
-              type={show.password ? "text" : "password"}
-              placeholder="Password"
-              {...register("password", { required: true })}
-            />
-            <span
-              className="icon flex cursor-pointer items-center px-3 hover:text-[#6366f1]"
-              onClick={() => setShow({ ...show, password: !show.password })}
+            <div
+              className={`${styles.inputgroup} ${
+                errors.username && "border-red-500"
+              }`}
             >
-              <HiFingerPrint size={23} />
-            </span>
-          </div>
-          {errors.password && (
-            <p className={styles.inputRegFormError}>
-              Enter password (6 and 60 xcters).
-            </p>
-          )}
-          {pwdLengthError && (
-            <p className={styles.inputRegFormError}>{pwdLengthError}</p>
-          )}
+              <input
+                className={styles.inputtext}
+                type="text"
+                placeholder="Username"
+                {...register("username", { required: true })}
+              />
+              <span className="flex items-center px-3 icon">
+                <HiOutlineUser size={23} />
+              </span>
+            </div>
 
-          <div
-            className={`${styles.inputgroup} ${
-              cPasswordError && "border-red-500"
-            }`}
-          >
-            <input
-              className={styles.inputtext}
-              type={show.cpassword ? "text" : "password"}
-              placeholder="Confirm Password"
-              {...register("cpassword", { required: true })}
-            />
-            <span
-              className="icon flex cursor-pointer items-center px-3 hover:text-[#6366f1]"
-              onClick={() => setShow({ ...show, cpassword: !show.cpassword })}
+            <div
+              className={`${styles.inputgroup} ${
+                errors.email && "border-red-500"
+              }`}
             >
-              <HiFingerPrint size={23} />
-            </span>
-          </div>
-          {cPasswordError && (
-            <p className={styles.inputRegFormError}>{cPasswordError}</p>
-          )}
+              <input
+                className={styles.inputtext}
+                type="email"
+                placeholder="Email"
+                {...register("email", { required: true })}
+              />
+              <span className="flex items-center px-3 icon">
+                <HiAtSymbol size={23} />
+              </span>
+            </div>
 
-          {/* register button */}
-          <div className="input-button">
-            <button className={styles.button} type="submit">
-              Register
-            </button>
-          </div>
-        </form>
+            <div
+              className={`${styles.inputgroup} ${
+                errors.password && "border-red-500"
+              }`}
+            >
+              <input
+                className={styles.inputtext}
+                type={show.password ? "text" : "password"}
+                placeholder="Password"
+                {...register("password", { required: true })}
+              />
+              <span
+                className="icon flex cursor-pointer items-center px-3 hover:text-[#6366f1]"
+                onClick={() => setShow({ ...show, password: !show.password })}
+              >
+                <HiFingerPrint size={23} />
+              </span>
+            </div>
+            {errors.password && (
+              <p className={styles.inputRegFormError}>
+                Enter password (6 and 60 xcters).
+              </p>
+            )}
+            {pwdLengthError && (
+              <p className={styles.inputRegFormError}>{pwdLengthError}</p>
+            )}
 
-        {/* button */}
-        <p className="text-center text-gray-400 ">
-          Have an account?{" "}
-          <Link href={"/login"}>
-            <a className="text-blue-700">Sign In</a>
-          </Link>
-        </p>
+            <div
+              className={`${styles.inputgroup} ${
+                cPasswordError && "border-red-500"
+              }`}
+            >
+              <input
+                className={styles.inputtext}
+                type={show.cpassword ? "text" : "password"}
+                placeholder="Confirm Password"
+                {...register("cpassword", { required: true })}
+              />
+              <span
+                className="icon flex cursor-pointer items-center px-3 hover:text-[#6366f1]"
+                onClick={() => setShow({ ...show, cpassword: !show.cpassword })}
+              >
+                <HiFingerPrint size={23} />
+              </span>
+            </div>
+            {cPasswordError && (
+              <p className={styles.inputRegFormError}>{cPasswordError}</p>
+            )}
+
+            {/* register button */}
+            <div className="input-button">
+              <button className={styles.button} type="submit">
+                Register
+              </button>
+            </div>
+          </form>
+
+          {/* button */}
+          <p className="text-center text-gray-400 ">
+            Have an account?{" "}
+            <Link href={"/login"}>
+              <a className="text-blue-700">Sign In</a>
+            </Link>
+          </p>
+        </div>
       </section>
     </Layout>
   )
