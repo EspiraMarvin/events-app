@@ -122,7 +122,7 @@ export default function NavBar({}) {
             ) : (
               user.email && (
                 <div className="flex items-center justify-center text-xl rounded-full h-9 w-9">
-                  {user?.email}
+                  {user?.email.slice(0, 1)}
                 </div>
               )
             )}
