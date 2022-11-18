@@ -57,8 +57,6 @@ export default function Login() {
     process.env.NODE_ENV !== "development"
       ? "https://events-all.vercel.app"
       : "http://localhost:3000"
-  // "https://eventsall.onrender.com"
-  // : "http://localhost:5000"
 
   // google
   const handleGoogleSignin = async () => {
