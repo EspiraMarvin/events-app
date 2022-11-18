@@ -53,7 +53,6 @@ export default NextAuth({
       },
     }),
   ],
-  // secret: process.env.NEXTAUTH_SECRET,
-  secret: "sdfsjdfsoersdf34534ksveoitnhfkcjdbh3345csfd",
-  state: false,
+  secret: process.env.NEXTAUTH_SECRET,
+  // state: false,
 })

@@ -5,7 +5,7 @@ import styles from "../styles/Form.module.css"
 import Image from "next/image"
 import { getSession } from "next-auth/react"
 import { HiAtSymbol, HiFingerPrint } from "react-icons/hi"
-import { useEffect, useState } from "react"
+import { useState } from "react"
 import { signIn } from "next-auth/react"
 import { useForm } from "react-hook-form"
 import { useRouter } from "next/router"
@@ -57,17 +57,21 @@ export default function Login() {
     process.env.NODE_ENV !== "development"
       ? "https://events-all.vercel.app"
       : "http://localhost:3000"
+  // "https://eventsall.onrender.com"
+  // : "http://localhost:5000"
 
   // google
   const handleGoogleSignin = async () => {
     process.env.NODE_ENV === "development"
       ? signIn("google", { callbackUrl: EVENTS_AUTH_CALLBACK })
-      : warnGuestUser()
+      : // : warnGuestUser()
+        signIn("google", { callbackUrl: EVENTS_AUTH_CALLBACK })
   }
   const handleGithubSignin = async () => {
     process.env.NODE_ENV === "development"
       ? signIn("github", { callbackUrl: EVENTS_AUTH_CALLBACK })
-      : warnGuestUser()
+      : // : warnGuestUser()
+        signIn("github", { callbackUrl: EVENTS_AUTH_CALLBACK })
   }
   return (
     <Layout>
