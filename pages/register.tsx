@@ -45,7 +45,6 @@ export default function Register() {
     await axios
       .post(`${EVENTS_API}/api/auth/register `, data)
       .then((res) => {
-        console.log("rress", res)
         if (data) router.push("/")
       })
       .catch((error) =>
@@ -67,7 +66,7 @@ export default function Register() {
             Register
           </h1>
           <p className="hidden mx-auto text-gray-400 md:flex lg:w-3/4 2xl:inline">
-            Be social, outgoing and fun, expore events and get whats fits you
+            Be social, outgoing and fun, explore events and get whats fits you
             right.
           </p>
         </div>

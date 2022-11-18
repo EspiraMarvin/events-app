@@ -64,14 +64,12 @@ export default function Login() {
   const handleGoogleSignin = async () => {
     process.env.NODE_ENV === "development"
       ? signIn("google", { callbackUrl: EVENTS_AUTH_CALLBACK })
-      : // : warnGuestUser()
-        signIn("google", { callbackUrl: EVENTS_AUTH_CALLBACK })
+      : warnGuestUser()
   }
   const handleGithubSignin = async () => {
     process.env.NODE_ENV === "development"
       ? signIn("github", { callbackUrl: EVENTS_AUTH_CALLBACK })
-      : // : warnGuestUser()
-        signIn("github", { callbackUrl: EVENTS_AUTH_CALLBACK })
+      : warnGuestUser()
   }
   return (
     <Layout>
@@ -87,7 +85,7 @@ export default function Login() {
             Login
           </h1>
           <p className="hidden mx-auto text-gray-400 md:flex lg:w-3/4 2xl:inline">
-            Be social, outgoing and fun, expore events and get whats fits you
+            Be social, outgoing and fun, explore events and get whats fits you
             right.
           </p>
         </div>
