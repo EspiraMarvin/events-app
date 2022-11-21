@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit'
 import type { PayloadAction } from '@reduxjs/toolkit'
-// import type { RootState } from '../store'
+import type { RootState } from "../store/store"
 // Define a type for the slice state
  interface stateData {
     user: {
@@ -18,36 +18,29 @@ const initialState: stateData = {
 }
     
 export const userSlice = createSlice({
-  name: 'user',
+  name: "user",
   // `createSlice` will infer the state type from the `initialState` argument
   initialState,
   reducers: {
     signInUser: (state, action: PayloadAction<any>) => {
-      console.log('action payload', action.payload)
-        state.user.credential = action.payload.credential
-        state.isLoggedIn = !state.isLoggedIn
-        state.user.name = action.payload.name
-        state.user.id = action.payload.id
+      state.user.credential = action.payload.credential
+      state.isLoggedIn = !state.isLoggedIn
+      state.user.name = action.payload.name
+      state.user.id = action.payload.id
     },
     signOut: (state) => {
-        state.user.name = ""
-        state.user.id = ""
-        state.isLoggedIn = !state.isLoggedIn
-        state.user.credential = ""
-    }
-  }
+      state.user.name = ""
+      state.user.id = ""
+      state.isLoggedIn = !state.isLoggedIn
+      state.user.credential = ""
+    },
+  },
 })
 
 export const { signInUser, signOut } = userSlice.actions
 
 // Other code such as selectors can use the imported `RootState` type
-// export const getAlls = (state: RootState) => state.user.user
+export const getUsers = (state: RootState) => state.user.user
 
-// export const fetchEvents = createAsyncThunk('post', async => {
-//   const response = await client.get('/api/events')
-//   return response.data
-// })
-
-// export const getUsersCount = (state: RootState) => state.user.users.length
 
 export default userSlice.reducer
