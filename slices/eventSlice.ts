@@ -3,7 +3,6 @@ import { PayloadAction, createAsyncThunk } from "@reduxjs/toolkit"
 import type { RootState } from "../store/store"
 import { EventBriteEvent } from "../typings"
 import axios from "axios"
-import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react"
 
 const EVENTS_URL =
   process.env.NODE_ENV !== "development"
