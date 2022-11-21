@@ -4,12 +4,12 @@ import { usePagination, DOTS } from '../hooks/usePagination'
 import { ChevronRightIcon, ChevronLeftIcon } from '@heroicons/react/solid'
 
 interface paginationProps {
-    onPageChange: any
-    totalCount: number       
-    siblingCount?: number | any
-    currentPage: number
-    pageSize: number
-    className: string
+  onPageChange: any
+  totalCount?: number
+  siblingCount?: number | any
+  currentPage: number
+  pageSize: number
+  className: string
 }
 
 const Pagination = ({

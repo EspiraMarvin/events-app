@@ -1,13 +1,14 @@
 import Head from "next/head"
 import Link from "next/link"
-import { useSession, getSession } from "next-auth/react"
-import Calendar from "../components/Calendar"
-import { useSelector, useDispatch } from "react-redux"
-import { getAllEvents } from "../slices/eventSlice"
-import { setCredential } from "../slices/authSlice"
-import { useFetchEventsQuery } from "../slices/events-api-slice"
-
 import NavBar from "../components/NavBar"
+import { useEffect, lazy } from "react"
+import { useSession, getSession } from "next-auth/react"
+import { useAppDispatch, useAppSelector } from "../hooks/useTypeSelectorHook"
+import { getEvents } from "../slices/eventSlice"
+import { setCredential } from "../slices/authSlice"
+const Calendar = lazy(() => import("../components/Calendar"))
+
+import { useFetchEventsQuery } from "../slices/events-api-slice"
 
 const Home = () => {
   const { data: session } = useSession()
@@ -44,12 +45,18 @@ function Guest() {
 
 // Authorize User
 function User({ session, users }: any) {
-  const dispatch = useDispatch()
+  const dispatch = useAppDispatch()
   dispatch(setCredential(session?.user))
-  // const { data = [], isFetching } = useFetchEventsQuery()
 
-  const allEvents = useSelector(getAllEvents)
+  const { data = [], isFetching } = useFetchEventsQuery()
 
+  console.log("data at react query", data)
+
+  useEffect(() => {
+    dispatch(getEvents())
+  }, [dispatch])
+
+  const { allEvents, loading } = useAppSelector((state) => state.event)
 
   return (
     <main className="h-screen bg-white dark:bg-black md:h-screen">
@@ -58,7 +65,7 @@ function User({ session, users }: any) {
         Events Around You!
       </div>
       <div className="max-w-md py-6 mx-auto sm:px-7 md:max-w-4xl md:px-2 md:py-10">
-        <Calendar events={allEvents} />
+        {data && <Calendar events={data} />}
       </div>
     </main>
   )

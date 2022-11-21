@@ -19,7 +19,7 @@ import EventsList from "./EventsList"
 import DatePicker from "./DatePicker"
 
 interface CalendarProps {
-  events: EventBriteEvent[]
+  events?: EventBriteEvent[]
 }
 
 function classNames(...classes: any) {
@@ -142,11 +142,12 @@ const Calendar = ({ events }: CalendarProps) => {
                   </button>
 
                   <div className="w-1 h-1 mx-auto mt-1">
-                    {events.some((event: EventBriteEvent) => {
-                      return isSameDay(parseISO(event?.startDate), day)
-                    }) && (
-                      <div className="w-1 h-1 rounded-full bg-sky-500"></div>
-                    )}
+                    {events &&
+                      events.some((event: EventBriteEvent) => {
+                        return isSameDay(parseISO(event?.startDate), day)
+                      }) && (
+                        <div className="w-1 h-1 rounded-full bg-sky-500"></div>
+                      )}
                   </div>
                 </div>
               ))}

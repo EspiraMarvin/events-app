@@ -1,8 +1,7 @@
-import { createSlice } from '@reduxjs/toolkit'
-import type { PayloadAction, createAsyncThunk } from "@reduxjs/toolkit"
-import type { RootState } from "../store"
+import { createSlice } from "@reduxjs/toolkit"
+import { PayloadAction, createAsyncThunk } from "@reduxjs/toolkit"
+import type { RootState } from "../store/store"
 import { EventBriteEvent } from "../typings"
-import eventsData from "../data/events.json"
 import axios from "axios"
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react"
 
@@ -11,16 +10,33 @@ const EVENTS_URL =
     ? "https://eventsall.onrender.com/api/events"
     : "http://localhost:5000/api/events"
 
+export const getEvents = createAsyncThunk<EventBriteEvent[]>(
+  "event/getEvents",
+  async (data, thunkApi) => {
+    try {
+      const res = await axios.get<EventBriteEvent[]>(EVENTS_URL)
+      console.log("res at slow api", res.data)
+      return res.data
+    } catch (err: any) {
+      const message = err.message
+      // return err?.message
+      return thunkApi.rejectWithValue(message)
+    }
+  }
+)
+
 // Define a type for the slice state
 interface stateData {
-  events: EventBriteEvent[]
+  allEvents: EventBriteEvent[] | null
   status: string
+  loading: boolean
   error: string | null | undefined
 }
 
 // Define the initial state using that type
 const initialState: stateData = {
-  events: eventsData,
+  allEvents: [],
+  loading: false,
   status: "idle",
   error: null,
 }
@@ -33,58 +49,35 @@ export const eventSlice = createSlice({
     filterAllByLocation: (state, action: PayloadAction<string>) => {
       return {
         ...state,
-        events: [...state.events].filter((event) =>
-          event.location__1.toLowerCase().includes(action.payload.toLowerCase())
-        ),
       }
     },
   },
-  // extraReducers(builder) {
-  //   builder
-  //     .addCase(fetchEvents.pending, (state, action) => {
-  //       state.status = "loading"
-  //     })
-  //     .addCase(fetchEvents.fulfilled, (state, action) => {
-  //       state.events = state.events.concat(action.payload)
-  //     })
-  //     .addCase(fetchEvents.rejected, (state, action) => {
-  //       state.status = "failed"
-  //       state.error = action.error.message
-  //     })
-  // },
+  extraReducers(builder) {
+    builder
+      .addCase(getEvents.pending, (state, action) => {
+        state.loading = true
+      })
+      .addCase(
+        getEvents.fulfilled,
+        (state, action: PayloadAction<EventBriteEvent[]>) => {
+          state.loading = false
+          state.allEvents = action.payload
+        }
+      )
+      .addCase(getEvents.rejected, (state, action: PayloadAction<any>) => {
+        state.loading = false
+        state.error = action.payload
+      })
+  },
 })
-
-// export const fetchEvents = createAsyncThunk<
-//   EventBriteEvent[],
-//   // First argument to the payload creator
-//   number,
-//   {
-//     // Optional fields for defining thunkApi field types
-//     dispatch: any
-//     state: any
-//     extra: {
-//       jwt: string
-//     }
-//   }
-// >("event/fetchEvents", async () => {
-//   try {
-//     const res = await axios.get(EVENTS_URL)
-//     return res.data
-//   } catch (err: any) {
-//     return err?.message
-//   }
-// })
-
-// const allEvents = store.dispatch(fetchEvents())
-export const selectAllEvents = (state: RootState) => state.event.events
-
 
 export const { filterAllByLocation } = eventSlice.actions
 
 // Other code such as selectors can use the imported `RootState` type
-export const getAllEvents = (state: RootState) => state.event.events
 
+export const getAllEventsObject = (state: RootState) => state.event.allEvents
 
-export const getEventsCount = (state: RootState) => state.event.events.length
+export const getEventsCount = (state: RootState) =>
+  state.event?.allEvents?.length
 
 export default eventSlice.reducer
