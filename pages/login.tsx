@@ -77,14 +77,14 @@ export default function Login() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <section className="flex flex-col w-full gap-10 mx-auto md:w-3/4 ">
-        <div className="-mt-10 title md:-mt-0">
+      <section className="flex flex-col gap-6 mx-auto md:w-3/4 2xl:gap-7">
+        <div className="title">
           <h1 className="text-2xl font-bold text-gray-800 md:py-4 md:text-4xl">
             Login
           </h1>
-          <p className="hidden mx-auto text-gray-400 md:flex lg:w-3/4 2xl:inline">
-            Be social, outgoing and fun, explore events and get whats fits you
-            right.
+          <p className="w-3/4 mx-auto mt-3 text-xs text-gray-400 md:w-full md:text-base">
+            Be, social, outgoing and fun. Login and explore events that best
+            suits you.
           </p>
         </div>
 
@@ -93,8 +93,6 @@ export default function Login() {
           className="flex flex-col gap-y-5 "
           onSubmit={handleSubmit(onSubmit)}
         >
-          <div className={`${error && "text-red-500"}`}>{error}</div>
-
           <div
             className={`${styles.inputgroup} ${
               errors.email && "border-red-500"
@@ -133,7 +131,7 @@ export default function Login() {
           {/* login buttons */}
           <div className="input-button">
             <button className={styles.button} type="submit">
-              {!loading ? "Login" : "Loading..."}
+              {!loading ? "Login" : "Loading"}
             </button>
           </div>
           <div className="input-button">
@@ -176,7 +174,6 @@ export default function Login() {
           </Link>
         </p>
       </section>
-      <Toaster position="bottom-center" />
     </Layout>
   )
 }

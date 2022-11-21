@@ -10,7 +10,7 @@ export default function Layout({ children }: any) {
         className="hidden opacity-100 -z-10 lg:block"
         objectFit="cover"
       />
-      <div className="grid h-screen m-auto bg-slate-50 md:h-3/4 md:w-3/5 md:rounded-md lg:grid-cols-3 2xl:grid-cols-2">
+      <div className="grid h-screen m-auto bg-slate-50 md:h-3/4 md:rounded-md lg:w-3/5 lg:grid-cols-3 2xl:grid-cols-2">
         <div className={styles.imgStyle}>
           <div className={styles.cartoonImg}></div>
           <div className={styles.cloud_one}></div>
