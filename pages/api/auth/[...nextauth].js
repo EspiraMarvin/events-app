@@ -6,7 +6,8 @@ import jwtDecode from "jwt-decode"
 
 const EVENTS_API =
   process.env.NODE_ENV !== "development"
-    ? "https://eventsall.onrender.com"
+    ? // ? "https://eventsall.onrender.com"
+      "http://auth-express-jwt-js-dev.af-south-1.elasticbeanstalk.com"
     : "http://localhost:5000"
 
 export default NextAuth({
