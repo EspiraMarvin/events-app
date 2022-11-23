@@ -50,7 +50,7 @@ function User({ session, users }: any) {
 
   const { data = [], isFetching } = useFetchEventsQuery()
 
-  console.log("data at react query", data)
+  // console.log("data at react query", data)
 
   useEffect(() => {
     dispatch(getEvents())
@@ -65,7 +65,7 @@ function User({ session, users }: any) {
         Events Around You!
       </div>
       <div className="max-w-md py-6 mx-auto sm:px-7 md:max-w-4xl md:px-2 md:py-10">
-        {data && <Calendar events={data} />}
+        {allEvents && <Calendar events={allEvents} />}
       </div>
     </main>
   )

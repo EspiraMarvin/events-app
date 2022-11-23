@@ -12,10 +12,12 @@ export default function Register() {
   const [show, setShow] = useState({ password: false, cpassword: false })
 
   const router = useRouter()
+  // http://auth-express-jwt-js-dev.af-south-1.elasticbeanstalk.com/api/events
+  // ? "https://eventsall.onrender.com"
 
   const EVENTS_API =
     process.env.NODE_ENV !== "development"
-      ? "https://eventsall.onrender.com"
+      ? "http://auth-express-jwt-js-dev.af-south-1.elasticbeanstalk.com"
       : "http://localhost:5000"
 
   const {

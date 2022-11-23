@@ -6,7 +6,7 @@ import axios from "axios"
 
 const EVENTS_URL =
   process.env.NODE_ENV !== "development"
-    ? "https://eventsall.onrender.com/api/events"
+    ? "http://auth-express-jwt-js-dev.af-south-1.elasticbeanstalk.com/api/events"
     : "http://localhost:5000/api/events"
 
 export const getEvents = createAsyncThunk<EventBriteEvent[]>(
@@ -14,7 +14,7 @@ export const getEvents = createAsyncThunk<EventBriteEvent[]>(
   async (data, thunkApi) => {
     try {
       const res = await axios.get<EventBriteEvent[]>(EVENTS_URL)
-      console.log("res at slow api", res.data)
+      // console.log("res  api", res.data)
       return res.data
     } catch (err: any) {
       const message = err.message
