@@ -219,11 +219,11 @@ const notify = () => {
                       <div className="grid pt-5 text-gray-500 md:flex md:justify-between">
                         <div className="relative">
                           <LocationMarkerIcon className="absolute w-8 h-6 text-blue-300 -left-3 -top-5 -z-50 " />
-                          <p className="z-50 mt-1">{event.location}</p>
+                          <p className="z-50 mt-1">{event.venue}</p>
                           <p>{event.street}</p>
                           <p>{event.postalCode}</p>
                           <p>
-                            {event.location__1},{event.region}
+                            {event.county},{event.region}
                           </p>
                         </div>
 
