@@ -56,7 +56,9 @@ function User({ session, users }: any) {
     dispatch(getEvents())
   }, [dispatch])
 
-  const { allEvents, loading } = useAppSelector((state) => state.event)
+  const { allEvents, events, loading } = useAppSelector((state) => state.event)
+  console.log("events", events)
+  
 
   return (
     <main className="h-screen bg-white dark:bg-black md:h-screen">
@@ -65,7 +67,7 @@ function User({ session, users }: any) {
         Events Around You!
       </div>
       <div className="max-w-md py-6 mx-auto sm:px-7 md:max-w-4xl md:px-2 md:py-10">
-        {allEvents && <Calendar events={allEvents} />}
+        {events && <Calendar events={events} />}
       </div>
     </main>
   )

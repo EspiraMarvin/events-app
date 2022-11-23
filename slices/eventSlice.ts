@@ -1,6 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit"
 import { PayloadAction, createAsyncThunk } from "@reduxjs/toolkit"
 import type { RootState } from "../store/store"
+import dataa from "../data/data.json"
 import { EventBriteEvent } from "../typings"
 import axios from "axios"
 
@@ -26,6 +27,7 @@ export const getEvents = createAsyncThunk<EventBriteEvent[]>(
 
 // Define a type for the slice state
 interface stateData {
+  events: EventBriteEvent[]
   allEvents: EventBriteEvent[] | null
   status: string
   loading: boolean
@@ -34,6 +36,7 @@ interface stateData {
 
 // Define the initial state using that type
 const initialState: stateData = {
+  events: dataa,
   allEvents: [],
   loading: false,
   status: "idle",
@@ -75,6 +78,9 @@ export const { filterAllByLocation } = eventSlice.actions
 // Other code such as selectors can use the imported `RootState` type
 
 export const getAllEventsObject = (state: RootState) => state.event.allEvents
+
+export const getAllEventss = (state: RootState) => state.event.events
+
 
 export const getEventsCount = (state: RootState) =>
   state.event?.allEvents?.length
