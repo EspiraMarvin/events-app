@@ -7,22 +7,22 @@ export interface MeetingType {
 }
 
 export interface EventBriteEvent {
-    startDate: string    
-    endDate: string    
-    name: string    
-    price: number    
-    URL: string    
-    image: string    
-    location: string    
-    location__1: string    
-    region: string
-    street: number|string
-    postalCode: string|number
-    latitude: number
-    longitude: number
-    description: string    
+  startDate: string
+  endDate: string
+  name: string
+  price: number
+  URL: string
+  image: string
+  venue: string
+  county: string
+  countryCode?: string
+  region: string
+  street: number | string
+  postalCode: string | number
+  latitude: number
+  longitude: number
+  description: string
 }
-
 export interface MeetUpEvent {
     id: string,
     url: string,

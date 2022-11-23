@@ -44,7 +44,7 @@ export default function EventsList({ events, selectedDay }: EventsListProps) {
     const res = finalEventsData?.map((event) => {
       if (
         event.name.toLowerCase().includes(search.toLowerCase()) ||
-        event.location__1.toLowerCase().includes(search.toLowerCase()) ||
+        event.county.toLowerCase().includes(search.toLowerCase()) ||
         event.region.toLowerCase().includes(search.toLowerCase())
       ) {
         return <EventItem key={event.name} event={event} />
