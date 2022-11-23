@@ -50,12 +50,16 @@ export default function Login() {
   }
 
   const warnGuestUser = () => {
+    console.log("orry! Only for test users. Please use Credentials")
+
     toast.error("Sorry! Only for test users. Please use Credentials")
   }
 
+  // ? "https://events-all.vercel.app"
+
   const EVENTS_AUTH_CALLBACK =
     process.env.NODE_ENV !== "development"
-      ? "https://events-all.vercel.app"
+      ? " http://auth-express-jwt-js-dev.af-south-1.elasticbeanstalk.com"
       : "http://localhost:3000"
 
   // google
@@ -174,6 +178,7 @@ export default function Login() {
           </Link>
         </p>
       </section>
+      <Toaster position="bottom-center" />
     </Layout>
   )
 }
