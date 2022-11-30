@@ -3,12 +3,15 @@ import Layout from "../layout/layout"
 import Link from "next/link"
 import styles from "../styles/Form.module.css"
 import { HiAtSymbol, HiFingerPrint, HiOutlineUser } from "react-icons/hi"
-import { useState } from "react"
+import { useState, useContext } from "react"
 import { useForm } from "react-hook-form"
 import { useRouter } from "next/router"
 import axios from "axios"
+import { AuthContext } from "../context/AuthContext"
 
 export default function Register() {
+  const { currentUser, signUpUser } = useContext(AuthContext)
+
   const [show, setShow] = useState({ password: false, cpassword: false })
 
   const router = useRouter()
@@ -43,15 +46,30 @@ export default function Register() {
     if (password !== cPwdWatch) return
     console.log(username, email, password)
     const data = { email, password }
-
-    await axios
-      .post(`${EVENTS_API}/api/auth/register `, data)
-      .then((res) => {
-        if (data) router.push("/")
-      })
-      .catch((error) =>
-        console.log("error at reg", error.response.data.message)
-      )
+    try {
+      Promise.all([
+        signUpUser(email, password),
+        axios
+          .post(`${EVENTS_API}/api/auth/register `, data)
+          .then((res) => {
+            if (data) router.push("/")
+          })
+          .catch((error) =>
+            console.log("error at reg", error.response.data.message)
+          ),
+      ]).catch((err) => console.log("error", err))
+      // await signUpUser(email, password)
+      // await axios
+      //   .post(`${EVENTS_API}/api/auth/register `, data)
+      //   .then((res) => {
+      //     if (data) router.push("/")
+      //   })
+      //   .catch((error) =>
+      //     console.log("error at reg", error.response.data.message)
+      //   )
+    } catch (err) {
+      console.log("error", err)
+    }
   }
 
   return (
