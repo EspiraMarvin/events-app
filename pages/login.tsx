@@ -17,7 +17,7 @@ export default function Login() {
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState("")
   const router = useRouter()
-  const { loginUser, currentUser } = useAuth()
+  const { loginUser, currentUser, signInGithub, signInGoogle } = useAuth()
 
   const {
     register,
@@ -42,39 +42,6 @@ export default function Login() {
       console.log("error", err)
     }
   }
-  // credentials
-  const onSubmitCredentialsWithNextAuth = async ({ email, password }: any) => {
-    try {
-      setError("")
-      setLoading(true)
-      const status: any = await signIn("credentials", {
-        redirect: false,
-        email: email,
-        password: password,
-        callbackUrl: "/",
-      })
-
-      if (status.status === 401) {
-        setError("Unauthorized")
-      } else if (status.error) {
-        setError(status.error)
-      }
-
-      router.push(status.url)
-    } catch (error) {
-      // console.log("error at login", error)
-    } finally {
-      setLoading(false)
-    }
-  }
-
-  const warnGuestUser = () => {
-    console.log("orry! Only for test users. Please use Credentials")
-    toast.error("Sorry! Only for test users. Please use Credentials")
-  }
-
-  // ? "https://events-all.vercel.app"
-
   const EVENTS_AUTH_CALLBACK =
     process.env.NODE_ENV !== "development"
       ? " http://auth-express-jwt-js-dev.af-south-1.elasticbeanstalk.com"
@@ -82,14 +49,29 @@ export default function Login() {
 
   // google
   const handleGoogleSignin = async () => {
-    process.env.NODE_ENV === "development"
-      ? signIn("google", { callbackUrl: EVENTS_AUTH_CALLBACK })
-      : warnGuestUser()
+    try {
+      const res = await signInGoogle()
+      console.log("res at signInGoogle", res)
+      if (res) {
+        router.push("/")
+      }
+    } catch (err) {
+      console.log("err at signInGoogle", err)
+    }
   }
   const handleGithubSignin = async () => {
-    process.env.NODE_ENV === "development"
-      ? signIn("github", { callbackUrl: EVENTS_AUTH_CALLBACK })
-      : warnGuestUser()
+    try {
+      const res = await signInGithub()
+      console.log("res at signInGithub", res)
+      if (res) {
+        router.push("/")
+      }
+    } catch (err) {
+      console.log("err at signInGithub", err)
+    }
+    // process.env.NODE_ENV === "development"
+    //   ? signIn("github", { callbackUrl: EVENTS_AUTH_CALLBACK })
+    //   : warnGuestUser()
   }
   return (
     <Layout>

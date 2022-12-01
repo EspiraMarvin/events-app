@@ -9,9 +9,11 @@ import { getCookie, deleteCookie, setCookie } from "cookies-next"
 import {
   onAuthStateChanged,
   createUserWithEmailAndPassword,
-  Auth,
   signInWithEmailAndPassword,
   signOut,
+  GoogleAuthProvider,
+  GithubAuthProvider,
+  signInWithPopup,
 } from "firebase/auth"
 import { auth } from "../firebase/firebase"
 
@@ -29,6 +31,8 @@ interface AuthContextInterface {
   isAuthenticated: boolean
   signUpUser: (email: string, password: string) => void
   loginUser: (email: string, password: string) => any
+  signInGoogle: () => any
+  signInGithub: () => any
   logoutUser: () => void
 }
 
@@ -47,7 +51,6 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user: any) => {
       if (user) {
-        console.log("user", user)
         setCurrentUser({
           uid: user?.uid,
           email: user?.email,
@@ -73,6 +76,16 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     return signInWithEmailAndPassword(auth, email, password)
   }
 
+  const signInGoogle = () => {
+    const provider = new GoogleAuthProvider()
+    return signInWithPopup(auth, provider)
+  }
+
+  const signInGithub = () => {
+    const provider = new GithubAuthProvider()
+    return signInWithPopup(auth, provider)
+  }
+
   const logoutUser = async () => {
     setCurrentUser(null)
     await signOut(auth)
@@ -85,6 +98,8 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
         signUpUser,
         loginUser,
         logoutUser,
+        signInGoogle,
+        signInGithub,
       }}
     >
       {loading ? null : children}
