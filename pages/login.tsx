@@ -69,9 +69,6 @@ export default function Login() {
     } catch (err) {
       console.log("err at signInGithub", err)
     }
-    // process.env.NODE_ENV === "development"
-    //   ? signIn("github", { callbackUrl: EVENTS_AUTH_CALLBACK })
-    //   : warnGuestUser()
   }
   return (
     <Layout>
