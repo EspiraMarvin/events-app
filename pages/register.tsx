@@ -10,7 +10,7 @@ import axios from "axios"
 import { useAuth } from "../context/AuthContext"
 
 export default function Register() {
-  const { currentUser, signUpUser } = useAuth()
+  const { signUpUser } = useAuth()
 
   const [show, setShow] = useState({ password: false, cpassword: false })
 
@@ -44,7 +44,6 @@ export default function Register() {
   const onSubmit = async ({ username, email, password }: any) => {
     if (password.length < 6) return
     if (password !== cPwdWatch) return
-    console.log(username, email, password)
     const data = { email, password }
     try {
       Promise.all([
@@ -58,15 +57,6 @@ export default function Register() {
             console.log("error at reg", error.response.data.message)
           ),
       ]).catch((err) => console.log("error", err))
-      // await signUpUser(email, password)
-      // await axios
-      //   .post(`${EVENTS_API}/api/auth/register `, data)
-      //   .then((res) => {
-      //     if (data) router.push("/")
-      //   })
-      //   .catch((error) =>
-      //     console.log("error at reg", error.response.data.message)
-      //   )
     } catch (err) {
       console.log("error", err)
     }
