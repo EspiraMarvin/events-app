@@ -5,7 +5,7 @@ import styles from "../styles/Form.module.css"
 import Image from "next/image"
 import { getSession } from "next-auth/react"
 import { HiAtSymbol, HiFingerPrint } from "react-icons/hi"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { signIn } from "next-auth/react"
 import { useForm } from "react-hook-form"
 import { useRouter } from "next/router"
@@ -17,7 +17,7 @@ export default function Login() {
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState("")
   const router = useRouter()
-  const { loginUser } = useAuth()
+  const { loginUser, currentUser } = useAuth()
 
   const {
     register,
@@ -25,11 +25,22 @@ export default function Login() {
     formState: { errors },
   } = useForm()
 
+  const noAuthRequired = ["/login", "/register"]
+
+  useEffect(() => {
+    if (currentUser && noAuthRequired.includes(router.pathname))
+      router.push("/")
+  }, [router])
+
   const onSubmit = async ({ email, password }: any) => {
     try {
-      loginUser(email, password)
-      router.push("/")
-    } catch (err) {}
+      const res = await loginUser(email, password)
+      if (res) {
+        router.push("/")
+      }
+    } catch (err) {
+      console.log("error", err)
+    }
   }
   // credentials
   const onSubmitCredentialsWithNextAuth = async ({ email, password }: any) => {
