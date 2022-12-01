@@ -3,10 +3,11 @@ import type { PayloadAction } from "@reduxjs/toolkit"
 import type { RootState } from "../store/store"
 
 interface stateData {
-  user: {
-    name: string
-    id: string
-    credential: ""
+  firebaseUser: {
+    uid: string
+    email: string
+    displayName: string | null
+    avatar: string | null
   }
   session: {
     name: string
@@ -21,7 +22,7 @@ interface stateData {
 }
 
 const initialState: stateData = {
-  user: { name: "", id: "", credential: "" },
+  firebaseUser: { uid: "", email: "", displayName: "", avatar: "" },
   session: { name: "", email: "", image: "", roles: [] },
   isLoggedIn: false,
   registerStatus: "",
@@ -34,11 +35,17 @@ export const authSlice = createSlice({
   reducers: {
     setCredential: (state, action: PayloadAction<any>) => {
       const accessToken = action.payload
-      state.session.name = action.payload.name
-      state.session.email = action.payload.email
-      state.session.image = action.payload.image
-      state.session.roles = action.payload.roles
+      state.session.name = action.payload?.name
+      state.session.email = action.payload?.email
+      state.session.image = action.payload?.image
+      state.session.roles = action.payload?.roles
       state.isLoggedIn = true
+    },
+    setFirebaseUser: (state, action: PayloadAction<any>) => {
+      state.firebaseUser.uid = action.payload.uid
+      state.firebaseUser.email = action.payload.email
+      state.firebaseUser.displayName = action.payload.displayName
+      state.firebaseUser.avatar = action.payload.avatar
     },
     signOut: (state) => {
       state.session.name = ""
@@ -46,16 +53,14 @@ export const authSlice = createSlice({
       state.session.image = ""
       state.session.roles = []
 
-      state.user.name = ""
-      state.user.id = ""
+      state.firebaseUser = { uid: "", avatar: "", displayName: "", email: "" }
       state.isLoggedIn = !state.isLoggedIn
-      state.user.credential = ""
     },
   },
   extraReducers: {},
 })
 
-export const { setCredential, signOut } = authSlice.actions
+export const { setCredential, setFirebaseUser, signOut } = authSlice.actions
 
 export const getIsLoggedIn = (state: RootState) => state.auth.isLoggedIn
 
@@ -63,5 +68,6 @@ export const getUserEmail = (state: RootState) => state.auth.session.email
 
 export const getUserSession = (state: RootState) => state.auth.session
 
+export const getFirebaseUser = (state: RootState) => state.auth.firebaseUser
 
 export default authSlice.reducer

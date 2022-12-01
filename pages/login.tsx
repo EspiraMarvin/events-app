@@ -9,6 +9,7 @@ import { useState } from "react"
 import { signIn } from "next-auth/react"
 import { useForm } from "react-hook-form"
 import { useRouter } from "next/router"
+import { useAuth } from "../context/AuthContext"
 import toast, { Toaster } from "react-hot-toast"
 
 export default function Login() {
@@ -16,6 +17,7 @@ export default function Login() {
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState("")
   const router = useRouter()
+  const { loginUser } = useAuth()
 
   const {
     register,
@@ -23,8 +25,14 @@ export default function Login() {
     formState: { errors },
   } = useForm()
 
-  // credentials
   const onSubmit = async ({ email, password }: any) => {
+    try {
+      loginUser(email, password)
+      router.push("/")
+    } catch (err) {}
+  }
+  // credentials
+  const onSubmitCredentialsWithNextAuth = async ({ email, password }: any) => {
     try {
       setError("")
       setLoading(true)
@@ -51,7 +59,6 @@ export default function Login() {
 
   const warnGuestUser = () => {
     console.log("orry! Only for test users. Please use Credentials")
-
     toast.error("Sorry! Only for test users. Please use Credentials")
   }
 
@@ -186,7 +193,7 @@ export default function Login() {
 export async function getServerSideProps({ req }: any) {
   const session = await getSession({ req })
 
-  if (session) return { redirect: { destination: "/", permanent: false } }
+  // if (session) return { redirect: { destination: "/", permanent: false } }
 
   return {
     props: { session },
