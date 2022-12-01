@@ -7,10 +7,10 @@ import { useState, useContext } from "react"
 import { useForm } from "react-hook-form"
 import { useRouter } from "next/router"
 import axios from "axios"
-import { AuthContext } from "../context/AuthContext"
+import { useAuth } from "../context/AuthContext"
 
 export default function Register() {
-  const { currentUser, signUpUser } = useContext(AuthContext)
+  const { currentUser, signUpUser } = useAuth()
 
   const [show, setShow] = useState({ password: false, cpassword: false })
 
@@ -52,7 +52,7 @@ export default function Register() {
         axios
           .post(`${EVENTS_API}/api/auth/register `, data)
           .then((res) => {
-            if (data) router.push("/")
+            if (res) router.push("/")
           })
           .catch((error) =>
             console.log("error at reg", error.response.data.message)

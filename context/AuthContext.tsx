@@ -1,4 +1,10 @@
-import React, { createContext, ReactNode, useEffect, useState } from "react"
+import React, {
+  createContext,
+  ReactNode,
+  useContext,
+  useEffect,
+  useState,
+} from "react"
 import { getCookie, deleteCookie, setCookie } from "cookies-next"
 import {
   onAuthStateChanged,
@@ -22,13 +28,15 @@ interface AuthContextInterface {
   token?: string
   isAuthenticated: boolean
   signUpUser: (email: string, password: string) => void
-  loginUser?: (email: string, password: string) => void
-  logoutUser?: () => void
+  loginUser: (email: string, password: string) => void
+  logoutUser: () => void
 }
 
-export const AuthContext = createContext<AuthContextInterface>(
+const AuthContext = createContext<AuthContextInterface>(
   {} as AuthContextInterface
 )
+
+export const useAuth = () => useContext(AuthContext)
 
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false)

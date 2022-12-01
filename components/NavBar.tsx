@@ -1,21 +1,26 @@
 import Link from "next/link"
 import Image from "next/image"
-import React, { useEffect, useState } from "react"
+import React, { useState } from "react"
 import { LogoutIcon } from "@heroicons/react/outline"
 import ThemeSetting from "./ThemeSetting"
-import { signOut } from "next-auth/react"
-import { getUserSession } from "../slices/authSlice"
+// import { signOut } from "next-auth/react"
+import { getFirebaseUser } from "../slices/authSlice"
 import { useSelector } from "react-redux"
+import { useAuth } from "../context/AuthContext"
+import { useRouter } from "next/router"
 
 interface NavBarProps {
   user: any
 }
 export default function NavBar({}) {
   const [navbar, setNavbar] = useState(false)
-  const user = useSelector(getUserSession)
+  const user = useSelector(getFirebaseUser)
+  const { logoutUser } = useAuth()
+  const router = useRouter()
 
   function logout() {
-    signOut()
+    logoutUser()
+    router.push('/login')
   }
 
   return (
@@ -111,9 +116,9 @@ export default function NavBar({}) {
             <ThemeSetting />
           </div>
           <div className="flex items-center justify-center p-1 uppercase bg-indigo-200 border-2 border-indigo-500 rounded-full cursor-pointer ">
-            {user?.image ? (
+            {user?.avatar ? (
               <Image
-                src={user.image}
+                src={user.avatar}
                 className="rounded-full"
                 height={36}
                 width={36}
