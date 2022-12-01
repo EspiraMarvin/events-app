@@ -27,10 +27,8 @@ export default function Login() {
 
   const onSubmit = async ({ email, password }: any) => {
     try {
-      const res = await loginUser(email, password)
-      if (res?.user) {
-        router.push("/")
-      }
+      loginUser(email, password)
+      router.push("/")
     } catch (err) {}
   }
   // credentials
