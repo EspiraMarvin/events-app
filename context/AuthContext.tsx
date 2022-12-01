@@ -28,7 +28,7 @@ interface AuthContextInterface {
   token?: string
   isAuthenticated: boolean
   signUpUser: (email: string, password: string) => void
-  loginUser: (email: string, password: string) => void
+  loginUser: (email: string, password: string) => any
   logoutUser: () => void
 }
 
