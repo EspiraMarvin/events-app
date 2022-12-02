@@ -6,16 +6,17 @@ import Image from "next/image"
 import { getSession } from "next-auth/react"
 import { HiAtSymbol, HiFingerPrint } from "react-icons/hi"
 import { useEffect, useState } from "react"
-import { signIn } from "next-auth/react"
 import { useForm } from "react-hook-form"
 import { useRouter } from "next/router"
 import { useAuth } from "../context/AuthContext"
 import toast, { Toaster } from "react-hot-toast"
+import { mapAuthCodeToMessage } from "../firebase/firebaseMapError"
 
 export default function Login() {
   const [show, setShow] = useState(false)
   const [loading, setLoading] = useState(false)
-  const [error, setError] = useState("")
+  const [loadingType, setLoadingType] = useState("")
+  const [error, setError] = useState<any>()
   const router = useRouter()
   const { loginUser, currentUser, signInGithub, signInGoogle } = useAuth()
 
@@ -32,14 +33,24 @@ export default function Login() {
       router.push("/")
   }, [router])
 
+  const resetLoadingAndType = (loading: boolean, type: string) => {
+    setLoading(loading)
+    setLoadingType(type)
+  }
+
   const onSubmit = async ({ email, password }: any) => {
     try {
+      resetLoadingAndType(true, "cred")
       const res = await loginUser(email, password)
       if (res) {
         router.push("/")
       }
-    } catch (err) {
+    } catch (err: any) {
+      toast.error(mapAuthCodeToMessage(err.code))
+      resetLoadingAndType(false, "")
       console.log("error", err)
+    } finally {
+      // resetLoadingAndType(false, "")
     }
   }
   const EVENTS_AUTH_CALLBACK =
@@ -50,24 +61,29 @@ export default function Login() {
   // google
   const handleGoogleSignin = async () => {
     try {
+      resetLoadingAndType(true, "google")
       const res = await signInGoogle()
       console.log("res at signInGoogle", res)
       if (res) {
         router.push("/")
+        resetLoadingAndType(false, "")
       }
-    } catch (err) {
-      console.log("err at signInGoogle", err)
+    } catch (err: any) {
+      toast.error(mapAuthCodeToMessage(err.code))
+      resetLoadingAndType(false, "")
     }
   }
   const handleGithubSignin = async () => {
     try {
+      resetLoadingAndType(true, "github")
       const res = await signInGithub()
-      console.log("res at signInGithub", res)
       if (res) {
         router.push("/")
+        resetLoadingAndType(false, "")
       }
-    } catch (err) {
-      console.log("err at signInGithub", err)
+    } catch (err: any) {
+      toast.error(mapAuthCodeToMessage(err.code))
+      resetLoadingAndType(false, "")
     }
   }
   return (
@@ -131,8 +147,8 @@ export default function Login() {
 
           {/* login buttons */}
           <div className="input-button">
-            <button className={styles.button} type="submit">
-              {!loading ? "Login" : "Loading"}
+            <button className={styles.button} type="submit" disabled={loading}>
+              {loading && loadingType === "cred" ? "Loading..." : "Login"}
             </button>
           </div>
           <div className="input-button">
@@ -140,14 +156,21 @@ export default function Login() {
               className={styles.button_custom}
               type="button"
               onClick={handleGoogleSignin}
+              disabled={loading}
             >
-              Sign In with Google{" "}
-              <Image
-                src={"/images/google.svg"}
-                width="20"
-                height={20}
-                alt="google"
-              />
+              {loading && loadingType === "google" ? (
+                "loading..."
+              ) : (
+                <>
+                  Sign In with Google{" "}
+                  <Image
+                    src={"/images/google.svg"}
+                    width="20"
+                    height={20}
+                    alt="google"
+                  />
+                </>
+              )}
             </button>
           </div>
           <div className="input-button">
@@ -155,14 +178,21 @@ export default function Login() {
               className={styles.button_custom}
               type="button"
               onClick={handleGithubSignin}
+              disabled={loading}
             >
-              Sign In with Github{" "}
-              <Image
-                src={"/images/github.svg"}
-                width="20"
-                height={20}
-                alt="github"
-              />
+              {loading && loadingType === "github" ? (
+                "loading..."
+              ) : (
+                <>
+                  Sign In with Github{" "}
+                  <Image
+                    src={"/images/github.svg"}
+                    width="20"
+                    height={20}
+                    alt="github"
+                  />
+                </>
+              )}
             </button>
           </div>
         </form>

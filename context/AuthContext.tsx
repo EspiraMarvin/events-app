@@ -16,6 +16,7 @@ import {
   signInWithPopup,
 } from "firebase/auth"
 import { auth } from "../firebase/firebase"
+import Loader from "../components/Loader"
 
 interface User {
   uid?: string
@@ -102,7 +103,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
         signInGithub,
       }}
     >
-      {loading ? null : children}
+      {loading ? <Loader /> : children}
     </AuthContext.Provider>
   )
 }

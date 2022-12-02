@@ -103,7 +103,7 @@ export default function NavBar({}) {
                 Toggle Icon Theme <ThemeSetting />
               </div>
               <div
-                className="inline-block w-full px-4 py-4 text-center text-gray-800 bg-white rounded-md shadow hover:bg-gray-100"
+                className="inline-block w-full px-4 py-4 text-center text-gray-800 bg-white rounded-md shadow cursor-pointer hover:bg-gray-100"
                 onClick={logout}
               >
                 Sign Out
