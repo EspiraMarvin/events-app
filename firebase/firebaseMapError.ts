@@ -15,6 +15,9 @@ export const mapAuthCodeToMessage = (authCode: any) => {
     case "auth/wrong-email":
       return "Email provided is invalid"
 
+    case "auth/email-already-in-use":
+      return "Account already exists"
+
     case "auth/account-exists-with-different-credential":
       return "Accounts exists with different credentials. \n Try another authentication method"
 

@@ -30,7 +30,7 @@ interface AuthContextInterface {
   currentUser: User | null | {}
   token?: string
   isAuthenticated: boolean
-  signUpUser: (email: string, password: string) => void
+  signUpUser: (email: string, password: string) => any
   loginUser: (email: string, password: string) => any
   signInGoogle: () => any
   signInGithub: () => any
@@ -47,7 +47,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false)
   const [currentUser, setCurrentUser] = useState<User | string | null>(null)
   const [loading, setLoading] = useState<boolean>(true)
-  console.log("currentUser", currentUser)
+  // console.log("currentUser", currentUser)
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user: any) => {

@@ -16,7 +16,7 @@ export default function Login() {
   const [show, setShow] = useState(false)
   const [loading, setLoading] = useState(false)
   const [loadingType, setLoadingType] = useState("")
-  const [error, setError] = useState<any>()
+  const [error, setError] = useState<any>("")
   const router = useRouter()
   const { loginUser, currentUser, signInGithub, signInGoogle } = useAuth()
 
