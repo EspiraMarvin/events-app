@@ -69,7 +69,10 @@ export default function Login() {
         resetLoadingAndType(false, "")
       }
     } catch (err: any) {
-      toast.error(mapAuthCodeToMessage(err.code))
+      const msg = mapAuthCodeToMessage(err.code)
+      if (msg != "") {
+        toast.error(msg)
+      }
       resetLoadingAndType(false, "")
     }
   }
@@ -82,7 +85,10 @@ export default function Login() {
         resetLoadingAndType(false, "")
       }
     } catch (err: any) {
-      toast.error(mapAuthCodeToMessage(err.code))
+      const msg = mapAuthCodeToMessage(err.code)
+      if (msg != "") {
+        toast.error(msg)
+      }
       resetLoadingAndType(false, "")
     }
   }
@@ -147,13 +153,19 @@ export default function Login() {
 
           {/* login buttons */}
           <div className="input-button">
-            <button className={styles.button} type="submit" disabled={loading}>
+            <button
+              className={`${styles.button} ${loading && "opacity-50"}`}
+              type="submit"
+              disabled={loading}
+            >
               {loading && loadingType === "cred" ? "Loading..." : "Login"}
             </button>
           </div>
           <div className="input-button">
             <button
-              className={styles.button_custom}
+              className={`${styles.button_custom} ${
+                loading && "text-gray-400"
+              }`}
               type="button"
               onClick={handleGoogleSignin}
               disabled={loading}
@@ -175,7 +187,9 @@ export default function Login() {
           </div>
           <div className="input-button">
             <button
-              className={styles.button_custom}
+              className={`${styles.button_custom} ${
+                loading && "text-gray-400"
+              }`}
               type="button"
               onClick={handleGithubSignin}
               disabled={loading}
