@@ -17,10 +17,6 @@ const Home = () => {
   const router = useRouter()
   const { currentUser } = useAuth()
 
-  if (!currentUser) {
-    // router.push("/login")
-  }
-
   return (
     <div className="">
       <Head>

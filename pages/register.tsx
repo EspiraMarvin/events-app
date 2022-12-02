@@ -8,10 +8,12 @@ import { useForm } from "react-hook-form"
 import { useRouter } from "next/router"
 import axios from "axios"
 import { useAuth } from "../context/AuthContext"
+import { mapAuthCodeToMessage } from "../firebase/firebaseMapError"
+import toast, { Toaster } from "react-hot-toast"
 
 export default function Register() {
   const { signUpUser } = useAuth()
-
+  const [loading, setLoading] = useState(false)
   const [show, setShow] = useState({ password: false, cpassword: false })
 
   const router = useRouter()
@@ -20,7 +22,7 @@ export default function Register() {
 
   const EVENTS_API =
     process.env.NODE_ENV !== "development"
-      ? "http://auth-express-jwt-js-dev.af-south-1.elasticbeanstalk.com"
+      ? "https://eventsall.onrender.com"
       : "http://localhost:5000"
 
   const {
@@ -46,19 +48,24 @@ export default function Register() {
     if (password !== cPwdWatch) return
     const data = { email, password }
     try {
+      setLoading(true)
       Promise.all([
         signUpUser(email, password),
-        axios
-          .post(`${EVENTS_API}/api/auth/register `, data)
-          .then((res) => {
-            if (res) router.push("/")
-          })
-          .catch((error) =>
-            console.log("error at reg", error.response.data.message)
-          ),
-      ]).catch((err) => console.log("error", err))
+        axios.post(`${EVENTS_API}/api/auth/register `, data).then((res) => {
+          if (res) router.push("/")
+        }),
+      ]).catch((err) => {
+        if (err.response?.data?.message) {
+          toast.error(err.response.data.message)
+        } else {
+          toast.error(mapAuthCodeToMessage(err.code))
+          console.log("error after promise", err)
+        }
+        setLoading(false)
+      })
     } catch (err) {
-      console.log("error", err)
+      setLoading(false)
+      // console.log("error at try catch ", err)
     }
   }
 
@@ -170,7 +177,7 @@ export default function Register() {
           {/* register button */}
           <div className="input-button">
             <button className={styles.button} type="submit">
-              Register
+              {loading ? "Loading..." : "Register"}
             </button>
           </div>
         </form>
@@ -183,6 +190,7 @@ export default function Register() {
           </Link>
         </p>
       </section>
+      <Toaster position="bottom-center" />
     </Layout>
   )
 }

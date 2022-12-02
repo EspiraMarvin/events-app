@@ -1,7 +1,7 @@
 import React, { useEffect } from "react"
 import { useAuth } from "../context/AuthContext"
 import { useRouter } from "next/router"
-
+import Loader from "./Loader"
 type Props = {}
 
 export default function ProtectedRoute({
@@ -18,5 +18,5 @@ export default function ProtectedRoute({
     }
   }, [user, router])
 
-  return <>{user ? children : null}</>
+  return <>{user ? children : <Loader />}</>
 }
