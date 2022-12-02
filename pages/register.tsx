@@ -51,9 +51,9 @@ export default function Register() {
       setLoading(true)
       Promise.all([
         signUpUser(email, password),
-        axios.post(`${EVENTS_API}/api/auth/register `, data).then((res) => {
-          if (res) router.push("/")
-        }),
+        // axios.post(`${EVENTS_API}/api/auth/register `, data).then((res) => {
+        //   if (res) router.push("/")
+        // }),
       ]).catch((err) => {
         if (err.response?.data?.message) {
           toast.error(err.response.data.message)
