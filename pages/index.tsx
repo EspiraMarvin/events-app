@@ -1,5 +1,4 @@
 import Head from "next/head"
-import Link from "next/link"
 import NavBar from "../components/NavBar"
 import { useEffect, lazy } from "react"
 import { useSession, getSession } from "next-auth/react"

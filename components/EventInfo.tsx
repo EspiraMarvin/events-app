@@ -1,10 +1,15 @@
-import React from 'react'
-import { Dialog, Transition } from '@headlessui/react'
-import { Fragment } from 'react'
-import { EventBriteEvent } from '../typings'
-import { LocationMarkerIcon, ClockIcon, XCircleIcon } from '@heroicons/react/solid'
-import toast, { Toaster } from 'react-hot-toast';
-import ShareEvent from '../components/ShareEvent'
+import React, { useEffect } from "react"
+import { gapi, loadAuth2, loadClientAuth2 } from "gapi-script"
+import { Dialog, Transition } from "@headlessui/react"
+import { Fragment } from "react"
+import { EventBriteEvent } from "../typings"
+import {
+  LocationMarkerIcon,
+  ClockIcon,
+  XCircleIcon,
+} from "@heroicons/react/solid"
+import toast, { Toaster } from "react-hot-toast"
+import ShareEvent from "../components/ShareEvent"
 
 interface EventInfoProps {
   event: EventBriteEvent
@@ -12,159 +17,307 @@ interface EventInfoProps {
   closeModal: () => void
 }
 
+export default function EventInfo({
+  event,
+  isOpen,
+  closeModal,
+}: EventInfoProps) {
+  // const today = new Date();
+  // const date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
+  // const time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+  // const dateTime = date+' '+time;
 
-export default function EventInfo({ event, isOpen, closeModal }: EventInfoProps) {
-	
-// const today = new Date();
-// const date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
-// const time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
-// const dateTime = date+' '+time;
-
-/* 
+  /* 
   Update with your own Client Id and Api key 
 */
-// var CLIENT_ID = process.env.NEXT_PUBLIC_CLIENT_ID
-// var API_KEY = process.env.NEXT_PUBLIC_API_KEY
-// var DISCOVERY_DOCS = ["https://www.googleapis.com/discovery/v3/apis/calendar/v3/rest"]
-// var SCOPES = "https://www.googleapis.com/auth/calendar.events"
 
+  const calendarID =
+    "urcocqr216dmkmem6s250c71n1hkmu6s@import.calendar.google.com"
+  // const apiKey = "AIzaSyAXrG7TfB1LTbD2-18LuMbWleXJ6F_S3dw"
+  const accessToken =
+    "ya29.a0AeTM1ieFzcOb7XWb9l5iPTtjXWnkNn0MhiPDDkNUz6m1WXk-K4U1HM4aZPn6AWtYNRKzHudag658tj3C0u-JnUn98ZG1BbmergR-2QXjR-DfJNHy3w2yLsz5pXraZrZuLS137SVWFzS-GCq1Q94P7NUjiGnCaCgYKAXYSARESFQHWtWOmy9bODC0yLF-Q_2W_PN3MZQ0163"
+  console.log("this run apiKey?", accessToken)
 
-// const authenticate =  () => {
-//   // @ts-ignore: next line
-//   let gapi:any = window.gapi
+  useEffect(() => {
+    // getEvents()
+  }, [])
 
-//   // console.log('window gapi', window.gapi)
+  /*const getEvents = () => {
+    function initiate() {
+      gapi.client
+        .init({
+          apiKey: apiKey,
+        }).then(function () {
+          return gapi.client.request({
+            path: `https://www.googleapis.com/calendar/v3/calendars/${calendarID}/events`,
+          })
+        })
 
-//    gapi.load('client:auth2', () => {
-//     console.log('loaded client')
+        .then(
+          (response: any) => {
+            let events = response.result.items
+            console.log("events at eventinfo", events)
 
-//     gapi.client.init({
-//       apiKey: API_KEY,
-//       clientId: CLIENT_ID,
-//       discoveryDocs: DISCOVERY_DOCS,
-//       scope: SCOPES,
-//       // redirect_uri: 'http://localhost:3000'
-//     })
-  
+            return events
+          },
+          function (err: any) {
+            return [false, err]
+          }
+        )
+    }
 
-//     gapi.client.load('calendar', 'v3', () => {console.log('calendar m')})
+    gapi.load("client", initiate)
+  }*/
+  let DISCOVERY_DOCS = [
+    "https://www.googleapis.com/discovery/v1/apis/calendar/v3/rest",
+  ]
+  let SCOPES = [
+    "https://www.googleapis.com/auth/calendar.events",
+    "https://www.googleapis.com/auth/calendar",
+  ]
+  const addEvent = (event: EventBriteEvent) => {
+    var fEvent = {
+      summary: event.description,
+      location: event.venue,
+      start: {
+        dateTime: "2022-08-28T09:00:00-07:00",
+        timeZone: "America/Los_Angeles",
+      },
+      end: {
+        dateTime: "2022-08-28T17:00:00-07:00",
+        timeZone: "America/Los_Angeles",
+      },
+      recurrence: ["RRULE:FREQ=DAILY;COUNT=2"],
+      attendees: [],
+      reminders: {
+        useDefault: false,
+        overrides: [
+          { method: "email", minutes: 24 * 60 },
+          { method: "popup", minutes: 10 },
+        ],
+      },
+    }
 
-//     gapi.auth2.getAuthInstance().signIn()
-//     .then(() => {
-      
-//       console.log('signed in')
-//       var event = {
-//         'summary': 'Awesome Event!',
-//         'location': '800 Howard St., San Francisco, CA 94103',
-//         'description': 'Really great refreshments',
-//         'start': {
-//           'dateTime': '2020-06-28T09:00:00-07:00',
-//           'timeZone': 'America/Los_Angeles'
-//         },
-//         'end': {
-//           'dateTime': '2020-06-28T17:00:00-07:00',
-//           'timeZone': 'America/Los_Angeles'
-//         },
-//         'recurrence': [
-//           'RRULE:FREQ=DAILY;COUNT=2'
-//         ],
-//         'attendees': [
-//           {'email': 'lpage@example.com'},
-//           {'email': 'sbrin@example.com'}
-//         ],
-//         'reminders': {
-//           'useDefault': false,
-//           'overrides': [
-//             {'method': 'email', 'minutes': 24 * 60},
-//             {'method': 'popup', 'minutes': 10}
-//           ]
-//         }
-//       }
+    function initiate() {
+      gapi.client.init({
+        // apiKey: apiKey,
+        discoveryDocs: DISCOVERY_DOCS,
+        scope: SCOPES,
+      })
 
-//       var request = gapi.client.calendar.events.insert({
-//         'calendarId': 'primary',
-//         'resource': event,
-//       })
+      gapi.client
+        .request({
+          path: `https://www.googleapis.com/calendar/v3/calendars/${calendarID}/events`,
+          method: "POST",
+          body: fEvent,
+          headers: {
+            "Content-type": "application/json",
+            Authorization: `Bearer ${accessToken}`,
+          },
+        })
+        .then(
+          (response: any) => {
+            return [true, response]
+          },
+          function (err: any) {
+            console.log(err)
+            return [false, err]
+          }
+        )
+    }
+    gapi.load("client", initiate)
+  }
 
-//       request.execute((event: any) => {
-//         console.log(event)
-//         // window.open(event.htmlLink)
-//       })
-      
+  // let CLIENT_ID = process.env.GOOGLE_CALENDAR_CLIENT_ID
+  // let API_KEY = process.env.GOOGLE_CALENDAR_API_KEY
+  // let DISCOVERY_DOCS = [
+  //   "https://www.googleapis.com/discovery/v1/apis/calendar/v3/rest",
+  // ]
+  // let SCOPES = "https://www.googleapis.com/auth/calendar.events"
 
-//       /*
-//           Uncomment the following block to get events
-//       */
-//       /*
-//       // get events
-//       gapi.client.calendar.events.list({
-//         'calendarId': 'primary',
-//         'timeMin': (new Date()).toISOString(),
-//         'showDeleted': false,
-//         'singleEvents': true,
-//         'maxResults': 10,
-//         'orderBy': 'startTime'
-//       }).then(response => {
-//         const events = response.result.items
-//         console.log('EVENTS: ', events)
-//       })
-//       */
-  
+  /*const addEventToCalendar = (
+    eventName: any,
+    eventVenue: any,
+    startDate: any,
+    endDate: any
+  ) => {
+    console.log("window", window)
 
-//     })
-//   })
-// }
+    gapi.load("client:auth2", () => {
+      gapi.client.init({
+        apiKey: API_KEY,
+        clientId: CLIENT_ID,
+        discoveryDocs: DISCOVERY_DOCS,
+        scope: SCOPES,
+      })
 
-const notify = () => {
+      gapi.client.load("calendar", "v3")
 
-  //sign in
-  // authenticate()
+      let timeZone = "Asia/Jerusalem"
+      let duration = "00:30:00" //duration of each event, here 30 minuts
 
+      //sign in with pop up window
+      gapi.auth2
+        .getAuthInstance()
+        .signIn()
+        .then(() => {
+          let event = {
+            summary: eventName, // or event name
+            location: eventVenue, //where it would happen
+            start: {
+              dateTime: startDate,
+              timeZone: timeZone,
+            },
+            end: {
+              dateTime: endDate,
+              timeZone: timeZone,
+            },
+            recurrence: ["RRULE:FREQ=DAILY;COUNT=1"],
+            reminders: {
+              useDefault: false,
+              overrides: [{ method: "popup", minutes: 20 }],
+            },
+          }
+        })
+    })
+  }*/
 
-  // toast('Here is your toast.');
-  toast.custom((t) => (
-    <div
-      className={`${
-        t.visible ? "animate-enter" : "animate-leave"
-      } pointer-events-auto flex w-full max-w-md rounded-lg bg-white 
+  // var CLIENT_ID = process.env.NEXT_PUBLIC_CLIENT_ID
+  // var API_KEY = process.env.NEXT_PUBLIC_API_KEY
+  // var DISCOVERY_DOCS = ["https://www.googleapis.com/discovery/v3/apis/calendar/v3/rest"]
+  // var SCOPES = "https://www.googleapis.com/auth/calendar.events"
+
+  // const authenticate =  () => {
+  //   // @ts-ignore: next line
+  //   let gapi:any = window.gapi
+
+  //   // console.log('window gapi', window.gapi)
+
+  //    gapi.load('client:auth2', () => {
+  //     console.log('loaded client')
+
+  //     gapi.client.init({
+  //       apiKey: API_KEY,
+  //       clientId: CLIENT_ID,
+  //       discoveryDocs: DISCOVERY_DOCS,
+  //       scope: SCOPES,
+  //       // redirect_uri: 'http://localhost:3000'
+  //     })
+
+  //     gapi.client.load('calendar', 'v3', () => {console.log('calendar m')})
+
+  //     gapi.auth2.getAuthInstance().signIn()
+  //     .then(() => {
+
+  //       console.log('signed in')
+  //       var event = {
+  //         'summary': 'Awesome Event!',
+  //         'location': '800 Howard St., San Francisco, CA 94103',
+  //         'description': 'Really great refreshments',
+  //         'start': {
+  //           'dateTime': '2020-06-28T09:00:00-07:00',
+  //           'timeZone': 'America/Los_Angeles'
+  //         },
+  //         'end': {
+  //           'dateTime': '2020-06-28T17:00:00-07:00',
+  //           'timeZone': 'America/Los_Angeles'
+  //         },
+  //         'recurrence': [
+  //           'RRULE:FREQ=DAILY;COUNT=2'
+  //         ],
+  //         'attendees': [
+  //           {'email': 'lpage@example.com'},
+  //           {'email': 'sbrin@example.com'}
+  //         ],
+  //         'reminders': {
+  //           'useDefault': false,
+  //           'overrides': [
+  //             {'method': 'email', 'minutes': 24 * 60},
+  //             {'method': 'popup', 'minutes': 10}
+  //           ]
+  //         }
+  //       }
+
+  //       var request = gapi.client.calendar.events.insert({
+  //         'calendarId': 'primary',
+  //         'resource': event,
+  //       })
+
+  //       request.execute((event: any) => {
+  //         console.log(event)
+  //         // window.open(event.htmlLink)
+  //       })
+
+  //       /*
+  //           Uncomment the following block to get events
+  //       */
+  //       /*
+  //       // get events
+  //       gapi.client.calendar.events.list({
+  //         'calendarId': 'primary',
+  //         'timeMin': (new Date()).toISOString(),
+  //         'showDeleted': false,
+  //         'singleEvents': true,
+  //         'maxResults': 10,
+  //         'orderBy': 'startTime'
+  //       }).then(response => {
+  //         const events = response.result.items
+  //         console.log('EVENTS: ', events)
+  //       })
+  //       */
+
+  //     })
+  //   })
+  // }
+
+  const notify = () => {
+    //sign in
+    // authenticate()
+
+    // toast('Here is your toast.');
+    toast.custom((t) => (
+      <div
+        className={`${
+          t.visible ? "animate-enter" : "animate-leave"
+        } pointer-events-auto flex w-full max-w-md rounded-lg bg-white 
       shadow-lg ring-1 ring-blue-500 ring-opacity-5 transition-all
       `}
-    >
-      <div className="flex-1 w-0 p-4">
-        <div className="flex items-start">
-          <div className="flex-shrink-0 pt-0.5">
-            <img
-              className="w-10 h-10 rounded-full"
-              src="https://demofree.sirv.com/nope-not-here.jpg"
-              // src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixqx=6GHAjsWpt9&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2.2&w=160&h=160&q=80"
-              alt=""
-            />
-          </div>
-          <div className="flex-1 ml-3">
-            <p className="text-sm font-medium text-gray-900">
-              {/* Emilia Gates */}
-              Coming soon
-            </p>
-            <p className="mt-1 text-sm text-gray-500">
-              {/* Sure! {dateTime} works great! */}
-              You`ll be able to keep track of your events.
-            </p>
+      >
+        <div className="flex-1 w-0 p-4">
+          <div className="flex items-start">
+            <div className="flex-shrink-0 pt-0.5">
+              <img
+                className="w-10 h-10 rounded-full"
+                src="https://demofree.sirv.com/nope-not-here.jpg"
+                // src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixqx=6GHAjsWpt9&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2.2&w=160&h=160&q=80"
+                alt=""
+              />
+            </div>
+            <div className="flex-1 ml-3">
+              <p className="text-sm font-medium text-gray-900">
+                {/* Emilia Gates */}
+                Coming soon
+              </p>
+              <p className="mt-1 text-sm text-gray-500">
+                {/* Sure! {dateTime} works great! */}
+                You`ll be able to keep track of your events.
+              </p>
+            </div>
           </div>
         </div>
+        <div className="flex border-l border-gray-200">
+          <button
+            onClick={() => toast.dismiss(t.id)}
+            className="flex items-center justify-center w-full p-4 text-sm font-medium text-indigo-600 border border-transparent rounded-none rounded-r-lg hover:text-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+          >
+            Close
+          </button>
+        </div>
       </div>
-      <div className="flex border-l border-gray-200">
-        <button
-          onClick={() => toast.dismiss(t.id)}
-          className="flex items-center justify-center w-full p-4 text-sm font-medium text-indigo-600 border border-transparent rounded-none rounded-r-lg hover:text-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-500"
-        >
-          Close
-        </button>
-      </div>
-    </div>
-  ))
-  closeModal()
-}
-    
+    ))
+    closeModal()
+  }
+
   return (
     <div>
       <Transition appear show={isOpen} as={Fragment}>
@@ -247,16 +400,17 @@ const notify = () => {
                   </div>
 
                   <div className="flex mt-4 justify-evenly">
-                    <ShareEvent />
-
-                    <button
+                    {/* TODO: ShareEvent component */}
+                    {/* <ShareEvent /> */}
+                    {/* TODO: ADD EVENT BUTTON */}
+                    {/* <button
                       type="button"
                       className="inline-flex justify-center px-4 py-2 text-sm font-medium text-blue-900 bg-blue-100 border border-transparent rounded-md hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
-                      onClick={notify}
+                      onClick={(e: any) => addEvent(event)}
                     >
                       Add Event
                       <span className="hidden sm:block">/Set Reminder</span>
-                    </button>
+                    </button> */}
                   </div>
                 </Dialog.Panel>
               </Transition.Child>
